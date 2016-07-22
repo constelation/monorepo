@@ -9,6 +9,7 @@ var assign = require('lodash/assign')
 var layoutStyles = [
   'alignItems',
   'alignSelf',
+  'alignContent',
   'bottom',
   'flex',
   'flexDirection',
