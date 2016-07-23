@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "storybook": "start-storybook -p 9001"
+  },
   "devDependencies": {
-    "lerna": "2.0.0-beta.24"
+    "@kadira/storybook": "^1.39.0",
+    "lerna": "2.0.0-beta.24",
+    "radium": "^0.18.1",
+    "react": "^15.2.1"
   }
 }
