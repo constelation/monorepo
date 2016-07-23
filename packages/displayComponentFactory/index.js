@@ -52,7 +52,7 @@ var layoutProps = layoutStyles.concat([
   'paddingVertical',
 ])
 
-function getDisplayStyles( props ) {
+function getStyleFromProps( props ) {
   var styleFromProps = pick( props, layoutStyles )
 
   // Handle Vertical and Horizontal cases (like React Native)
@@ -86,7 +86,7 @@ function getDisplayStyles( props ) {
   return styleFromProps
 }
 
-function getNonDisplayProps( props ) {
+function getNonStyleProps( props ) {
   return omit( props, layoutProps )
 }
 
@@ -100,12 +100,11 @@ module.exports = function( displayName, componentStyle ) {
     },
 
     render() {
-      var styleFromProps = getDisplayStyles( this.props )
-      var propsWithoutStyle = getNonDisplayProps( this.props )
+      var styleFromProps = getStyleFromProps( this.props )
+      var propsWithoutStyle = getNonStyleProps( this.props )
 
-      // var style = assign({}, styleFromProps, this.props.style, componentStyle)
       var style = [].concat.call( styleFromProps, this.props.style, componentStyle )
-      var passedProps = assign({}, propsWithoutStyle, { style: style })
+      var passedProps = assign( {}, propsWithoutStyle, {style: style} )
 
       // No need to pass the tag prop down
       delete passedProps.tag
