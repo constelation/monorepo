@@ -91,7 +91,7 @@ function getNonDisplayProps( props ) {
 }
 
 module.exports = function( displayName, componentStyle ) {
-  var Component = React.createClass({
+  return radium(React.createClass({
 
     displayName: displayName,
 
@@ -103,7 +103,8 @@ module.exports = function( displayName, componentStyle ) {
       var styleFromProps = getDisplayStyles( this.props )
       var propsWithoutStyle = getNonDisplayProps( this.props )
 
-      var style = assign({}, styleFromProps, this.props.style, componentStyle)
+      // var style = assign({}, styleFromProps, this.props.style, componentStyle)
+      var style = [].concat.call( styleFromProps, this.props.style, componentStyle )
       var passedProps = assign({}, propsWithoutStyle, { style: style })
 
       // No need to pass the tag prop down
@@ -111,7 +112,5 @@ module.exports = function( displayName, componentStyle ) {
 
       return React.createElement( this.props.tag, passedProps )
     }
-  })
-
-  return radium( Component )
+  }))
 }
