@@ -1,6 +1,6 @@
 {
   "name": "kylpo-Inline",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "kylpo-display-component-factory": "^0.0.5"
+    "kylpo-display-component-factory": "^0.0.6"
   }
 }
