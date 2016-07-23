@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react')
+var radium = require('radium')
 var pick = require('lodash/pick')
 var omit = require('lodash/omit')
 var assign = require('lodash/assign')
@@ -14,6 +15,9 @@ var layoutStyles = [
   'flex',
   'flexDirection',
   'flexWrap',
+  'flexGrow',
+  'flexShrink',
+  'flexBasis',
   'height',
   'justifyContent',
   'left',
@@ -26,6 +30,9 @@ var layoutStyles = [
   'maxWidth',
   'minHeight',
   'minWidth',
+  'overflow',
+  'overflowX',
+  'overflowY',
   'padding',
   'paddingBottom',
   'paddingLeft',
@@ -84,7 +91,7 @@ function getNonDisplayProps( props ) {
 }
 
 module.exports = function( displayName, componentStyle ) {
-  return React.createClass({
+  var Component = React.createClass({
 
     displayName: displayName,
 
@@ -105,4 +112,6 @@ module.exports = function( displayName, componentStyle ) {
       return React.createElement( this.props.tag, passedProps )
     }
   })
+
+  return radium( Component )
 }
