@@ -1,6 +1,6 @@
 {
   "name": "kylpo-Flex",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "kylpo-display-component-factory": "^0.1.2"
+    "kylpo-display-component-factory": "^0.1.3"
   }
 }
