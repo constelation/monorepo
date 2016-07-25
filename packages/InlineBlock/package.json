@@ -1,6 +1,6 @@
 {
   "name": "kylpo-InlineBlock",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "kylpo-display-component-factory": "^0.1.1"
+    "kylpo-display-component-factory": "^0.1.2"
   }
 }
