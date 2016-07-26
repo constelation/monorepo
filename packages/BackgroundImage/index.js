@@ -79,14 +79,14 @@ var BackgroundImage = React.createClass({
     color: React.PropTypes.string,
   },
 
-  getDefaultProps() {
+  getDefaultProps: function() {
     return {
       tag: 'div',
       size: 'cover',
     }
   },
 
-  render() {
+  render: function() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsWithoutStyle = getNonStyleProps( this.props )
 

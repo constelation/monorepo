@@ -95,11 +95,11 @@ module.exports = function( displayName, componentStyle ) {
 
     displayName: displayName,
 
-    getDefaultProps() {
+    getDefaultProps: function() {
       return {tag: 'div'}
     },
 
-    render() {
+    render: function() {
       var styleFromProps = getStyleFromProps( this.props )
       var propsWithoutStyle = getNonStyleProps( this.props )
 

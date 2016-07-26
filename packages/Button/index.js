@@ -15,7 +15,7 @@ var componentStyle = {
 var Button = React.createClass({
   displayName: 'Button',
 
-  render() {
+  render: function() {
     var style = [].concat.call( componentStyle, this.props.style )
     var passedProps = assign( {}, this.props, {style: style} )
 

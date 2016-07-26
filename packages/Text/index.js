@@ -64,13 +64,13 @@ var Text = React.createClass({
     center: React.PropTypes.bool
   },
 
-  getDefaultProps() {
+  getDefaultProps: function() {
     return {
       tag: 'span',
     }
   },
 
-  render() {
+  render: function() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsWithoutStyle = getNonStyleProps( this.props )
 
