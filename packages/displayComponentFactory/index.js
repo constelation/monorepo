@@ -50,6 +50,7 @@ var layoutProps = layoutStyles.concat([
   'marginVertical',
   'paddingHorizontal',
   'paddingVertical',
+  'overflowScrolling',
 ])
 
 function getStyleFromProps( props ) {
@@ -68,8 +69,6 @@ function getStyleFromProps( props ) {
   if (!styleFromProps.marginRight && props.marginHorizontal) {
     styleFromProps.marginRight = props.marginHorizontal
   }
-
-
   if (!styleFromProps.paddingTop && props.paddingVertical) {
     styleFromProps.paddingTop = props.paddingVertical
   }
@@ -81,6 +80,12 @@ function getStyleFromProps( props ) {
   }
   if (!styleFromProps.paddingRight && props.paddingHorizontal) {
     styleFromProps.paddingRight = props.paddingHorizontal
+  }
+
+
+  // webkit-overflow-scrolling
+  if (props.overflowScrolling) {
+    styleFromProps.WebkitOverflowScrolling = props.overflowScrolling
   }
 
   return styleFromProps
