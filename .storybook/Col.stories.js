@@ -10,3 +10,6 @@ storiesOf('Col', module)
       <div style={{height: 20, backgroundColor: 'blue'}} />
     </Col>
   ))
+  .add('console.logs refNode', () => (
+    <Col refNode={node => {console.log(node)}} />
+  ))

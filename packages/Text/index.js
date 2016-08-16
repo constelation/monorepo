@@ -54,14 +54,15 @@ var Text = React.createClass({
 
   propTypes: {
     children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
-    tag: React.PropTypes.string,
-    fontFamily: React.PropTypes.string,
-    color: React.PropTypes.string,
-    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     bold: React.PropTypes.bool,
-    center: React.PropTypes.bool
+    center: React.PropTypes.bool,
+    color: React.PropTypes.string,
+    fontFamily: React.PropTypes.string,
+    height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    refNode: React.PropTypes.func,
+    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    tag: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -79,6 +80,12 @@ var Text = React.createClass({
 
     // No need to pass the tag prop down
     delete passedProps.tag
+
+    // Use refNode pattern to pass back the DOM's node
+    if (passedProps.refNode) {
+      passedProps.ref = passedProps.refNode
+      delete passedProps.refNode
+    }
 
     return React.createElement( this.props.tag, passedProps )
   }

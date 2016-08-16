@@ -100,6 +100,10 @@ module.exports = function( displayName, componentStyle ) {
 
     displayName: displayName,
 
+    propTypes: {
+      refNode: React.PropTypes.func,
+    },
+
     getDefaultProps: function() {
       return {tag: 'div'}
     },
@@ -113,6 +117,12 @@ module.exports = function( displayName, componentStyle ) {
 
       // No need to pass the tag prop down
       delete passedProps.tag
+
+      // Use refNode pattern to pass back the DOM's node
+      if (passedProps.refNode) {
+        passedProps.ref = passedProps.refNode
+        delete passedProps.refNode
+      }
 
       return React.createElement( this.props.tag, passedProps )
     }

@@ -69,14 +69,15 @@ var BackgroundImage = React.createClass({
 
   propTypes: {
     src: React.PropTypes.string.isRequired,
-    tag: React.PropTypes.string,
-    size: React.PropTypes.string,
-    repeat: React.PropTypes.string,
-    position: React.PropTypes.string,
-    origin: React.PropTypes.string,
     attachment: React.PropTypes.string,
     clip: React.PropTypes.string,
     color: React.PropTypes.string,
+    origin: React.PropTypes.string,
+    position: React.PropTypes.string,
+    refNode: React.PropTypes.func,
+    repeat: React.PropTypes.string,
+    size: React.PropTypes.string,
+    tag: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -95,6 +96,12 @@ var BackgroundImage = React.createClass({
 
     // No need to pass the tag prop down
     delete passedProps.tag
+
+    // Use refNode pattern to pass back the DOM's node
+    if (passedProps.refNode) {
+      passedProps.ref = passedProps.refNode
+      delete passedProps.refNode
+    }
 
     return React.createElement( this.props.tag, passedProps )
   }

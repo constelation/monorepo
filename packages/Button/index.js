@@ -15,9 +15,19 @@ var componentStyle = {
 var Button = React.createClass({
   displayName: 'Button',
 
+  propTypes: {
+    refNode: React.PropTypes.func,
+  },
+
   render: function() {
     var style = [].concat.call( componentStyle, this.props.style )
     var passedProps = assign( {}, this.props, {style: style} )
+
+    // Use refNode pattern to pass back the DOM's node
+    if (passedProps.refNode) {
+      passedProps.ref = passedProps.refNode
+      delete passedProps.refNode
+    }
 
     return React.createElement( 'button', passedProps )
   }
