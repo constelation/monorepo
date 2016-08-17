@@ -2,24 +2,37 @@
 
 var React = require('react')
 var radium = require('radium')
-var pick = require('lodash/pick')
-var omit = require('lodash/omit')
-var assign = require('lodash/assign')
+// var _isEmpty = require('lodash/isEmpty')
+// var _forEach = require('lodash/forEach')
+// var _keys = require('lodash/keys')
+var _pick = require('lodash/pick')
+var _omit = require('lodash/omit')
+var _assign = require('lodash/assign')
+
+// from https://github.com/facebook/css-layout#default-values
+var defaultStyles = {
+  position: 'relative',
+  flexShrink: 0,
+}
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
 var layoutStyles = [
   'alignItems',
   'alignSelf',
+
+  // --soon to be removed--
   'alignContent',
+  'justifyContent',
+  // ----
+
   'bottom',
   'flex',
-  'flexDirection',
-  'flexWrap',
-  'flexGrow',
-  'flexShrink',
-  'flexBasis',
+  'flexDirection',      // consider replacing with 'direction'
+  'flexWrap',           // consider replacing with 'wrap'
+  'flexGrow',           // consider replacing with 'grow'
+  'flexShrink',         // consider replacing with 'shrink'
+  'flexBasis',          // consider replacing with 'basis'
   'height',
-  'justifyContent',
   'left',
   'margin',
   'marginBottom',
@@ -50,11 +63,15 @@ var layoutProps = layoutStyles.concat([
   'marginVertical',
   'paddingHorizontal',
   'paddingVertical',
+
+  // soon to be moved to aliases
   'overflowScrolling',
+  'align',
+  'justify',
 ])
 
-function getStyleFromProps( props ) {
-  var styleFromProps = pick( props, layoutStyles )
+function getStyleFromProps( props, styleAliases ) {
+  var styleFromProps = _pick( props, layoutStyles )
 
   // Handle Vertical and Horizontal cases (like React Native)
   if (!styleFromProps.marginTop && props.marginVertical) {
@@ -82,20 +99,43 @@ function getStyleFromProps( props ) {
     styleFromProps.paddingRight = props.paddingHorizontal
   }
 
-
   // webkit-overflow-scrolling
   if (props.overflowScrolling) {
     styleFromProps.WebkitOverflowScrolling = props.overflowScrolling
   }
 
+  // align and justify
+  if (props.align) {
+    styleFromProps.alignItems = props.align
+  }
+  if (props.justify) {
+    styleFromProps.justifyContent = props.justify
+  }
+
+  // map styleAliases if there are any
+  // if (styleAliases) {
+  //   var styleAliasesFromProps = _pick( props, _keys( styleAliases ))
+  //
+  //   if (!_isEmpty( styleAliasesFromProps )) {
+  //     _forEach( _keys( styleAliasesFromProps ), function( alias ) {
+  //       styleFromProps[ styleAliases[ alias ] ] = props[ alias ]
+  //     })
+  //   }
+  //
+  // }
+
   return styleFromProps
 }
 
-function getNonStyleProps( props ) {
-  return omit( props, layoutProps )
+function getNonStyleProps( props, styleAliases ) {
+  // if (styleAliases) {
+  //   return _omit( props, layoutProps.concat( _keys( styleAliases ) ) )
+  // }
+  //
+  return _omit( props, layoutProps )
 }
 
-module.exports = function( displayName, componentStyle ) {
+module.exports = function( displayName, componentStyle, styleAliases ) {
   return radium(React.createClass({
 
     displayName: displayName,
@@ -109,11 +149,11 @@ module.exports = function( displayName, componentStyle ) {
     },
 
     render: function() {
-      var styleFromProps = getStyleFromProps( this.props )
-      var propsWithoutStyle = getNonStyleProps( this.props )
+      var styleFromProps = getStyleFromProps( this.props, styleAliases )
+      var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-      var style = [].concat.call( styleFromProps, this.props.style, componentStyle )
-      var passedProps = assign( {}, propsWithoutStyle, {style: style} )
+      var style = [].concat.call( defaultStyles, styleFromProps, this.props.style, componentStyle )
+      var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
       // No need to pass the tag prop down
       delete passedProps.tag

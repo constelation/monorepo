@@ -2,4 +2,15 @@
 
 var displayComponentFactory = require('kylpo-display-component-factory')
 
-module.exports = displayComponentFactory('Row', {display: 'flex', flexDirection: 'row'})
+var style = {
+  display: 'flex',
+  flexDirection: 'row',
+}
+
+// var styleAliases = {
+//   alignHorizontal: 'justifyContent',
+//   alignVertical: 'alignItems',
+// }
+
+// module.exports = displayComponentFactory('Row', style, styleAliases)
+module.exports = displayComponentFactory('Row', style)
