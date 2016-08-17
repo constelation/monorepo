@@ -2,9 +2,9 @@
 
 var React = require('react')
 var radium = require('radium')
-// var _isEmpty = require('lodash/isEmpty')
-// var _forEach = require('lodash/forEach')
-// var _keys = require('lodash/keys')
+var _isEmpty = require('lodash/isEmpty')
+var _forEach = require('lodash/forEach')
+var _keys = require('lodash/keys')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
@@ -113,25 +113,27 @@ function getStyleFromProps( props, styleAliases ) {
   }
 
   // map styleAliases if there are any
-  // if (styleAliases) {
-  //   var styleAliasesFromProps = _pick( props, _keys( styleAliases ))
-  //
-  //   if (!_isEmpty( styleAliasesFromProps )) {
-  //     _forEach( _keys( styleAliasesFromProps ), function( alias ) {
-  //       styleFromProps[ styleAliases[ alias ] ] = props[ alias ]
-  //     })
-  //   }
-  //
-  // }
+  if (styleAliases) {
+    var styleAliasesFromProps = _pick( props, _keys( styleAliases ))
+
+    // if aliased props are found, use the styleAlias maps to convert their value
+    if (!_isEmpty( styleAliasesFromProps )) {
+      _forEach( _keys( styleAliasesFromProps ), function( aliasKey ) {
+        var alias = styleAliases[ aliasKey ]
+
+        styleFromProps[ alias.property ] = alias.map[ props[ aliasKey ] ]
+      })
+    }
+  }
 
   return styleFromProps
 }
 
 function getNonStyleProps( props, styleAliases ) {
-  // if (styleAliases) {
-  //   return _omit( props, layoutProps.concat( _keys( styleAliases ) ) )
-  // }
-  //
+  if (styleAliases) {
+    return _omit( props, layoutProps.concat( _keys( styleAliases ) ) )
+  }
+
   return _omit( props, layoutProps )
 }
 
