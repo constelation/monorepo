@@ -10,7 +10,7 @@ var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
 
 // from https://github.com/facebook/css-layout#default-values
-var defaultStyles = {
+var layoutDefaultStyle = {
   position: 'relative',
   flexShrink: 0,
 }
@@ -135,7 +135,7 @@ function getNonStyleProps( props, styleAliases ) {
   return _omit( props, layoutProps )
 }
 
-module.exports = function( displayName, componentStyle, styleAliases ) {
+module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
   return radium(React.createClass({
 
     displayName: displayName,
@@ -152,7 +152,7 @@ module.exports = function( displayName, componentStyle, styleAliases ) {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-      var style = [].concat.call( defaultStyles, styleFromProps, this.props.style, componentStyle )
+      var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
       var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
       // No need to pass the tag prop down
