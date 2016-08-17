@@ -1,6 +1,6 @@
 {
   "name": "kylpo-Col",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "kylpo-display-component-factory": "^0.2.0"
+    "kylpo-display-component-factory": "^0.3.0"
   }
 }
