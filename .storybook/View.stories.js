@@ -24,11 +24,12 @@ storiesOf('View', module)
       height='500px'
       alignHorizontal='right'
       alignVertical='center'
-      style={style}
+      backgroundColor='lightgrey'
+      border='1px solid black'
     >
-      <View height={40} width={40} style={{backgroundColor: 'red'}} />
-      <View height={40} width={40} style={{backgroundColor: 'green'}} />
-      <View height={40} width={40} style={{backgroundColor: 'blue'}} />
+      <View height={40} width={40} backgroundColor='red' />
+      <View height={40} width={40} backgroundColor='green' />
+      <View height={40} width={40} backgroundColor='blue' />
     </View>
   ))
   .add('console.logs refNode', () => (

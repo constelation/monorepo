@@ -55,7 +55,21 @@ var layoutStyles = [
   'right',
   'top',
   'width',
-  'zIndex'
+  'zIndex',
+
+  'background',
+  'backgroundColor',
+  'boxShadow',
+  'border',
+  'borderTop',
+  'borderRight',
+  'borderBottom',
+  'borderLeft',
+  'borderColor',
+  'borderStyle',
+  'borderRadius',
+  'borderWidth',
+  'outline',
 ]
 
 var layoutProps = layoutStyles.concat([
