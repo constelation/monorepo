@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react')
+var shallowCompare = require('react-addons-shallow-compare')
 var radium = require('radium')
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
@@ -162,6 +163,10 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
     getDefaultProps: function() {
       return {tag: 'div'}
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+      return shallowCompare(this, nextProps, nextState)
     },
 
     render: function() {

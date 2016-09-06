@@ -9,10 +9,13 @@ storiesOf('Text', module)
     </Text>
   ))
   .add('bold', () => (
-    <Text
-      bold
-    >
+    <Text bold >
       this is bold text
+    </Text>
+  ))
+  .add('uppercase', () => (
+    <Text uppercase >
+      this is uppercased text
     </Text>
   ))
   .add('size, height, spacing, color', () => (

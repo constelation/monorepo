@@ -13,6 +13,7 @@ var textProps = [
   'height',
   'spacing',
   'bold',
+  'uppercase',
   'center'
 ]
 
@@ -24,10 +25,17 @@ function getStyleFromProps( props ) {
     letterSpacing: props.spacing,
   }
 
+  // Bold font-weight
   if (props.bold) {
     style.fontWeight = 'bold'
   }
 
+  // Uppercase text-transform
+  if (props.uppercase) {
+    style.textTransform = 'uppercase'
+  }
+
+  // Center text-align
   if (props.center) {
     style.textAlign = 'center'
   }
@@ -63,6 +71,7 @@ var Text = React.createClass({
     size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     tag: React.PropTypes.string,
+    uppercase: React.PropTypes.bool,
   },
 
   getDefaultProps: function() {
