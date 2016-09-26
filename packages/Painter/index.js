@@ -44,7 +44,7 @@ var Painter = React.createClass({
 
     var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
-    return React.cloneElement( Child, { style } )
+    return React.cloneElement( Child, { style: style } )
   }
 })
 
