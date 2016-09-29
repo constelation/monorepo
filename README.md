@@ -1,7 +1,7 @@
 Mono repo for constelation's Components, functions, and CONSTANTS
 
 ```
-npm i -S constelation-{Block,Inline,InlineBlock,BackgroundImage,Button,Col,Flex,InlineCol,InlineFlex,InlineRow,Row,Text}
+npm i -S constelation-{Block,Inline,InlineBlock,BackgroundImage,Button,Col,Flex,InlineCol,InlineFlex,InlineRow,Row,View,Painter,Text}
 ```
 
 Could be an interesting combo with webpack's `ProvidePlugin`:
@@ -22,6 +22,8 @@ Could be an interesting combo with webpack's `ProvidePlugin`:
     InlineCol: 'constelation-InlineCol',
     InlineRow: 'constelation-InlineRow',   
     Text: 'constelation-Text',
+    View: 'constelation-View',
+    Painter: 'constelation-Painter',
   }),
 
 ```
