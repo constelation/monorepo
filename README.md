@@ -1,7 +1,7 @@
-Mono repo for @kylpo's Components, functions, and CONSTANTS
+Mono repo for constelation's Components, functions, and CONSTANTS
 
 ```
-npm i -S kylpo-{Block,Inline,InlineBlock,BackgroundImage,Button,Col,Flex,InlineCol,InlineFlex,InlineRow,Row,Text}
+npm i -S constelation-{Block,Inline,InlineBlock,BackgroundImage,Button,Col,Flex,InlineCol,InlineFlex,InlineRow,Row,Text}
 ```
 
 Could be an interesting combo with webpack's `ProvidePlugin`:
@@ -10,18 +10,18 @@ Could be an interesting combo with webpack's `ProvidePlugin`:
   new webpack.ProvidePlugin({
     React: 'react',
     Radium: 'radium',
-    Block: 'kylpo-Block',
-    Col: 'kylpo-Col',
-    Button: 'kylpo-Button',
-    BackgroundImage: 'kylpo-BackgroundImage',
-    Row: 'kylpo-Row',
-    Flex: 'kylpo-Flex',
-    Inline: 'kylpo-Inline',
-    InlineBlock: 'kylpo-InlineBlock',
-    InlineFlex: 'kylpo-InlineFlex',
-    InlineCol: 'kylpo-InlineCol',
-    InlineRow: 'kylpo-InlineRow',   
-    Text: 'kylpo-Text',
+    Block: 'constelation-Block',
+    Col: 'constelation-Col',
+    Button: 'constelation-Button',
+    BackgroundImage: 'constelation-BackgroundImage',
+    Row: 'constelation-Row',
+    Flex: 'constelation-Flex',
+    Inline: 'constelation-Inline',
+    InlineBlock: 'constelation-InlineBlock',
+    InlineFlex: 'constelation-InlineFlex',
+    InlineCol: 'constelation-InlineCol',
+    InlineRow: 'constelation-InlineRow',   
+    Text: 'constelation-Text',
   }),
 
 ```

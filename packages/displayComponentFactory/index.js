@@ -44,6 +44,7 @@ var layoutStyles = [
   'maxWidth',
   'minHeight',
   'minWidth',
+  'order',
   'overflow',
   'overflowX',
   'overflowY',
