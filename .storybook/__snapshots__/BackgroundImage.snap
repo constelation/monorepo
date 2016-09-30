@@ -1,0 +1,88 @@
+exports[`with Col centered child`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "backgroundImage": "url(\"https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150\")",
+      "backgroundSize": "cover",
+      "height": 150,
+      "width": 350
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "WebkitAlignItems": "center",
+        "WebkitBoxAlign": "center",
+        "WebkitBoxDirection": "normal",
+        "WebkitBoxOrient": "vertical",
+        "WebkitBoxPack": "center",
+        "WebkitFlexDirection": "column",
+        "WebkitFlexShrink": 0,
+        "WebkitJustifyContent": "center",
+        "alignItems": "center",
+        "display": Array [
+          "-webkit-box",
+          "-moz-box",
+          "-ms-flexbox",
+          "-webkit-flex",
+          "flex"
+        ],
+        "flexDirection": "column",
+        "flexShrink": 0,
+        "height": "100%",
+        "justifyContent": "center",
+        "msFlexAlign": "center",
+        "msFlexDirection": "column",
+        "msFlexNegative": 0,
+        "msFlexPack": "center",
+        "position": "relative"
+      }
+    }>
+    I am child text
+  </div>
+</div>
+`;
+
+exports[`with children`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "backgroundImage": "url(\"https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150\")",
+      "backgroundSize": "cover",
+      "height": 150,
+      "width": 350
+    }
+  }>
+  I am child text
+</div>
+`;
+
+exports[`with maxWidth`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "backgroundImage": "url(\"https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150\")",
+      "backgroundSize": "cover",
+      "height": 150,
+      "maxWidth": 150,
+      "width": 350
+    }
+  } />
+`;
+
+exports[`without children`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "backgroundImage": "url(\"https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150\")",
+      "backgroundSize": "cover",
+      "height": 150,
+      "width": 350
+    }
+  } />
+`;

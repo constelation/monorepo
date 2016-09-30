@@ -1,0 +1,15 @@
+exports[`with text child`] = `
+<button
+  data-radium={true}
+  style={
+    Object {
+      "backgroundColor": "inherit",
+      "border": 0,
+      "margin": 0,
+      "outline": "none",
+      "padding": 0
+    }
+  }>
+  This is a button
+</button>
+`;
