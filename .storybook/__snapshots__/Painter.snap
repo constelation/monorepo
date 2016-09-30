@@ -1,0 +1,174 @@
+exports[`alignVertical center alignHorizontal right`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "flex-end",
+      "WebkitBoxAlign": "end",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "alignContent": "flex-start",
+      "alignItems": "flex-end",
+      "backgroundColor": "lightgrey",
+      "border": "1px solid black",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "justifyContent": "center",
+      "msFlexAlign": "end",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "WebkitAlignContent": "flex-start",
+        "WebkitAlignItems": "stretch",
+        "WebkitBoxAlign": "stretch",
+        "WebkitBoxDirection": "normal",
+        "WebkitBoxOrient": "vertical",
+        "WebkitFlexDirection": "column",
+        "WebkitFlexShrink": 0,
+        "alignContent": "flex-start",
+        "alignItems": "stretch",
+        "backgroundColor": "red",
+        "display": Array [
+          "-webkit-box",
+          "-moz-box",
+          "-ms-flexbox",
+          "-webkit-flex",
+          "flex"
+        ],
+        "flexDirection": "column",
+        "flexShrink": 0,
+        "height": 40,
+        "msFlexAlign": "stretch",
+        "msFlexDirection": "column",
+        "msFlexLinePack": "start",
+        "msFlexNegative": 0,
+        "position": "relative",
+        "width": 40
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "WebkitAlignContent": "flex-start",
+        "WebkitAlignItems": "stretch",
+        "WebkitBoxAlign": "stretch",
+        "WebkitBoxDirection": "normal",
+        "WebkitBoxOrient": "vertical",
+        "WebkitFlexDirection": "column",
+        "WebkitFlexShrink": 0,
+        "alignContent": "flex-start",
+        "alignItems": "stretch",
+        "backgroundColor": "green",
+        "display": Array [
+          "-webkit-box",
+          "-moz-box",
+          "-ms-flexbox",
+          "-webkit-flex",
+          "flex"
+        ],
+        "flexDirection": "column",
+        "flexShrink": 0,
+        "height": 40,
+        "msFlexAlign": "stretch",
+        "msFlexDirection": "column",
+        "msFlexLinePack": "start",
+        "msFlexNegative": 0,
+        "position": "relative",
+        "width": 40
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "WebkitAlignContent": "flex-start",
+        "WebkitAlignItems": "stretch",
+        "WebkitBoxAlign": "stretch",
+        "WebkitBoxDirection": "normal",
+        "WebkitBoxOrient": "vertical",
+        "WebkitFlexDirection": "column",
+        "WebkitFlexShrink": 0,
+        "alignContent": "flex-start",
+        "alignItems": "stretch",
+        "backgroundColor": "blue",
+        "display": Array [
+          "-webkit-box",
+          "-moz-box",
+          "-ms-flexbox",
+          "-webkit-flex",
+          "flex"
+        ],
+        "flexDirection": "column",
+        "flexShrink": 0,
+        "height": 40,
+        "msFlexAlign": "stretch",
+        "msFlexDirection": "column",
+        "msFlexLinePack": "start",
+        "msFlexNegative": 0,
+        "position": "relative",
+        "width": 40
+      }
+    } />
+</div>
+`;
+
+exports[`nested Painters`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "flex-end",
+      "WebkitBoxAlign": "end",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "alignContent": "flex-start",
+      "alignItems": "flex-end",
+      "backgroundColor": "lightgrey",
+      "border": "1px solid black",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "justifyContent": "center",
+      "msFlexAlign": "end",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "position": "relative"
+    }
+  } />
+`;

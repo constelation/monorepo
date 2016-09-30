@@ -1,0 +1,230 @@
+exports[`align center`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitAlignItems": "center",
+      "WebkitBoxAlign": "center",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "alignItems": "center",
+      "backgroundColor": "lightgrey",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "msFlexAlign": "center",
+      "msFlexDirection": "column",
+      "msFlexNegative": 0,
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20
+      }
+    } />
+</div>
+`;
+
+exports[`justify and align center`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitAlignItems": "center",
+      "WebkitBoxAlign": "center",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "alignItems": "center",
+      "backgroundColor": "lightgrey",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "justifyContent": "center",
+      "msFlexAlign": "center",
+      "msFlexDirection": "column",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20
+      }
+    } />
+</div>
+`;
+
+exports[`justify center`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "backgroundColor": "lightgrey",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "justifyContent": "center",
+      "msFlexDirection": "column",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20
+      }
+    } />
+</div>
+`;
+
+exports[`with children`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "msFlexDirection": "column",
+      "msFlexNegative": 0,
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20
+      }
+    } />
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20
+      }
+    } />
+</div>
+`;
