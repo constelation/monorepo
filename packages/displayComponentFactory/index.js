@@ -5,6 +5,8 @@ var shallowCompare = require('react-addons-shallow-compare')
 var radium = require('radium')
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
+var _map = require('lodash/map')
+var _filter = require('lodash/filter')
 var _keys = require('lodash/keys')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
@@ -56,9 +58,12 @@ var layoutStyles = [
   'position',
   'right',
   'top',
+  'transform',
+  'transition',
   'width',
   'zIndex',
 
+  //TODO: Deprecate these
   'background',
   'backgroundColor',
   'boxShadow',
@@ -174,7 +179,14 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-      var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      // var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+
+      // join transitions into single string if View and outer Style_ pass one in
+      if (styleFromProps.transition && this.props.style && this.props.style.transition) {
+        style.transition = styleFromProps.transition + ', ' + this.props.style.transition
+      }
+
       var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
       // No need to pass the tag prop down
