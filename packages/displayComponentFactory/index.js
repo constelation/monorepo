@@ -179,13 +179,13 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-      // var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
 
       // join transitions into single string if View and outer Style_ pass one in
-      if (styleFromProps.transition && this.props.style && this.props.style.transition) {
-        style.transition = styleFromProps.transition + ', ' + this.props.style.transition
-      }
+      // if (styleFromProps.transition && this.props.style && this.props.style.transition) {
+      //   style.transition = styleFromProps.transition + ', ' + this.props.style.transition
+      // }
 
       var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
