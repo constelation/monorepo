@@ -117,7 +117,6 @@ var Animate_ = React.createClass({
       animation += ' infinite'
     }
     else if (animationProps.repeat > 0) {
-      console.log('here');
       animation += ' ' + animationProps.repeat
     }
 
