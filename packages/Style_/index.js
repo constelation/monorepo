@@ -41,6 +41,8 @@ var Style_ = React.createClass({
   },
 
   render: function() {
+    // console.log(this.props.style);
+
     var styleFromProps = getStyleFromProps( this.props )
     var propsWithoutStyle = getNonStyleProps( this.props )
 
