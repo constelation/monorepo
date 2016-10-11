@@ -62,110 +62,39 @@ import Event_ from '../packages/Event_'
 //   }
 // }
 //
-// class Hoverable extends React.Component {
-//
-//   defaultProps = {
-//     component: View,
-//   }
-//
-//   state = {
-//     isHovering: false,
-//   }
-//
-//   handleHover(isHovering) {
-//     this.setState({backgroundColor: (isHovering) ? 'red' : 'lightGrey'})
-//   }
-//
-//   render() {
-//     const { component } = this.props
-//
-//     return (
-//       <Event_ onHover={this.handleHover}>
-//         <component>
-//           {
-//             this.props.children(this.state.isHovering)
-//           }
-//         </component>
-//       </Event_>
-//     )
-//   }
-// }
+
+class Hoverable extends React.Component {
+
+  static defaultProps = {
+    component: View,
+  }
+
+  state = {
+    isHovering: false,
+  }
+
+  handleHover = (isHovering) => {
+    this.setState({ isHovering })
+  }
+
+  render() {
+    const { component, children, ...passedProps } = this.props
+
+    return (
+      <Event_ onHover={this.handleHover}>
+        {
+          React.createElement(
+            component,
+            passedProps,
+            children(this.state.isHovering)
+          )
+        }
+      </Event_>
+    )
+  }
+}
 
 storiesOf('Playground', module)
-//  .add('Animate color onHover', () => (
-//    <AnimatedColorOnHover />
-//  ))
-//
-//  .add('Animate color onHover with Hoverable', () => (
-//    <Hoverable>
-//      {(isHovering) => (
-//        <Style
-//          backgroundColor={isHovering ? 'red' : 'lightGrey'}
-//          border='1px solid black'
-//          transition='backgroundColor 1s ease'
-//        >
-//          <View height='500px' />
-//        </Style>
-//      )}
-//    </Hoverable>
-//  ))
-//
-//  .add('Animate color onHover with Hoverable', () => (
-//    <Hover>
-//      {(isHovering) => (
-//        <Style
-//          backgroundColor={isHovering ? 'red' : 'lightGrey'}
-//          border='1px solid black'
-//          transition='backgroundColor 1s ease'
-//        >
-//          <View height='500px' />
-//        </Style>
-//      )}
-//    </Hover>
-//  ))
-//
-//  .add('Again', () => (
-  //  {/* <AnimationGroup type='fadeIn'> */}
-  //  {/*   {List} */}
-  //  {/* </AnimationGroup> */}
-  //  {/*  */}
-  //
-//    <Event onHover={this.handleHover}>
-//      <Animate type='fadeIn' duration={1}>
-//        <Style
-//          backgroundColor={this.state.backgroundColor}
-//          border='1px solid black'
-//          transition='color 1s ease'
-//        >
-//          <View height='500px' />
-//        </Style>
-//      </Animate>
-//    </Event>
-//  ))
-  // .add('Again Names', () => (
-  //   <Event_ onHover={this.handleHover} onClick >
-  //     <Animate_
-  //       type='fadeIn'
-  //       duration={1000}
-  //       trigger={this.state.trigger}
-  //     >
-  //       <Style_
-  //         backgroundColor={this.state.backgroundColor}
-  //         border='1px solid black'
-  //         transition='backgroundColor 1000ms ease'
-  //         willChange
-  //       >
-  //         <View
-  //           height='500px'
-  //           width='200px'
-  //           transform={`translateX(${this.props.isActive ? '-50px' : '0px'})`}
-  //           transition='transform 2000ms ease'
-  //         />
-  //       </Style_>
-  //     </Animate_>
-  //   </Event_>
-  //
-  // ))
   .add('Style_View', () => (
         <Style_
           backgroundColor='red'
@@ -253,3 +182,67 @@ storiesOf('Playground', module)
     return (
       <EventStyleView />
   )})
+  .add('Hoverable Style_View', () => (
+    <Style_ backgroundColor='grey'>
+      <Hoverable>
+        {(isHovering) => (
+          <Style_
+            backgroundColor={isHovering ? 'red' : 'blue'}
+            border='1px solid black'
+            transition='background-color 1000ms ease'
+          >
+            <View
+              height='500px'
+              width='200px'
+              alignHorizontal='center'
+              alignVertical='center'
+            >
+              <Text>Hover me</Text>
+            </View>
+          </Style_>
+        )}
+      </Hoverable>
+    </Style_>
+  ))
+  //  .add('Again', () => (
+    //  {/* <AnimationGroup type='fadeIn'> */}
+    //  {/*   {List} */}
+    //  {/* </AnimationGroup> */}
+    //  {/*  */}
+    //
+  //    <Event onHover={this.handleHover}>
+  //      <Animate type='fadeIn' duration={1}>
+  //        <Style
+  //          backgroundColor={this.state.backgroundColor}
+  //          border='1px solid black'
+  //          transition='color 1s ease'
+  //        >
+  //          <View height='500px' />
+  //        </Style>
+  //      </Animate>
+  //    </Event>
+  //  ))
+    // .add('Again Names', () => (
+    //   <Event_ onHover={this.handleHover} onClick >
+    //     <Animate_
+    //       type='fadeIn'
+    //       duration={1000}
+    //       trigger={this.state.trigger}
+    //     >
+    //       <Style_
+    //         backgroundColor={this.state.backgroundColor}
+    //         border='1px solid black'
+    //         transition='backgroundColor 1000ms ease'
+    //         willChange
+    //       >
+    //         <View
+    //           height='500px'
+    //           width='200px'
+    //           transform={`translateX(${this.props.isActive ? '-50px' : '0px'})`}
+    //           transition='transform 2000ms ease'
+    //         />
+    //       </Style_>
+    //     </Animate_>
+    //   </Event_>
+    //
+    // ))

@@ -1,24 +1,21 @@
 'use strict';
 
 var React = require('react')
-var _pick = require('lodash/pick')
+var shallowCompare = require('react-addons-shallow-compare')
+// var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
 
-var events = [
-  'onClick',
-]
-
-var eventsAndCustomEvents = events.concat([
+var customEvents = [
   'onHover',
-])
-
-function getNonEventProps( props ) {
-  return _omit( props, eventsAndCustomEvents )
-}
+]
 
 var Event_ = React.createClass({
   displayName: 'Event_',
+
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
+  },
 
   handleMouseEnter: function() {
     this.props.onHover(true)
@@ -28,8 +25,9 @@ var Event_ = React.createClass({
     this.props.onHover(false)
   },
 
-  getEventsFromProps: function() {
-    var eventsFromProps = _pick( this.props, events )
+  getConvertedCustomEventsFromProps: function() {
+    // var eventsFromProps = _pick( this.props, customEvents )
+    var eventsFromProps = {}
 
     if (this.props.onHover) {
       eventsFromProps.onMouseEnter = this.handleMouseEnter
@@ -39,16 +37,21 @@ var Event_ = React.createClass({
     return eventsFromProps
   },
 
+  getNonCustomEventProps: function() {
+    return _omit( this.props, customEvents )
+  },
+
+
   render: function() {
-    var eventsFromProps = this.getEventsFromProps()
-    var propsWithoutEvents = getNonEventProps( this.props )
+    var eventsFromProps = this.getConvertedCustomEventsFromProps()
+    var propsWithoutCustomEvents = this.getNonCustomEventProps()
 
     var Child = React.Children.only(this.props.children)
 
     // without removing children, this would infinite loop
-    delete propsWithoutEvents.children
+    delete propsWithoutCustomEvents.children
 
-    var passedProps = _assign( {}, propsWithoutEvents, eventsFromProps)
+    var passedProps = _assign( {}, propsWithoutCustomEvents, eventsFromProps)
 
     return React.cloneElement( Child, passedProps )
   }
