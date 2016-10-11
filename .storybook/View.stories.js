@@ -35,3 +35,15 @@ storiesOf('View', module)
   .add('console.logs refNode', () => (
     <View refNode={node => {console.log(node)}} />
   ))
+  .add('can handle transitions with style array, choosing the last in the arrays', () => (
+    <View
+      height={40}
+      width={40}
+      transition='transform 200ms'
+      style={[
+        {backgroundColor: 'red'},
+        {transition: 'opacity 200ms'},
+        {transition: 'color 200ms'}
+      ]}
+    />
+  ))

@@ -1,0 +1,204 @@
+exports[`Hover Event_Style_View joined transitions`] = `
+<div
+  data-radium={true}
+  onMouseEnter={[Function bound handleMouseEnter]}
+  onMouseLeave={[Function bound handleMouseLeave]}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "center",
+      "WebkitBoxAlign": "center",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "WebkitTransform": "translateX(-50px)",
+      "WebkitTransition": "-webkit-transform 2000ms ease,transform 2000ms ease, background-color 1000ms ease",
+      "alignContent": "flex-start",
+      "alignItems": "center",
+      "backgroundColor": "lightGrey",
+      "border": "1px solid black",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "500px",
+      "justifyContent": "center",
+      "msFlexAlign": "center",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "msTransform": "translateX(-50px)",
+      "position": "relative",
+      "transform": "translateX(-50px)",
+      "transition": "-ms-transform 2000ms ease,-webkit-transform 2000ms ease,transform 2000ms ease, background-color 1000ms ease",
+      "width": "200px"
+    }
+  }>
+  <span
+    data-radium={true}
+    style={
+      Object {
+        "color": undefined,
+        "fontFamily": undefined,
+        "fontSize": undefined,
+        "letterSpacing": undefined
+      }
+    }>
+    Hover me
+  </span>
+</div>
+`;
+
+exports[`Hoverable Style_View`] = `
+<div
+  data-radium={true}
+  onMouseEnter={[Function bound handleMouseEnter]}
+  onMouseLeave={[Function bound handleMouseLeave]}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "stretch",
+      "WebkitBoxAlign": "stretch",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "alignContent": "flex-start",
+      "alignItems": "stretch",
+      "backgroundColor": "grey",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "msFlexAlign": "stretch",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "position": "relative"
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "WebkitAlignContent": "flex-start",
+        "WebkitAlignItems": "center",
+        "WebkitBoxAlign": "center",
+        "WebkitBoxDirection": "normal",
+        "WebkitBoxOrient": "vertical",
+        "WebkitBoxPack": "center",
+        "WebkitFlexDirection": "column",
+        "WebkitFlexShrink": 0,
+        "WebkitJustifyContent": "center",
+        "WebkitTransition": "background-color 1000ms ease",
+        "alignContent": "flex-start",
+        "alignItems": "center",
+        "backgroundColor": "blue",
+        "border": "1px solid black",
+        "display": Array [
+          "-webkit-box",
+          "-moz-box",
+          "-ms-flexbox",
+          "-webkit-flex",
+          "flex"
+        ],
+        "flexDirection": "column",
+        "flexShrink": 0,
+        "height": "500px",
+        "justifyContent": "center",
+        "msFlexAlign": "center",
+        "msFlexDirection": "column",
+        "msFlexLinePack": "start",
+        "msFlexNegative": 0,
+        "msFlexPack": "center",
+        "position": "relative",
+        "transition": "background-color 1000ms ease",
+        "width": "200px"
+      }
+    }>
+    <span
+      data-radium={true}
+      style={
+        Object {
+          "color": undefined,
+          "fontFamily": undefined,
+          "fontSize": undefined,
+          "letterSpacing": undefined
+        }
+      }>
+      Hover me
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Rotate onClick Event_View`] = `
+<button
+  data-radium={true}
+  onClick={[Function anonymous]}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "center",
+      "WebkitBoxAlign": "center",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitBoxPack": "center",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitJustifyContent": "center",
+      "WebkitTransform": "rotate(0deg)",
+      "WebkitTransition": "-webkit-transform 1000ms ease,transform 1000ms ease",
+      "alignContent": "flex-start",
+      "alignItems": "center",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": "200px",
+      "justifyContent": "center",
+      "msFlexAlign": "center",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "msFlexPack": "center",
+      "msTransform": "rotate(0deg)",
+      "position": "relative",
+      "transform": "rotate(0deg)",
+      "transition": "-ms-transform 1000ms ease,-webkit-transform 1000ms ease,transform 1000ms ease",
+      "width": "200px"
+    }
+  }>
+  <span
+    data-radium={true}
+    style={
+      Object {
+        "color": undefined,
+        "fontFamily": undefined,
+        "fontSize": undefined,
+        "letterSpacing": undefined
+      }
+    }>
+    Click me
+  </span>
+</button>
+`;

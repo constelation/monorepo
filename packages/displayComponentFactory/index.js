@@ -6,6 +6,7 @@ var radium = require('radium')
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
 var _map = require('lodash/map')
+var _findLast = require('lodash/findLast')
 var _filter = require('lodash/filter')
 var _keys = require('lodash/keys')
 var _pick = require('lodash/pick')
@@ -183,9 +184,20 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
 
       // join transitions into single string if View and outer Style_ pass one in
-      // if (styleFromProps.transition && this.props.style && this.props.style.transition) {
-      //   style.transition = styleFromProps.transition + ', ' + this.props.style.transition
-      // }
+      if (styleFromProps.transition && this.props.style) {
+        if (Array.isArray(this.props.style)) {
+          var styleWithTransition = _findLast(this.props.style, function(style) {
+            return style.transition
+          })
+
+          style.push({transition: styleFromProps.transition + ', ' + styleWithTransition.transition})
+          // style.transition = styleFromProps.transition + ', ' + styleTransition
+        }
+        else if (this.props.style.transition) {
+          style.push({transition: styleFromProps.transition + ', ' + this.props.style.transition})
+          // style.transition = styleFromProps.transition + ', ' + this.props.style.transition
+        }
+      }
 
       var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 

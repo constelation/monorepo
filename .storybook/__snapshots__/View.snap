@@ -134,6 +134,43 @@ exports[`alignVertical center alignHorizontal right`] = `
 </div>
 `;
 
+exports[`can handle transitions with style array, choosing the last in the arrays`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "WebkitAlignContent": "flex-start",
+      "WebkitAlignItems": "stretch",
+      "WebkitBoxAlign": "stretch",
+      "WebkitBoxDirection": "normal",
+      "WebkitBoxOrient": "vertical",
+      "WebkitFlexDirection": "column",
+      "WebkitFlexShrink": 0,
+      "WebkitTransition": "-webkit-transform 200ms,transform 200ms, color 200ms",
+      "alignContent": "flex-start",
+      "alignItems": "stretch",
+      "backgroundColor": "red",
+      "display": Array [
+        "-webkit-box",
+        "-moz-box",
+        "-ms-flexbox",
+        "-webkit-flex",
+        "flex"
+      ],
+      "flexDirection": "column",
+      "flexShrink": 0,
+      "height": 40,
+      "msFlexAlign": "stretch",
+      "msFlexDirection": "column",
+      "msFlexLinePack": "start",
+      "msFlexNegative": 0,
+      "position": "relative",
+      "transition": "-ms-transform 200ms,-webkit-transform 200ms,transform 200ms, color 200ms",
+      "width": 40
+    }
+  } />
+`;
+
 exports[`console.logs refNode`] = `
 <div
   data-radium={true}
