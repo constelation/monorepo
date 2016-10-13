@@ -85,7 +85,7 @@ var Animate_ = React.createClass({
 
     this.setState({animation: ''}, function() {
       raf(function() {
-        this.setState({ animation })
+        this.setState({animation: animation})
       }.bind(this))
     }.bind(this))
   },
