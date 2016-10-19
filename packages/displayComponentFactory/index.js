@@ -2,7 +2,9 @@
 
 var React = require('react')
 var shallowCompare = require('react-addons-shallow-compare')
-var radium = require('radium')
+// var radium = require('radium')
+var aphrodite = require('aphrodite')
+
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
 var _map = require('lodash/map')
@@ -160,7 +162,8 @@ function getNonStyleProps( props, styleAliases ) {
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  return radium(React.createClass({
+  // return radium(React.createClass({
+  return React.createClass({
 
     displayName: displayName,
 
@@ -180,26 +183,30 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-      var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      // var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      var styles = aphrodite.StyleSheet.create({node: style})
 
       // join transitions into single string if View and outer Style_ pass one in
-      if (styleFromProps.transition && this.props.style) {
-        if (Array.isArray(this.props.style)) {
-          var styleWithTransition = _findLast(this.props.style, function(style) {
-            return style.transition
-          })
+      // if (styleFromProps.transition && this.props.style) {
+      //   if (Array.isArray(this.props.style)) {
+      //     var styleWithTransition = _findLast(this.props.style, function(style) {
+      //       return style.transition
+      //     })
+      //
+      //     style.push({transition: styleFromProps.transition + ', ' + styleWithTransition.transition})
+      //     // style.transition = styleFromProps.transition + ', ' + styleTransition
+      //   }
+      //   else if (this.props.style.transition) {
+      //     style.push({transition: styleFromProps.transition + ', ' + this.props.style.transition})
+      //     // style.transition = styleFromProps.transition + ', ' + this.props.style.transition
+      //   }
+      // }
 
-          style.push({transition: styleFromProps.transition + ', ' + styleWithTransition.transition})
-          // style.transition = styleFromProps.transition + ', ' + styleTransition
-        }
-        else if (this.props.style.transition) {
-          style.push({transition: styleFromProps.transition + ', ' + this.props.style.transition})
-          // style.transition = styleFromProps.transition + ', ' + this.props.style.transition
-        }
-      }
+      // var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
+      var passedProps = _assign( {}, propsWithoutStyle, {className: aphrodite.css(styles.node)} )
+      // delete passedProps.style
 
-      var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
 
       // No need to pass the tag prop down
       delete passedProps.tag
@@ -212,5 +219,6 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
       return React.createElement( this.props.tag, passedProps )
     }
-  }))
+// }))
+  })
 }

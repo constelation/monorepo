@@ -1,6 +1,6 @@
 'use strict';
 
-var displayComponentFactory = require('constelation-display-component-factory')
+var displayComponentFactory = require('../displayComponentFactory')
 
 var style = {
   display: 'flex',
