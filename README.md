@@ -29,3 +29,5 @@ Could be an interesting combo with webpack's `ProvidePlugin`:
   }),
 
 ```
+
+When thinking about base, primitive components to leverage, think about your main palette in a visual, declarative WYSIWYG tool like https://github.com/danscan/fractal. Which components would be the core set that an average user would want?
