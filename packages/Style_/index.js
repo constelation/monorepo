@@ -22,6 +22,7 @@ var styles = [
   'outline',
   'transform',
   'transition',
+  'visibility',
   'willChange'
 ]
 
@@ -42,6 +43,7 @@ module.exports = class extends React.PureComponent {
 
     var Child = React.Children.only(this.props.children)
 
+    // Style_'s render() runs before Child's, so add its css props back in
     var css = _assign( {}, styleFromProps, this.props.css, Child.props.css )
     propsToPass.css = css
 
