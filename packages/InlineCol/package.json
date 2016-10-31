@@ -1,6 +1,6 @@
 {
   "name": "constelation-InlineCol",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "constelation-display-component-factory": "^2.0.0"
+    "constelation-display-component-factory": "^2.1.0"
   }
 }
