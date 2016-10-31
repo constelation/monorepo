@@ -18,7 +18,12 @@ var styles = [
   'borderStyle',
   'borderRadius',
   'borderWidth',
+  'opacity',
   'outline',
+  'transform',
+  'transition',
+  'visibility',
+  'willChange'
 ]
 
 function getStyleFromProps( props ) {
@@ -29,23 +34,22 @@ function getNonStyleProps( props ) {
   return _omit( props, styles )
 }
 
-var Painter = React.createClass({
-  displayName: 'Painter',
+module.exports = class extends React.PureComponent {
+  static displayName = 'Style_'
 
-  render: function() {
+  render() {
     var styleFromProps = getStyleFromProps( this.props )
-    var propsWithoutStyle = getNonStyleProps( this.props )
+    var propsToPass = getNonStyleProps( this.props )
 
     var Child = React.Children.only(this.props.children)
-    var style = [].concat.call( styleFromProps, this.props.style, Child.props.style )
+
+    // Style_'s render() runs before Child's, so add its css props back in
+    var css = _assign( {}, styleFromProps, this.props.css, Child.props.css )
+    propsToPass.css = css
 
     // without removing children, this would infinite loop
-    delete propsWithoutStyle.children
+    delete propsToPass.children
 
-    var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
-
-    return React.cloneElement( Child, { style: style } )
+    return React.cloneElement( Child, propsToPass )
   }
-})
-
-module.exports = Painter
+}

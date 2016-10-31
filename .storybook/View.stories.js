@@ -2,10 +2,13 @@ import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
 
-const style = {backgroundColor: 'lightgrey'}
+const style = {
+  backgroundColor: 'lightgrey',
+  border: '1px solid black'
+}
 
 storiesOf('View', module)
-  .add('with children divs', () => (
+  .add('with children divs and inline style', () => (
     <View height='500px' style={style}>
       <div style={{height: 20, backgroundColor: 'red'}} />
       <div style={{height: 20, backgroundColor: 'green'}} />
@@ -19,13 +22,19 @@ storiesOf('View', module)
       <View flex={1} style={{backgroundColor: 'blue'}} />
     </View>
   ))
+  .add('with children Views and inline css', () => (
+    <View height='500px' css={style}>
+      <View flex={1} css={{backgroundColor: 'red'}} />
+      <View flex={1} css={{backgroundColor: 'green'}} />
+      <View flex={1} css={{backgroundColor: 'blue'}} />
+    </View>
+  ))
   .add('alignVertical center alignHorizontal right', () => (
     <View
       height='500px'
       alignHorizontal='right'
       alignVertical='center'
-      backgroundColor='lightgrey'
-      border='1px solid black'
+      style={style}
     >
       <View height={40} width={40} backgroundColor='red' />
       <View height={40} width={40} backgroundColor='green' />
@@ -34,16 +43,4 @@ storiesOf('View', module)
   ))
   .add('console.logs refNode', () => (
     <View refNode={node => {console.log(node)}} />
-  ))
-  .add('can handle transitions with style array, choosing the last in the arrays', () => (
-    <View
-      height={40}
-      width={40}
-      transition='transform 200ms'
-      style={[
-        {backgroundColor: 'red'},
-        {transition: 'opacity 200ms'},
-        {transition: 'color 200ms'}
-      ]}
-    />
   ))

@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react')
-var shallowCompare = require('react-addons-shallow-compare')
 // var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
@@ -10,22 +9,27 @@ var customEvents = [
   'onHover',
 ]
 
-var Event_ = React.createClass({
-  displayName: 'Event_',
+module.exports = class extends React.PureComponent {
+  static displayName = 'Event_'
 
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  },
+  constructor() {
+    super()
 
-  handleMouseEnter: function() {
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+    this.getConvertedCustomEventsFromProps = this.getConvertedCustomEventsFromProps.bind(this)
+    this.getNonCustomEventProps = this.getNonCustomEventProps.bind(this)
+  }
+
+  handleMouseEnter() {
     this.props.onHover(true)
-  },
+  }
 
-  handleMouseLeave: function() {
+  handleMouseLeave() {
     this.props.onHover(false)
-  },
+  }
 
-  getConvertedCustomEventsFromProps: function() {
+  getConvertedCustomEventsFromProps() {
     // var eventsFromProps = _pick( this.props, customEvents )
     var eventsFromProps = {}
 
@@ -35,26 +39,24 @@ var Event_ = React.createClass({
     }
 
     return eventsFromProps
-  },
+  }
 
-  getNonCustomEventProps: function() {
+  getNonCustomEventProps() {
     return _omit( this.props, customEvents )
-  },
+  }
 
 
-  render: function() {
+  render() {
     var eventsFromProps = this.getConvertedCustomEventsFromProps()
-    var propsWithoutCustomEvents = this.getNonCustomEventProps()
+    var propsToPass = this.getNonCustomEventProps()
 
     var Child = React.Children.only(this.props.children)
 
     // without removing children, this would infinite loop
-    delete propsWithoutCustomEvents.children
+    delete propsToPass.children
 
-    var passedProps = _assign( {}, propsWithoutCustomEvents, eventsFromProps)
+    _assign(propsToPass, eventsFromProps)
 
-    return React.cloneElement( Child, passedProps )
+    return React.cloneElement( Child, propsToPass )
   }
-})
-
-module.exports = Event_
+}

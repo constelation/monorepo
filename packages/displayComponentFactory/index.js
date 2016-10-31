@@ -1,13 +1,10 @@
 'use strict';
 
 var React = require('react')
-var shallowCompare = require('react-addons-shallow-compare')
-var radium = require('radium')
+var glamorReact = require('glamor/react')
+
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
-var _map = require('lodash/map')
-var _findLast = require('lodash/findLast')
-var _filter = require('lodash/filter')
 var _keys = require('lodash/keys')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
@@ -21,10 +18,10 @@ var layoutDefaultStyle = {
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
 var layoutStyles = [
-  'alignItems',
   'alignSelf',
 
   // --soon to be removed--
+  'alignItems',
   'alignContent',
   'justifyContent',
   // ----
@@ -59,8 +56,8 @@ var layoutStyles = [
   'position',
   'right',
   'top',
-  'transform',
-  'transition',
+  // 'transform',
+  // 'transition',
   'width',
   'zIndex',
 
@@ -160,57 +157,34 @@ function getNonStyleProps( props, styleAliases ) {
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  return radium(React.createClass({
+  return class extends React.PureComponent {
+    static displayName = displayName
 
-    displayName: displayName,
-
-    propTypes: {
+    static propTypes = {
       refNode: React.PropTypes.func,
-    },
+    }
 
-    getDefaultProps: function() {
-      return {tag: 'div'}
-    },
+    static defaultProps = {
+      tag: 'div',
+    }
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-      return shallowCompare(this, nextProps, nextState)
-    },
-
-    render: function() {
+    render() {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
-      var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
+      var propsToPass = getNonStyleProps( this.props, styleAliases )
 
-      var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-
-      // join transitions into single string if View and outer Style_ pass one in
-      if (styleFromProps.transition && this.props.style) {
-        if (Array.isArray(this.props.style)) {
-          var styleWithTransition = _findLast(this.props.style, function(style) {
-            return style.transition
-          })
-
-          style.push({transition: styleFromProps.transition + ', ' + styleWithTransition.transition})
-          // style.transition = styleFromProps.transition + ', ' + styleTransition
-        }
-        else if (this.props.style.transition) {
-          style.push({transition: styleFromProps.transition + ', ' + this.props.style.transition})
-          // style.transition = styleFromProps.transition + ', ' + this.props.style.transition
-        }
-      }
-
-      var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
+      var css = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.css, requiredStyle )
+      propsToPass.css = css
 
       // No need to pass the tag prop down
-      delete passedProps.tag
+      delete propsToPass.tag
 
       // Use refNode pattern to pass back the DOM's node
-      if (passedProps.refNode) {
-        passedProps.ref = passedProps.refNode
-        delete passedProps.refNode
+      if (propsToPass.refNode) {
+        propsToPass.ref = propsToPass.refNode
+        delete propsToPass.refNode
       }
 
-      return React.createElement( this.props.tag, passedProps )
+      return glamorReact.createElement( this.props.tag, propsToPass )
     }
-  }))
+  }
 }

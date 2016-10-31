@@ -4,6 +4,7 @@ function loadStories() {
   require('./Button.stories.js')
   require('./BackgroundImage.stories.js')
   require('./View.stories.js')
+  require('./Perf.stories.js')
   require('./Style_.stories.js')
   require('./Event_.stories.js')
   require('./Animate_.stories.js')

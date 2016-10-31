@@ -10,9 +10,9 @@
     "@kadira/storyshots": "^1.1.3",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-stage-0": "^6.16.0",
+    "glamor": "^2.17.12",
     "lerna": "2.0.0-beta.24",
     "lodash": "^4.13.1",
-    "radium": "^0.18.1",
     "raf": "^3.3.0",
     "react": "^15.2.1",
     "react-addons-shallow-compare": "^15.3.1"

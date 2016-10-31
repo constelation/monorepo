@@ -40,17 +40,3 @@ storiesOf('Style_', module)
       </Style_>
     </Style_>
   ))
-  .add('joined transitions', () => (
-    <Style_
-      backgroundColor='red'
-      border='1px solid black'
-      transition='background-color 1000ms ease'
-    >
-      <View
-        height='500px'
-        width='200px'
-        transform='translateX(-50px)'
-        transition='transform 2000ms ease'
-      />
-    </Style_>
-  ))
