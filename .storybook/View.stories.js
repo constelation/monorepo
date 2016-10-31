@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
+// import ViewNative from '../packages/View/View.native.js'
 
 const style = {
   backgroundColor: 'lightgrey',
@@ -44,3 +45,13 @@ storiesOf('View', module)
   .add('console.logs refNode', () => (
     <View refNode={node => {console.log(node)}} />
   ))
+//
+// be sure to uncomment the require line in View.native.js to get the correct displayComponentFactory
+//
+  // .add('Native View', () => (
+  //   <ViewNative height='500px' >
+  //     <ViewNative flex={1} style={{backgroundColor: 'red'}} />
+  //     <ViewNative flex={1} style={{backgroundColor: 'green'}} />
+  //     <ViewNative flex={1} style={{backgroundColor: 'blue'}} />
+  //   </ViewNative>
+  // ))
