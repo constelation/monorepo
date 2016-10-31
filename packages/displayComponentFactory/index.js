@@ -2,19 +2,10 @@
 
 var React = require('react')
 var shallowCompare = require('react-addons-shallow-compare')
-// var radium = require('radium')
-// var aphrodite = require('aphrodite')
-var glamor = require('glamor')
-var merge = glamor.merge
-var style = glamor.style
 var glamorReact = require('glamor/react')
-var glamorJsx = require('glamor/jsxstyle')
 
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
-var _map = require('lodash/map')
-var _findLast = require('lodash/findLast')
-var _filter = require('lodash/filter')
 var _keys = require('lodash/keys')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
@@ -26,14 +17,12 @@ var layoutDefaultStyle = {
   flexShrink: 0,
 }
 
-var layoutDefaultCSS = style(layoutDefaultStyle)
-
 // from https://facebook.github.io/react-native/docs/layout-props.html
 var layoutStyles = [
-  'alignItems',
   'alignSelf',
 
   // --soon to be removed--
+  'alignItems',
   'alignContent',
   'justifyContent',
   // ----
@@ -169,10 +158,6 @@ function getNonStyleProps( props, styleAliases ) {
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  var defaultCSS = style(defaultStyle)
-  var requiredCSS = style(requiredStyle)
-  // return radium(React.createClass({
-
   return React.createClass({
 
     displayName: displayName,
@@ -191,33 +176,10 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
     render: function() {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
-      // var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
       var propsToPass = getNonStyleProps( this.props, styleAliases )
 
-      // RADIUM
-      // var style = [].concat.call( layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      // APHRODITE
-      // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      // var styles = aphrodite.StyleSheet.create({node: style})
-      // GLAMOR
-      // var style = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
-      // var styles = glamor.style(style)
-
-      // var css = merge( layoutDefaultCSS, defaultCSS, style(styleFromProps), style(this.props.css), requiredCSS )
       var css = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.css, requiredStyle )
-
-      // RADIUM
-      // var passedProps = _assign( {}, propsWithoutStyle, {style: style} )
-      // APHRODITE
-      // var passedProps = _assign( {}, propsWithoutStyle, {className: aphrodite.css(styles.node)} )
-      // delete passedProps.style
-      // GLAMOR
-      // var passedProps = _assign( {}, propsWithoutStyle, {className: styles} )
-      // GLAMOR-react
       propsToPass.css = css
-      // var passedProps = _assign( {}, propsWithoutStyle, {css: styles} )
-      // delete passedProps.style
-
 
       // No need to pass the tag prop down
       delete propsToPass.tag
@@ -228,10 +190,7 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
         delete propsToPass.refNode
       }
 
-      // return React.createElement( this.props.tag, passedProps )
-      // GLAMOR-react
       return glamorReact.createElement( this.props.tag, propsToPass )
     }
-// }))
   })
 }

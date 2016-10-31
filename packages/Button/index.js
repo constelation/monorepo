@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react')
-var radium = require('radium')
-var assign = require('lodash/assign')
+var glamorReact = require('glamor/react')
+var _assign = require('lodash/assign')
 
 var componentStyle = {
   padding: 0,
@@ -20,17 +20,17 @@ var Button = React.createClass({
   },
 
   render: function() {
-    var style = [].concat.call( componentStyle, this.props.style )
-    var passedProps = assign( {}, this.props, {style: style} )
+    var css = _assign( {}, componentStyle, this.props.css )
+    var propsToPass = _assign( {}, this.props, {css: css})
 
     // Use refNode pattern to pass back the DOM's node
-    if (passedProps.refNode) {
-      passedProps.ref = passedProps.refNode
-      delete passedProps.refNode
+    if (propsToPass.refNode) {
+      propsToPass.ref = propsToPass.refNode
+      delete propsToPass.refNode
     }
 
-    return React.createElement( 'button', passedProps )
+    return glamorReact.createElement( 'button', propsToPass )
   }
 })
 
-module.exports = radium( Button )
+module.exports = Button

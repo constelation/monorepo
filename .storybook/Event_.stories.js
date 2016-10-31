@@ -1,5 +1,4 @@
 import React from 'react'
-import Radium, { StyleRoot } from 'radium'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
 import Text from '../packages/Text'
@@ -51,17 +50,20 @@ storiesOf('Event_', module)
       render() {
         return (
           <Event_ onClick={this.handleClick}>
-            <View
-              tag='button'
-              height='200px'
-              width='200px'
-              alignHorizontal='center'
-              alignVertical='center'
+            <Style_
               transform={`rotate(${this.state.isRotated ? '90deg' : '0deg'})`}
               transition='transform 1000ms ease'
             >
-              <Text>Click me</Text>
-            </View>
+              <View
+                tag='button'
+                height='200px'
+                width='200px'
+                alignHorizontal='center'
+                alignVertical='center'
+              >
+                <Text>Click me</Text>
+              </View>
+            </Style_>
           </Event_>
         )
       }
@@ -90,15 +92,14 @@ storiesOf('Event_', module)
             <Style_
               backgroundColor={this.state.backgroundColor}
               border='1px solid black'
-              transition='background-color 1000ms ease'
+              transform={`translateX(${this.state.translateX})`}
+              transition='background-color 1000ms ease, transform 2000ms ease'
             >
               <View
                 height='500px'
                 width='200px'
                 alignHorizontal='center'
                 alignVertical='center'
-                transform={`translateX(${this.state.translateX})`}
-                transition='transform 2000ms ease'
               >
                 <Text>Hover me</Text>
               </View>

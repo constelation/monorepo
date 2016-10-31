@@ -1,12 +1,12 @@
 'use strict';
 
 var React = require('react')
-var Radium = require('radium')
+var glamor = require('glamor')
 var shallowCompare = require('react-addons-shallow-compare')
 var raf = require('raf')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
-var _assign = require('lodash/assign')
+// var _assign = require('lodash/assign')
 
 var styles = [
   'keyframes',
@@ -65,13 +65,13 @@ var Animate_ = React.createClass({
     }
 
     return {
-      animation: Radium.keyframes(keyframes)
+      animation: glamor.keyframes(keyframes)
     }
   },
 
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.keyframes !== this.props.keyframes) {
-      this.setState({animation: Radium.keyframes(nextProps.keyframes)})
+      this.setState({animation: glamor.keyframes(nextProps.keyframes)})
     }
   },
 
@@ -92,14 +92,15 @@ var Animate_ = React.createClass({
 
   render: function() {
     var animationProps = getAnimationProps( this.props )
-    var otherProps = getNonAnimationProps( this.props )
+    var propsToPass = getNonAnimationProps( this.props )
 
     var Child = React.Children.only(this.props.children)
 
     // without removing children, this would infinite loop
-    delete otherProps.children
+    delete propsToPass.children
 
-    var animation = 'x ' + animationProps.duration
+    // var animation = 'x ' + animationProps.duration
+    var animation = this.state.animation + ' ' + animationProps.duration
 
     if (animationProps.easing) {
       animation += ' ' + animationProps.easing
@@ -120,12 +121,9 @@ var Animate_ = React.createClass({
       animation += ' ' + animationProps.repeat
     }
 
-    var passedProps = _assign( {}, otherProps, {style: {
-      animation: animation,
-      animationName: this.state.animation,
-    }})
+    propsToPass.css = {animation: animation}
 
-    return React.cloneElement( Child, passedProps )
+    return React.cloneElement( Child, propsToPass )
   }
 })
 

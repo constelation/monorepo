@@ -44,16 +44,16 @@ var Event_ = React.createClass({
 
   render: function() {
     var eventsFromProps = this.getConvertedCustomEventsFromProps()
-    var propsWithoutCustomEvents = this.getNonCustomEventProps()
+    var propsToPass = this.getNonCustomEventProps()
 
     var Child = React.Children.only(this.props.children)
 
     // without removing children, this would infinite loop
-    delete propsWithoutCustomEvents.children
+    delete propsToPass.children
 
-    var passedProps = _assign( {}, propsWithoutCustomEvents, eventsFromProps)
+    _assign(propsToPass, eventsFromProps)
 
-    return React.cloneElement( Child, passedProps )
+    return React.cloneElement( Child, propsToPass )
   }
 })
 

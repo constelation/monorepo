@@ -1,5 +1,4 @@
 import React from 'react'
-import Radium, { StyleRoot } from 'radium'
 import raf from 'raf'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
@@ -8,55 +7,8 @@ import Style_ from '../packages/Style_'
 import Animate_ from '../packages/Animate_'
 import Event_ from '../packages/Event_'
 
-// import { fadeIn } from 'react-animations'
-// import fadeIn from 'react-animations/lib/fadeIn'
-
-
-// class Animate_ extends React.Component {
-//
-//   static defaultProps = {
-//     duration: '1000ms',
-//     keyframes: fadeIn,
-//   }
-//
-//   state = {
-//     animation: Radium.keyframes(this.props.keyframes),
-//   }
-//
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.keyframes !== this.props.keyframes) {
-//       this.setState({animation: Radium.keyframes(nextProps.keyframes)})
-//     }
-//   }
-//
-//   // PUBLIC
-//   trigger = () => {
-//     const { animation } = this.state;
-//
-//     this.setState({animation: ''}, () => {
-//       raf(() => {
-//         this.setState({ animation })
-//       })
-//     })
-//   }
-//
-//   render() {
-//     const { children, duration, ...passedProps } = this.props
-//
-//     var Child = React.Children.only(children)
-//     var style = {
-//       animation: `x ${duration}`,
-//       animationName: this.state.animation,
-//     }
-//
-//     return React.cloneElement( Child, {...passedProps, style} )
-//   }
-// }
-//
-
 storiesOf('Animate_', module)
   .add('fadeIn Style_View with repeat and delay', () => (
-  <StyleRoot>
     <Animate_
       type='fadeIn'
       duration='3000ms'
@@ -78,7 +30,6 @@ storiesOf('Animate_', module)
         </View>
       </Style_>
     </Animate_>
-  </StyleRoot>
   ))
   .add('click to fadeIn Style_View', () => {
     class ClickToFadeIn extends React.Component {
@@ -115,9 +66,7 @@ storiesOf('Animate_', module)
     }
 
     return (
-      <StyleRoot>
         <ClickToFadeIn />
-      </StyleRoot>
     )
   })
   .add('click to custom animation Style_View', () => {
@@ -164,9 +113,7 @@ storiesOf('Animate_', module)
     }
 
     return (
-      <StyleRoot>
         <ClickToFadeIn />
-      </StyleRoot>
     )
   })
   .add('click to change animation Style_View', () => {
@@ -226,8 +173,6 @@ storiesOf('Animate_', module)
     }
 
     return (
-      <StyleRoot>
         <ClickToFadeIn />
-      </StyleRoot>
     )
   })

@@ -11,7 +11,6 @@ Could be an interesting combo with webpack's `ProvidePlugin`:
   // Automatically loaded modules - means these imports are not needed in each file
   new webpack.ProvidePlugin({
     React: 'react',
-    Radium: 'radium',
     Block: 'constelation-Block',
     Col: 'constelation-Col',
     Button: 'constelation-Button',

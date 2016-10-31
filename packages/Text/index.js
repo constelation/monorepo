@@ -1,10 +1,9 @@
 'use strict';
 
 var React = require('react')
-var radium = require('radium')
-var pick = require('lodash/pick')
-var omit = require('lodash/omit')
-var assign = require('lodash/assign')
+var glamorReact = require('glamor/react')
+var _omit = require('lodash/omit')
+var _assign = require('lodash/assign')
 
 var textProps = [
   'fontFamily',
@@ -54,7 +53,7 @@ function getStyleFromProps( props ) {
 }
 
 function getNonStyleProps( props ) {
-  return omit( props, textProps )
+  return _omit( props, textProps )
 }
 
 var Text = React.createClass({
@@ -82,22 +81,22 @@ var Text = React.createClass({
 
   render: function() {
     var styleFromProps = getStyleFromProps( this.props )
-    var propsWithoutStyle = getNonStyleProps( this.props )
+    var propsToPass = getNonStyleProps( this.props )
 
-    var style = [].concat.call( styleFromProps, this.props.style )
-    var passedProps = assign( {}, propsWithoutStyle, {style: style} )
+    var css = _assign( {}, styleFromProps, this.props.css )
+    propsToPass.css = css
 
     // No need to pass the tag prop down
-    delete passedProps.tag
+    delete propsToPass.tag
 
     // Use refNode pattern to pass back the DOM's node
-    if (passedProps.refNode) {
-      passedProps.ref = passedProps.refNode
-      delete passedProps.refNode
+    if (propsToPass.refNode) {
+      propsToPass.ref = propsToPass.refNode
+      delete propsToPass.refNode
     }
 
-    return React.createElement( this.props.tag, passedProps )
+    return glamorReact.createElement( this.props.tag, propsToPass )
   }
 })
 
-module.exports = radium( Text )
+module.exports = Text
