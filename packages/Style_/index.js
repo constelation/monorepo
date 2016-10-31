@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react')
-var shallowCompare = require('react-addons-shallow-compare')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
@@ -34,14 +33,10 @@ function getNonStyleProps( props ) {
   return _omit( props, styles )
 }
 
-var Style_ = React.createClass({
-  displayName: 'Style_',
+module.exports = class extends React.PureComponent {
+  static displayName = 'Style_'
 
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState)
-  },
-
-  render: function() {
+  render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
 
@@ -55,6 +50,4 @@ var Style_ = React.createClass({
 
     return React.cloneElement( Child, propsToPass )
   }
-})
-
-module.exports = Style_
+}

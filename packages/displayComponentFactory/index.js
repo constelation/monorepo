@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react')
-var shallowCompare = require('react-addons-shallow-compare')
 var glamorReact = require('glamor/react')
 
 var _isEmpty = require('lodash/isEmpty')
@@ -158,23 +157,18 @@ function getNonStyleProps( props, styleAliases ) {
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  return React.createClass({
+  return class extends React.PureComponent {
+    static displayName = displayName
 
-    displayName: displayName,
-
-    propTypes: {
+    static propTypes = {
       refNode: React.PropTypes.func,
-    },
+    }
 
-    getDefaultProps: function() {
-      return {tag: 'div'}
-    },
+    static defaultProps = {
+      tag: 'div',
+    }
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-      return shallowCompare(this, nextProps, nextState)
-    },
-
-    render: function() {
+    render() {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsToPass = getNonStyleProps( this.props, styleAliases )
 
@@ -192,5 +186,5 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
       return glamorReact.createElement( this.props.tag, propsToPass )
     }
-  })
+  }
 }

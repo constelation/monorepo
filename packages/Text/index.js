@@ -56,10 +56,10 @@ function getNonStyleProps( props ) {
   return _omit( props, textProps )
 }
 
-var Text = React.createClass({
-  displayName: 'Text',
+module.exports = class extends React.PureComponent {
+  static displayName = 'Text'
 
-  propTypes: {
+  static propTypes = {
     children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
     bold: React.PropTypes.bool,
     center: React.PropTypes.bool,
@@ -71,15 +71,13 @@ var Text = React.createClass({
     spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     tag: React.PropTypes.string,
     uppercase: React.PropTypes.bool,
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
-      tag: 'span',
-    }
-  },
+  static defaultProps = {
+    tag: 'span',
+  }
 
-  render: function() {
+  render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
 
@@ -97,6 +95,4 @@ var Text = React.createClass({
 
     return glamorReact.createElement( this.props.tag, propsToPass )
   }
-})
-
-module.exports = Text
+}

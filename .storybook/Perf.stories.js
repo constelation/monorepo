@@ -152,7 +152,7 @@ storiesOf('Perf', module)
   return <Perf />
 })
 
-  .add('View and Style', () => {
+  .add('1000 Views and Style', () => {
     class Perf extends React.Component {
     state = {
       isVisible: false,
@@ -1198,7 +1198,7 @@ storiesOf('Perf', module)
 
   return <Perf />
 })
-  .add('alignVertical center alignHorizontal right', () => {
+  .add('1000 Views', () => {
     class Perf extends React.Component {
       state = {
         isVisible: false,

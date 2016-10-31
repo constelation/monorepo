@@ -12,8 +12,5 @@
   "peerDependencies": {
     "lodash": "^4.13.1",
     "react": "^15.2.1"
-  },
-  "dependencies": {
-    "react-addons-shallow-compare": "^15.3.1"
   }
 }
