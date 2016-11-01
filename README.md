@@ -3,7 +3,7 @@ Mono repo for constelation's Components, functions, and CONSTANTS
 See them in action at https://constelation.github.io/monorepo/
 
 ```
-npm i -S constelation-{Block,Inline,InlineBlock,BackgroundImage,Button,Col,Flex,InlineCol,InlineFlex,InlineRow,Row,View,Painter,Text}
+npm i -S constelation-{Block,Inline,InlineCol,InlineFlex,InlineRow,InlineBlock,BackgroundImage,Button,Col,Flex,Row,View,Text,Style_,Event_,Animate_}
 ```
 
 Could be an interesting combo with webpack's `ProvidePlugin`:
@@ -12,19 +12,21 @@ Could be an interesting combo with webpack's `ProvidePlugin`:
   new webpack.ProvidePlugin({
     React: 'react',
     Block: 'constelation-Block',
-    Col: 'constelation-Col',
-    Button: 'constelation-Button',
-    BackgroundImage: 'constelation-BackgroundImage',
-    Row: 'constelation-Row',
-    Flex: 'constelation-Flex',
     Inline: 'constelation-Inline',
     InlineBlock: 'constelation-InlineBlock',
     InlineFlex: 'constelation-InlineFlex',
     InlineCol: 'constelation-InlineCol',
     InlineRow: 'constelation-InlineRow',   
+    Col: 'constelation-Col',
+    Button: 'constelation-Button',
+    BackgroundImage: 'constelation-BackgroundImage',
+    Row: 'constelation-Row',
+    Flex: 'constelation-Flex',
     Text: 'constelation-Text',
     View: 'constelation-View',
-    Painter: 'constelation-Painter',
+    Style_: 'constelation-Style_',
+    Event_: 'constelation-Event_',
+    Animate_: 'constelation-Animate_',
   }),
 
 ```
