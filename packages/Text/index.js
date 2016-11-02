@@ -56,27 +56,7 @@ function getNonStyleProps( props ) {
   return _omit( props, textProps )
 }
 
-module.exports = class extends React.PureComponent {
-  static displayName = 'Text'
-
-  static propTypes = {
-    children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
-    bold: React.PropTypes.bool,
-    center: React.PropTypes.bool,
-    color: React.PropTypes.string,
-    fontFamily: React.PropTypes.string,
-    height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    refNode: React.PropTypes.func,
-    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    tag: React.PropTypes.string,
-    uppercase: React.PropTypes.bool,
-  }
-
-  static defaultProps = {
-    tag: 'span',
-  }
-
+class Text extends React.PureComponent {
   render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
@@ -96,3 +76,23 @@ module.exports = class extends React.PureComponent {
     return glamorReact.createElement( this.props.tag, propsToPass )
   }
 }
+
+Text.propTypes = {
+  children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
+  bold: React.PropTypes.bool,
+  center: React.PropTypes.bool,
+  color: React.PropTypes.string,
+  fontFamily: React.PropTypes.string,
+  height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  refNode: React.PropTypes.func,
+  size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  tag: React.PropTypes.string,
+  uppercase: React.PropTypes.bool,
+}
+
+Text.defaultProps = {
+  tag: 'span',
+}
+
+module.exports = Text

@@ -9,9 +9,7 @@ var customEvents = [
   'onHover',
 ]
 
-module.exports = class extends React.PureComponent {
-  static displayName = 'Event_'
-
+class Event_ extends React.PureComponent {
   constructor() {
     super()
 
@@ -60,3 +58,7 @@ module.exports = class extends React.PureComponent {
     return React.cloneElement( Child, propsToPass )
   }
 }
+
+Event_.displayName = 'Event_'
+
+module.exports = Event_

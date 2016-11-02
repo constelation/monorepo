@@ -34,9 +34,7 @@ function getNonStyleProps( props ) {
   return _omit( props, styles )
 }
 
-module.exports = class extends React.PureComponent {
-  static displayName = 'Style_'
-
+class Style_ extends React.PureComponent {
   render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
@@ -53,3 +51,7 @@ module.exports = class extends React.PureComponent {
     return React.cloneElement( Child, propsToPass )
   }
 }
+
+Style_.displayName = 'Style_'
+
+module.exports = Style_

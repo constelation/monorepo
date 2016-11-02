@@ -157,17 +157,7 @@ function getNonStyleProps( props, styleAliases ) {
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  return class extends React.PureComponent {
-    static displayName = displayName
-
-    static propTypes = {
-      refNode: React.PropTypes.func,
-    }
-
-    static defaultProps = {
-      tag: 'div',
-    }
-
+  class DisplayComponent extends React.PureComponent {
     render() {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsToPass = getNonStyleProps( this.props, styleAliases )
@@ -187,4 +177,16 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       return glamorReact.createElement( this.props.tag, propsToPass )
     }
   }
+
+  DisplayComponent.displayName = displayName
+
+  DisplayComponent.propTypes = {
+    refNode: React.PropTypes.func,
+  }
+
+  DisplayComponent.defaultProps = {
+    tag: 'div',
+  }
+
+  return DisplayComponent
 }
