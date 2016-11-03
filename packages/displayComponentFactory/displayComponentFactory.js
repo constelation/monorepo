@@ -76,11 +76,15 @@ var layoutStyles = [
   'outline',
 ]
 
-var layoutProps = layoutStyles.concat([
+var propsToOmit = layoutStyles.concat([
   'marginHorizontal',
   'marginVertical',
   'paddingHorizontal',
   'paddingVertical',
+
+  // don't want to pass style or tag down
+  'style',
+  'tag',
 
   // soon to be moved to aliases
   'overflowScrolling',
@@ -149,10 +153,10 @@ function getStyleFromProps( props, styleAliases ) {
 
 function getNonStyleProps( props, styleAliases ) {
   if (styleAliases) {
-    return _omit( props, layoutProps.concat( _keys( styleAliases ) ) )
+    return _omit( props, propsToOmit.concat( _keys( styleAliases ) ) )
   }
 
-  return _omit( props, layoutProps )
+  return _omit( props, propsToOmit )
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
@@ -171,11 +175,8 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsToPass = getNonStyleProps( this.props, styleAliases )
 
-      var css = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.css, requiredStyle )
+      var css = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
       propsToPass.css = css
-
-      // No need to pass the tag prop down
-      delete propsToPass.tag
 
       // Use refNode pattern to pass back the DOM's node
       if (propsToPass.refNode) {

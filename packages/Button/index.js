@@ -20,8 +20,11 @@ var Button = React.createClass({
   },
 
   render: function() {
-    var css = _assign( {}, componentStyle, this.props.css )
+    var css = _assign( {}, componentStyle, this.props.style )
     var propsToPass = _assign( {}, this.props, {css: css})
+
+    // don't want to pass style on as inline
+    delete propsToPass.style
 
     // Use refNode pattern to pass back the DOM's node
     if (propsToPass.refNode) {

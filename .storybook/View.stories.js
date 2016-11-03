@@ -23,11 +23,11 @@ storiesOf('View', module)
       <View flex={1} style={{backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('with children Views and inline css', () => (
-    <View height='500px' css={style}>
-      <View flex={1} css={{backgroundColor: 'red'}} />
-      <View flex={1} css={{backgroundColor: 'green'}} />
-      <View flex={1} css={{backgroundColor: 'blue'}} />
+  .add('with children Views and style prop', () => (
+    <View height='500px' style={style}>
+      <View flex={1} style={{backgroundColor: 'red'}} />
+      <View flex={1} style={{backgroundColor: 'green'}} />
+      <View flex={1} style={{backgroundColor: 'blue'}} />
     </View>
   ))
   .add('alignVertical center alignHorizontal right', () => (

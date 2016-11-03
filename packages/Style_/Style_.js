@@ -39,9 +39,9 @@ class Style_ extends React.PureComponent {
 
     var Child = React.Children.only(this.props.children)
 
-    // Style_'s render() runs before Child's, so add its css props back in
-    var css = _assign( {}, styleFromProps, this.props.css, Child.props.css )
-    propsToPass.css = css
+    // Style_'s render() runs before Child's, so add its style props back in
+    var style = _assign( {}, styleFromProps, this.props.style, Child.props.style )
+    propsToPass.style = style
 
     // without removing children, this would infinite loop
     delete propsToPass.children

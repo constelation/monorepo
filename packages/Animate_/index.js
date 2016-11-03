@@ -121,7 +121,7 @@ var Animate_ = React.createClass({
       animation += ' ' + animationProps.repeat
     }
 
-    propsToPass.css = {animation: animation}
+    propsToPass.style = {animation: animation}
 
     return React.cloneElement( Child, propsToPass )
   }

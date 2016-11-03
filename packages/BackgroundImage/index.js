@@ -91,8 +91,11 @@ var BackgroundImage = React.createClass({
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
 
-    var css = _assign( {}, styleFromProps, this.props.css )
+    var css = _assign( {}, styleFromProps, this.props.style )
     propsToPass.css = css
+
+    // don't want to pass style on as inline
+    delete propsToPass.style
 
     // No need to pass the tag prop down
     delete propsToPass.tag
