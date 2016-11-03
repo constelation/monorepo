@@ -2,13 +2,19 @@
   "scripts": {
     "storybook": "start-storybook -p 9001",
     "test-storybook": "storyshots",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "clean": "lerna exec -- rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "lerna exec -- babel *.js -d dist --ignore *.native.js && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\;"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.20.1",
     "@kadira/storybook-deployer": "^1.2.0",
     "@kadira/storyshots": "^1.1.3",
+    "babel-cli": "^6.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "glamor": "^2.17.12",
     "lerna": "2.0.0-beta.24",
@@ -16,6 +22,7 @@
     "raf": "^3.3.0",
     "react": "^15.2.1",
     "react-addons-shallow-compare": "^15.3.1",
-    "react-native-web": "0.0.48"
+    "react-native-web": "0.0.48",
+    "rimraf": "^2.5.4"
   }
 }

@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
@@ -34,7 +32,7 @@ function getNonStyleProps( props ) {
   return _omit( props, styles )
 }
 
-class Style_ extends React.PureComponent {
+export default class Style_ extends React.PureComponent {
   render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )
@@ -51,7 +49,3 @@ class Style_ extends React.PureComponent {
     return React.cloneElement( Child, propsToPass )
   }
 }
-
-Style_.displayName = 'Style_'
-
-module.exports = Style_

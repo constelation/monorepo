@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
@@ -40,9 +38,7 @@ function getNonStyleProps( props ) {
   return _omit( props, styles )
 }
 
-module.exports = class extends React.PureComponent {
-  static displayName = 'Style_'
-
+export default class Style_ extends React.PureComponent {
   render() {
     var styleFromProps = getStyleFromProps( this.props )
     var propsToPass = getNonStyleProps( this.props )

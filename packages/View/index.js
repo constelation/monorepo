@@ -1,3 +1,1 @@
-var View = require('./View')
-
-module.exports = View
+export { default } from './View'

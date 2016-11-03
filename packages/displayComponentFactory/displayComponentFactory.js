@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react')
 var glamorReact = require('glamor/react')
 
@@ -156,8 +154,18 @@ function getNonStyleProps( props, styleAliases ) {
   return _omit( props, layoutProps )
 }
 
-module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
-  class DisplayComponent extends React.PureComponent {
+export default function( displayName, requiredStyle, defaultStyle, styleAliases ) {
+  return class extends React.PureComponent {
+    static displayName = displayName
+
+    static propTypes = {
+      refNode: React.PropTypes.func,
+    }
+
+    static defaultProps = {
+      tag: 'div',
+    }
+
     render() {
       var styleFromProps = getStyleFromProps( this.props, styleAliases )
       var propsToPass = getNonStyleProps( this.props, styleAliases )
@@ -177,16 +185,4 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       return glamorReact.createElement( this.props.tag, propsToPass )
     }
   }
-
-  DisplayComponent.displayName = displayName
-
-  DisplayComponent.propTypes = {
-    refNode: React.PropTypes.func,
-  }
-
-  DisplayComponent.defaultProps = {
-    tag: 'div',
-  }
-
-  return DisplayComponent
 }
