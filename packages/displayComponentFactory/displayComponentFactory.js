@@ -51,6 +51,7 @@ var layoutStyles = [
   'paddingLeft',
   'paddingRight',
   'paddingTop',
+  'pointerEvents',
   'position',
   'right',
   'top',
