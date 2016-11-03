@@ -1,6 +1,6 @@
 {
   "name": "constelation-Inline",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "constelation-display-component-factory": "^3.0.0"
+    "constelation-display-component-factory": "^3.0.1"
   }
 }
