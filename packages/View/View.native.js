@@ -22,4 +22,5 @@ var styleAliases = {
   },
 }
 
+// export default displayComponentFactory('View', null, null, styleAliases)
 module.exports = displayComponentFactory('View', null, null, styleAliases)

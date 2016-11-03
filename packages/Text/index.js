@@ -54,7 +54,7 @@ function getNonStyleProps( props ) {
   return _omit( props, textProps )
 }
 
-export default class Text extends React.PureComponent {
+class Text extends React.PureComponent {
   static propTypes = {
     children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
     bold: React.PropTypes.bool,
@@ -92,3 +92,5 @@ export default class Text extends React.PureComponent {
     return glamorReact.createElement( this.props.tag, propsToPass )
   }
 }
+
+module.exports = Text

@@ -31,4 +31,5 @@ var styleAliases = {
   },
 }
 
+// export default displayComponentFactory('View', style, defaultStyle, styleAliases)
 module.exports = displayComponentFactory('View', style, defaultStyle, styleAliases)
