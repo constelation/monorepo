@@ -154,7 +154,7 @@ function getNonStyleProps( props, styleAliases ) {
   return _omit( props, layoutProps )
 }
 
-export default function( displayName, requiredStyle, defaultStyle, styleAliases ) {
+module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
   return class extends React.PureComponent {
     static displayName = displayName
 
