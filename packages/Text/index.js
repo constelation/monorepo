@@ -10,6 +10,8 @@ var textProps = [
   'height',
   'spacing',
   'bold',
+  'underline',
+  'decoration',
   'uppercase',
   'center'
 ]
@@ -20,11 +22,22 @@ function getStyleFromProps( props ) {
     color: props.color,
     fontSize: props.size,
     letterSpacing: props.spacing,
+    textDecoration: props.decoration,
   }
 
   // Bold font-weight
   if (props.bold) {
     style.fontWeight = 'bold'
+  }
+
+  // Underline font-weight
+  if (props.underline) {
+    if (style.textDecoration) {
+      style.textDecoration += ' underline'
+    }
+    else {
+      style.textDecoration = 'underline'
+    }
   }
 
   // Uppercase text-transform
@@ -56,10 +69,12 @@ function getNonStyleProps( props ) {
 
 class Text extends React.PureComponent {
   static propTypes = {
-    children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
+    children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]),
     bold: React.PropTypes.bool,
+    underline: React.PropTypes.bool,
     center: React.PropTypes.bool,
     color: React.PropTypes.string,
+    decoration: React.PropTypes.string,
     fontFamily: React.PropTypes.string,
     height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     refNode: React.PropTypes.func,

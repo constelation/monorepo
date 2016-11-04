@@ -13,6 +13,16 @@ storiesOf('Text', module)
       this is bold text
     </Text>
   ))
+  .add('underline', () => (
+    <Text underline >
+      this is underlined text
+    </Text>
+  ))
+  .add('underline and strikethrough', () => (
+    <Text decoration='line-through' underline >
+      this is text
+    </Text>
+  ))
   .add('uppercase', () => (
     <Text uppercase >
       this is uppercased text
