@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "flowtype": "flow gen-flow-files *.js --out-dir dist"
+    "flowtype": "../../node_modules/.bin/flow gen-flow-files *.js --out-dir dist"
   },
   "keywords": [],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
