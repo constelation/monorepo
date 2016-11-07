@@ -18,7 +18,7 @@ var textProps = [
   'center'
 ]
 
-type? Props = {
+type Props = {
   bold?: bool,
   underline?: bool,
   uppercase?: bool,
@@ -95,7 +95,6 @@ class Text extends React.PureComponent {
   props: Props
 
   static propTypes = {
-    children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]),
     bold: React.PropTypes.bool,
     underline: React.PropTypes.bool,
     center: React.PropTypes.bool,

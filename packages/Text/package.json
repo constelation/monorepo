@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "flowtype": "flow gen-flow-files *.js --out-dir dist"
   },
   "keywords": [],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
@@ -13,5 +14,8 @@
     "glamor": "^2.17.12",
     "lodash": "^4.13.1",
     "react": "^15.2.1"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.34.0"
   }
 }
