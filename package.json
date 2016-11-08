@@ -5,7 +5,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "clean": "lerna exec -- rimraf dist",
     "prebuild": "npm run clean",
-    "build": "lerna exec -- babel *.js -d dist --ignore *.native.js && lerna run flowtype && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\;",
+    "build": "lerna exec -- babel *.js -d dist --ignore *.native.js,*.js.flow && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\; && lerna exec -- find . -maxdepth 1 -name *.js.flow -exec cp {} dist \\;",
     "prepublish": "npm run build",
     "publish": "lerna publish"
   },
