@@ -1,3 +1,5 @@
+// @flow
+
 var React = require('react')
 var glamorReact = require('glamor/react')
 var _omit = require('lodash/omit')
@@ -16,8 +18,30 @@ var textProps = [
   'center'
 ]
 
-function getStyleFromProps( props ) {
-  var style = {
+type Props = {
+  bold?: bool,
+  underline?: bool,
+  uppercase?: bool,
+  center?: bool,
+  color?: string,
+  decoration?: string,
+  fontFamily?: string,
+  height?: string | number,
+  refNode?: () => {},
+  size?: string | number,
+  spacing?: string | number,
+  tag?: string,
+  css?: Object,
+}
+
+function getStyleFromProps( props: Props ) {
+  const style : {
+    fontWeight?: string,
+    textDecoration?: string,
+    textTransform?: string,
+    textAlign?: string,
+    lineHeight?: string,
+  } = {
     fontFamily: props.fontFamily,
     color: props.color,
     fontSize: props.size,
@@ -68,8 +92,9 @@ function getNonStyleProps( props ) {
 }
 
 class Text extends React.PureComponent {
+  props: Props
+
   static propTypes = {
-    children: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]),
     bold: React.PropTypes.bool,
     underline: React.PropTypes.bool,
     center: React.PropTypes.bool,

@@ -1,0 +1,20 @@
+// @flow
+
+declare class Text extends React$PureComponent<> {
+  props: {
+    bold?: boolean,
+    center?: boolean,
+    color?: string,
+    css?: Object,
+    decoration?: string,
+    fontFamily?: string,
+    height?: string | number,
+    refNode?: () => {},
+    size?: string | number,
+    spacing?: string | number,
+    tag?: string,
+    underline?: boolean,
+    uppercase?: boolean
+  };
+  render(): any;
+}
