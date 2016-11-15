@@ -30,6 +30,13 @@ storiesOf('View', module)
       <View flex={1} style={{backgroundColor: 'blue'}} />
     </View>
   ))
+  .add('only using inlineStyle', () => (
+    <View inlineStyle={{height: 500, backgroundColor: 'lightgrey', border: '1px solid black'}}>
+      <View inlineStyle={{flex: 1, backgroundColor: 'red'}} />
+      <View inlineStyle={{flex: 1, backgroundColor: 'green'}} />
+      <View inlineStyle={{flex: 1, backgroundColor: 'blue'}} />
+    </View>
+  ))
   .add('alignVertical center alignHorizontal right', () => (
     <View
       height='500px'

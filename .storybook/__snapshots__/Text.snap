@@ -1,62 +1,40 @@
 exports[`bold`] = `
 <span
-  data-radium={true}
-  style={
-    Object {
-      "color": undefined,
-      "fontFamily": undefined,
-      "fontSize": undefined,
-      "fontWeight": "bold",
-      "letterSpacing": undefined
-    }
-  }>
+  data-css-uvlhiv="*">
   this is bold text
 </span>
 `;
 
 exports[`default`] = `
-<span
-  data-radium={true}
-  style={
-    Object {
-      "color": undefined,
-      "fontFamily": undefined,
-      "fontSize": undefined,
-      "letterSpacing": undefined
-    }
-  }>
+<span>
   this is text
 </span>
 `;
 
 exports[`size, height, spacing, color`] = `
 <span
-  data-radium={true}
-  style={
-    Object {
-      "color": "red",
-      "fontFamily": undefined,
-      "fontSize": 30,
-      "letterSpacing": 2,
-      "lineHeight": "20px"
-    }
-  }>
+  data-css-cw44a4="*">
   this is more interesting text
+</span>
+`;
+
+exports[`underline`] = `
+<span
+  data-css-104b05c="*">
+  this is underlined text
+</span>
+`;
+
+exports[`underline and strikethrough`] = `
+<span
+  data-css-wnwpik="*">
+  this is text
 </span>
 `;
 
 exports[`uppercase`] = `
 <span
-  data-radium={true}
-  style={
-    Object {
-      "color": undefined,
-      "fontFamily": undefined,
-      "fontSize": undefined,
-      "letterSpacing": undefined,
-      "textTransform": "uppercase"
-    }
-  }>
+  data-css-798mwd="*">
   this is uppercased text
 </span>
 `;

@@ -1,242 +1,83 @@
 exports[`alignVertical center alignHorizontal right`] = `
 <div
-  data-radium={true}
+  data-css-16fd8ps="*"
+  style={undefined}>
+  <div
+    data-css-1on9f6q="*"
+    style={undefined} />
+  <div
+    data-css-1s71gus="*"
+    style={undefined} />
+  <div
+    data-css-3yrej3="*"
+    style={undefined} />
+</div>
+`;
+
+exports[`console.logs refNode`] = `
+<div
+  data-css-33m34m="*"
+  style={undefined} />
+`;
+
+exports[`only using inlineStyle`] = `
+<div
+  data-css-33m34m="*"
   style={
     Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "flex-end",
-      "WebkitBoxAlign": "end",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitBoxPack": "center",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "WebkitJustifyContent": "center",
-      "alignContent": "flex-start",
-      "alignItems": "flex-end",
       "backgroundColor": "lightgrey",
       "border": "1px solid black",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "height": "500px",
-      "justifyContent": "center",
-      "msFlexAlign": "end",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "msFlexPack": "center",
-      "position": "relative"
+      "height": 500
     }
   }>
   <div
-    data-radium={true}
+    data-css-33m34m="*"
     style={
       Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
         "backgroundColor": "red",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": 40,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative",
-        "width": 40
+        "flex": 1
       }
     } />
   <div
-    data-radium={true}
+    data-css-33m34m="*"
     style={
       Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
         "backgroundColor": "green",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": 40,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative",
-        "width": 40
+        "flex": 1
       }
     } />
   <div
-    data-radium={true}
+    data-css-33m34m="*"
     style={
       Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
         "backgroundColor": "blue",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": 40,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative",
-        "width": 40
+        "flex": 1
       }
     } />
 </div>
 `;
 
-exports[`can handle transitions with style array, choosing the last in the arrays`] = `
+exports[`with children Views and style prop`] = `
 <div
-  data-radium={true}
-  style={
-    Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "stretch",
-      "WebkitBoxAlign": "stretch",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "WebkitTransition": "-webkit-transform 200ms,transform 200ms, color 200ms",
-      "alignContent": "flex-start",
-      "alignItems": "stretch",
-      "backgroundColor": "red",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "height": 40,
-      "msFlexAlign": "stretch",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "position": "relative",
-      "transition": "-ms-transform 200ms,-webkit-transform 200ms,transform 200ms, color 200ms",
-      "width": 40
-    }
-  } />
-`;
-
-exports[`console.logs refNode`] = `
-<div
-  data-radium={true}
-  style={
-    Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "stretch",
-      "WebkitBoxAlign": "stretch",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "alignContent": "flex-start",
-      "alignItems": "stretch",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "msFlexAlign": "stretch",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "position": "relative"
-    }
-  } />
-`;
-
-exports[`with children divs`] = `
-<div
-  data-radium={true}
-  style={
-    Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "stretch",
-      "WebkitBoxAlign": "stretch",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "alignContent": "flex-start",
-      "alignItems": "stretch",
-      "backgroundColor": "lightgrey",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "height": "500px",
-      "msFlexAlign": "stretch",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "position": "relative"
-    }
-  }>
+  data-css-ab0pxa="*"
+  style={undefined}>
   <div
-    data-radium={true}
+    data-css-1wwt2nx="*"
+    style={undefined} />
+  <div
+    data-css-14nlop9="*"
+    style={undefined} />
+  <div
+    data-css-1bbyl59="*"
+    style={undefined} />
+</div>
+`;
+
+exports[`with children divs and inline style`] = `
+<div
+  data-css-ab0pxa="*"
+  style={undefined}>
+  <div
     style={
       Object {
         "backgroundColor": "red",
@@ -244,7 +85,6 @@ exports[`with children divs`] = `
       }
     } />
   <div
-    data-radium={true}
     style={
       Object {
         "backgroundColor": "green",
@@ -252,7 +92,6 @@ exports[`with children divs`] = `
       }
     } />
   <div
-    data-radium={true}
     style={
       Object {
         "backgroundColor": "blue",
@@ -264,134 +103,16 @@ exports[`with children divs`] = `
 
 exports[`with children flex=1 Views`] = `
 <div
-  data-radium={true}
-  style={
-    Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "stretch",
-      "WebkitBoxAlign": "stretch",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "alignContent": "flex-start",
-      "alignItems": "stretch",
-      "backgroundColor": "lightgrey",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "height": "500px",
-      "msFlexAlign": "stretch",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "position": "relative"
-    }
-  }>
+  data-css-ab0pxa="*"
+  style={undefined}>
   <div
-    data-radium={true}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlex": 1,
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
-        "backgroundColor": "red",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flex": 1,
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "msFlex": 1,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative"
-      }
-    } />
+    data-css-1wwt2nx="*"
+    style={undefined} />
   <div
-    data-radium={true}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlex": 1,
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
-        "backgroundColor": "green",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flex": 1,
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "msFlex": 1,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative"
-      }
-    } />
+    data-css-14nlop9="*"
+    style={undefined} />
   <div
-    data-radium={true}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "stretch",
-        "WebkitBoxAlign": "stretch",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitFlex": 1,
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "alignContent": "flex-start",
-        "alignItems": "stretch",
-        "backgroundColor": "blue",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flex": 1,
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "msFlex": 1,
-        "msFlexAlign": "stretch",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "position": "relative"
-      }
-    } />
+    data-css-1bbyl59="*"
+    style={undefined} />
 </div>
 `;

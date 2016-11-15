@@ -1,85 +1,13 @@
 exports[`Hoverable Style_View`] = `
 <div
-  data-radium={true}
+  data-css-19wtuek="*"
   onMouseEnter={[Function bound handleMouseEnter]}
   onMouseLeave={[Function bound handleMouseLeave]}
-  style={
-    Object {
-      "WebkitAlignContent": "flex-start",
-      "WebkitAlignItems": "stretch",
-      "WebkitBoxAlign": "stretch",
-      "WebkitBoxDirection": "normal",
-      "WebkitBoxOrient": "vertical",
-      "WebkitFlexDirection": "column",
-      "WebkitFlexShrink": 0,
-      "alignContent": "flex-start",
-      "alignItems": "stretch",
-      "backgroundColor": "grey",
-      "display": Array [
-        "-webkit-box",
-        "-moz-box",
-        "-ms-flexbox",
-        "-webkit-flex",
-        "flex"
-      ],
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "msFlexAlign": "stretch",
-      "msFlexDirection": "column",
-      "msFlexLinePack": "start",
-      "msFlexNegative": 0,
-      "position": "relative"
-    }
-  }>
+  style={undefined}>
   <div
-    data-radium={true}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "center",
-        "WebkitBoxAlign": "center",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitBoxPack": "center",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "WebkitJustifyContent": "center",
-        "WebkitTransition": "background-color 1000ms ease",
-        "alignContent": "flex-start",
-        "alignItems": "center",
-        "backgroundColor": "blue",
-        "border": "1px solid black",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": "500px",
-        "justifyContent": "center",
-        "msFlexAlign": "center",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "msFlexPack": "center",
-        "position": "relative",
-        "transition": "background-color 1000ms ease",
-        "width": "200px"
-      }
-    }>
-    <span
-      data-radium={true}
-      style={
-        Object {
-          "color": undefined,
-          "fontFamily": undefined,
-          "fontSize": undefined,
-          "letterSpacing": undefined
-        }
-      }>
+    data-css-1eur0r2="*"
+    style={undefined}>
+    <span>
       Hover me
     </span>
   </div>

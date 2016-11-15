@@ -84,6 +84,7 @@ var propsToOmit = layoutStyles.concat([
 
   // don't want to pass style or tag down
   'style',
+  'inlineStyle',
   'tag',
 
   // soon to be moved to aliases
@@ -177,6 +178,9 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
       var css = _assign( {}, layoutDefaultStyle, defaultStyle, styleFromProps, this.props.style, requiredStyle )
       propsToPass.css = css
+
+      // inlineStyle should pass down as style to apply inline
+      propsToPass.style = this.props.inlineStyle
 
       // Use refNode pattern to pass back the DOM's node
       if (propsToPass.refNode) {

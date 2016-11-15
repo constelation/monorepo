@@ -1,5 +1,4 @@
 import React from 'react'
-import Radium, { StyleRoot } from 'radium'
 import raf from 'raf'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'

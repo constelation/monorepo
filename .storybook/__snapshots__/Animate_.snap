@@ -1,294 +1,42 @@
 exports[`click to change animation Style_View`] = `
 <div
-  data-radium={true}>
-  <div
-    data-radium={true}
-    onClick={[Function anonymous]}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "center",
-        "WebkitAnimation": "x 3000ms",
-        "WebkitAnimationName": "radium-animation-ae8b788",
-        "WebkitBoxAlign": "center",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitBoxPack": "center",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "WebkitJustifyContent": "center",
-        "WebkitTransition": "opacity 10000ms ease",
-        "alignContent": "flex-start",
-        "alignItems": "center",
-        "animation": "x 3000ms",
-        "animationName": "radium-animation-ae8b788",
-        "backgroundColor": "red",
-        "border": "1px solid black",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": "500px",
-        "justifyContent": "center",
-        "msFlexAlign": "center",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "msFlexPack": "center",
-        "position": "relative",
-        "transition": "opacity 10000ms ease",
-        "width": "200px"
-      }
-    }>
-    <span
-      data-radium={true}
-      style={
-        Object {
-          "color": undefined,
-          "fontFamily": undefined,
-          "fontSize": undefined,
-          "letterSpacing": undefined
-        }
-      }>
-      Click me
-    </span>
-  </div>
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "@undefined radium-animation-ae8b788 {
-      from{opacity: 0;
-      background-color: red;}
-      to{opacity: 1;
-      background-color: blue;}
-      }
-      "
-      }
-    } />
+  data-css-r6l6g2="*"
+  onClick={[Function anonymous]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
 </div>
 `;
 
 exports[`click to custom animation Style_View`] = `
 <div
-  data-radium={true}>
-  <div
-    data-radium={true}
-    onClick={[Function anonymous]}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "center",
-        "WebkitAnimation": "x 3000ms",
-        "WebkitAnimationName": "radium-animation-ae8b788",
-        "WebkitBoxAlign": "center",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitBoxPack": "center",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "WebkitJustifyContent": "center",
-        "WebkitTransition": "opacity 10000ms ease",
-        "alignContent": "flex-start",
-        "alignItems": "center",
-        "animation": "x 3000ms",
-        "animationName": "radium-animation-ae8b788",
-        "backgroundColor": "red",
-        "border": "1px solid black",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": "500px",
-        "justifyContent": "center",
-        "msFlexAlign": "center",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "msFlexPack": "center",
-        "position": "relative",
-        "transition": "opacity 10000ms ease",
-        "width": "200px"
-      }
-    }>
-    <span
-      data-radium={true}
-      style={
-        Object {
-          "color": undefined,
-          "fontFamily": undefined,
-          "fontSize": undefined,
-          "letterSpacing": undefined
-        }
-      }>
-      Click me
-    </span>
-  </div>
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "@undefined radium-animation-ae8b788 {
-      from{opacity: 0;
-      background-color: red;}
-      to{opacity: 1;
-      background-color: blue;}
-      }
-      "
-      }
-    } />
+  data-css-r6l6g2="*"
+  onClick={[Function anonymous]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
 </div>
 `;
 
 exports[`click to fadeIn Style_View`] = `
 <div
-  data-radium={true}>
-  <div
-    data-radium={true}
-    onClick={[Function anonymous]}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "center",
-        "WebkitAnimation": "x 3000ms",
-        "WebkitAnimationName": "radium-animation-435b92e5",
-        "WebkitBoxAlign": "center",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitBoxPack": "center",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "WebkitJustifyContent": "center",
-        "WebkitTransition": "opacity 10000ms ease",
-        "alignContent": "flex-start",
-        "alignItems": "center",
-        "animation": "x 3000ms",
-        "animationName": "radium-animation-435b92e5",
-        "backgroundColor": "red",
-        "border": "1px solid black",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": "500px",
-        "justifyContent": "center",
-        "msFlexAlign": "center",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "msFlexPack": "center",
-        "position": "relative",
-        "transition": "opacity 10000ms ease",
-        "width": "200px"
-      }
-    }>
-    <span
-      data-radium={true}
-      style={
-        Object {
-          "color": undefined,
-          "fontFamily": undefined,
-          "fontSize": undefined,
-          "letterSpacing": undefined
-        }
-      }>
-      Click me
-    </span>
-  </div>
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "@undefined radium-animation-435b92e5 {
-      from{opacity: 0;}
-      to{opacity: 1;}
-      }
-      "
-      }
-    } />
+  data-css-1ntw9fj="*"
+  onClick={[Function anonymous]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
 </div>
 `;
 
 exports[`fadeIn Style_View with repeat and delay`] = `
 <div
-  data-radium={true}>
-  <div
-    data-radium={true}
-    style={
-      Object {
-        "WebkitAlignContent": "flex-start",
-        "WebkitAlignItems": "center",
-        "WebkitAnimation": "x 3000ms 2000ms 5",
-        "WebkitAnimationName": "radium-animation-435b92e5",
-        "WebkitBoxAlign": "center",
-        "WebkitBoxDirection": "normal",
-        "WebkitBoxOrient": "vertical",
-        "WebkitBoxPack": "center",
-        "WebkitFlexDirection": "column",
-        "WebkitFlexShrink": 0,
-        "WebkitJustifyContent": "center",
-        "WebkitTransition": "opacity 10000ms ease",
-        "alignContent": "flex-start",
-        "alignItems": "center",
-        "animation": "x 3000ms 2000ms 5",
-        "animationName": "radium-animation-435b92e5",
-        "backgroundColor": "red",
-        "border": "1px solid black",
-        "display": Array [
-          "-webkit-box",
-          "-moz-box",
-          "-ms-flexbox",
-          "-webkit-flex",
-          "flex"
-        ],
-        "flexDirection": "column",
-        "flexShrink": 0,
-        "height": "500px",
-        "justifyContent": "center",
-        "msFlexAlign": "center",
-        "msFlexDirection": "column",
-        "msFlexLinePack": "start",
-        "msFlexNegative": 0,
-        "msFlexPack": "center",
-        "position": "relative",
-        "transition": "opacity 10000ms ease",
-        "width": "200px"
-      }
-    }>
-    <span
-      data-radium={true}
-      style={
-        Object {
-          "color": undefined,
-          "fontFamily": undefined,
-          "fontSize": undefined,
-          "letterSpacing": undefined
-        }
-      }>
-      I fade in
-    </span>
-  </div>
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "@undefined radium-animation-435b92e5 {
-      from{opacity: 0;}
-      to{opacity: 1;}
-      }
-      "
-      }
-    } />
+  data-css-ku8vvm="*"
+  style={undefined}>
+  <span>
+    I fade in
+  </span>
 </div>
 `;
