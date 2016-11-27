@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import Text from '../packages/Text'
+// import Text from '../packages/Text/dist/Text.native.js'
 
 storiesOf('Text', module)
   .add('default', () => (
