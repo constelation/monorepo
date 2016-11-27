@@ -7,7 +7,6 @@ var _omit = require('lodash/omit')
 // from https://facebook.github.io/react-native/docs/layout-props.html
 var layoutStyles = [
   'alignSelf',
-  'alignContent',
   'bottom',
   'flex',
   'flexDirection',      // consider replacing with 'direction'
@@ -28,10 +27,7 @@ var layoutStyles = [
   'maxWidth',
   'minHeight',
   'minWidth',
-  'order',
   'overflow',
-  'overflowX',
-  'overflowY',
   'padding',
   'paddingBottom',
   'paddingLeft',

@@ -1,0 +1,32 @@
+  // @flow
+
+  declare class Style_ extends React$PureComponent<> {
+    props: {
+      backfaceVisibility?: 'visible' | 'hidden',
+      backgroundColor?: string,
+      borderColor?: string,
+      borderTopColor?: string,
+      borderRightColor?: string,
+      borderBottomColor?: string,
+      borderLeftColor?: string,
+      borderRadius?: number,
+      borderTopLeftRadius?: number,
+      borderTopRightRadius?: number,
+      borderBottomLeftRadius?: number,
+      borderBottomRightRadius?: number,
+      borderStyle?: 'solid' | 'dotted' | 'dashed',
+      borderWidth?: number,
+      borderTopWidth?: number,
+      borderRightWidth?: number,
+      borderBottomWidth?: number,
+      borderLeftWidth?: number,
+      opacity?: number,
+      shadowColor?: string,
+      shadowOffset?: {width?: number, height?: number},
+      shadowOpacity?: number,
+      shadowRadius?: number,
+      transform?: Array<Object>,
+      style?: Object,
+    };
+    render(): any;
+  }

@@ -4,9 +4,7 @@ var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
 
 var styles = [
-  'background',
   'backgroundColor',
-  'boxShadow',
   'borderBottomColor',
   'borderBottomLeftRadius',
   'borderBottomRightRadius',
@@ -24,10 +22,11 @@ var styles = [
   'borderTopWidth',
   'borderWidth',
   'opacity',
+  'shadowColor',
+  'shadowOffset',
+  'shadowOpacity',
+  'shadowRadius',
   'transform',
-  'transition',
-  'visibility',
-  'willChange'
 ]
 
 function getStyleFromProps( props ) {
