@@ -23,7 +23,7 @@ class Video extends React.PureComponent {
   }
 
   render() {
-    const { refNode, repeat, ...propsToPass } = this.props
+    const { refNode, repeat, paused, ...propsToPass } = this.props
 
     if (repeat) {
       propsToPass.loop = repeat
