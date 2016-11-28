@@ -4,7 +4,7 @@ function loadStories() {
   require('./Button.stories.js')
   require('./BackgroundImage.stories.js')
   require('./View.stories.js')
-  require('./Perf.stories.js')
+  // require('./Perf.stories.js')
   require('./Style_.stories.js')
   require('./Event_.stories.js')
   require('./Animate_.stories.js')
@@ -12,6 +12,7 @@ function loadStories() {
   require('./Col.stories.js')
   require('./Row.stories.js')
   require('./Text.stories.js')
+  require('./Video.stories.js')
 }
 
 configure(loadStories, module)
