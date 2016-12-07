@@ -39,7 +39,9 @@ storiesOf('Animate_', module)
 
       render() {
         return (
-          <Event_ onClick={this.handleClick}>
+          <Event_
+            onClick={this.handleClick}
+          >
             <Animate_
               type='fadeIn'
               duration='3000ms'
@@ -77,7 +79,9 @@ storiesOf('Animate_', module)
 
       render() {
         return (
-          <Event_ onClick={this.handleClick}>
+          <Event_
+            onClick={this.handleClick}
+          >
             <Animate_
               keyframes={{
                 from: {
@@ -146,7 +150,9 @@ storiesOf('Animate_', module)
 
       render() {
         return (
-          <Event_ onClick={this.handleClick}>
+          <Event_
+            onClick={this.handleClick}
+          >
             <Animate_
               ref={node => this.animated = node}
               keyframes={this.state.keyframes}

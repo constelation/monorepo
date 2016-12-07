@@ -1,0 +1,9 @@
+  // @flow
+
+  declare class _Media_ extends React$Component<> {
+    props: {
+      matches: string,
+      onChange: Function,
+    };
+    render(): any;
+  }
