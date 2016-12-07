@@ -13,6 +13,7 @@ function loadStories() {
   require('./Row.stories.js')
   require('./Text.stories.js')
   require('./Video.stories.js')
+  require('./_Scroll_.stories.js')
 }
 
 configure(loadStories, module)

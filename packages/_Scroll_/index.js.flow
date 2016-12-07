@@ -1,0 +1,12 @@
+  // @flow
+
+  declare class _Scroll_ extends React$Component<> {
+    props: {
+      throttle?: boolean | number | 'raf',
+      passInfo?: boolean,
+      onScroll?: Function,
+      onScrollStart?: Function,
+      onScrollEnd?: Function,
+    };
+    render(): any;
+  }
