@@ -50,7 +50,7 @@ storiesOf('View', module)
     </View>
   ))
   .add('console.logs refNode', () => (
-    <View refNode={node => {console.log(node)}} />
+    <View refNode={action('refNode')} />
   ))
 //
 // be sure to uncomment the require line in View.native.js to get the correct displayComponentFactory
