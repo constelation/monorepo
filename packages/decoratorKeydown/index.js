@@ -1,3 +1,8 @@
+/*
+ * Component uses event.key to match keypresses.
+ * See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+ */
+
 'use strict';
 
 const noop = () => {}
