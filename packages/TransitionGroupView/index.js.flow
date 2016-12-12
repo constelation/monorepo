@@ -1,0 +1,17 @@
+// @flow
+
+declare class TransitionGroupView extends React$PureComponent<> {
+  props: {
+    willAppear?: Object,
+    didAppear?: Object,
+    willEnter?: Object,
+    didEnter?: Object,
+    willLeave?: Object,
+    didLeave?: Object,
+    component?: React$Element<any>,
+    appearTimeout?: number,
+    enterTimeout?: number,
+    leaveTimeout?: number,
+  };
+  render(): any;
+}
