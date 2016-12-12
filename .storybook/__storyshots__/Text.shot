@@ -1,0 +1,40 @@
+exports[`bold`] = `
+<span
+  data-css-uvlhiv="*">
+  this is bold text
+</span>
+`;
+
+exports[`default`] = `
+<span>
+  this is text
+</span>
+`;
+
+exports[`size, height, spacing, color`] = `
+<span
+  data-css-cw44a4="*">
+  this is more interesting text
+</span>
+`;
+
+exports[`underline`] = `
+<span
+  data-css-104b05c="*">
+  this is underlined text
+</span>
+`;
+
+exports[`underline and strikethrough`] = `
+<span
+  data-css-wnwpik="*">
+  this is text
+</span>
+`;
+
+exports[`uppercase`] = `
+<span
+  data-css-798mwd="*">
+  this is uppercased text
+</span>
+`;

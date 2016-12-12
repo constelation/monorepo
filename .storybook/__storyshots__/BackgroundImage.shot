@@ -1,0 +1,27 @@
+exports[`with Col centered child`] = `
+<div
+  data-css-1wqgk2p="*">
+  <div
+    data-css-x57vua="*"
+    style={undefined}>
+    I am child text
+  </div>
+</div>
+`;
+
+exports[`with children`] = `
+<div
+  data-css-1wqgk2p="*">
+  I am child text
+</div>
+`;
+
+exports[`with maxWidth`] = `
+<div
+  data-css-7f1w3q="*" />
+`;
+
+exports[`without children`] = `
+<div
+  data-css-1wqgk2p="*" />
+`;

@@ -1,0 +1,42 @@
+exports[`click to change animation Style_View`] = `
+<div
+  data-css-r6l6g2="*"
+  onClick={[Function]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
+</div>
+`;
+
+exports[`click to custom animation Style_View`] = `
+<div
+  data-css-r6l6g2="*"
+  onClick={[Function]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
+</div>
+`;
+
+exports[`click to fadeIn Style_View`] = `
+<div
+  data-css-1ntw9fj="*"
+  onClick={[Function]}
+  style={undefined}>
+  <span>
+    Click me
+  </span>
+</div>
+`;
+
+exports[`fadeIn Style_View with repeat and delay`] = `
+<div
+  data-css-ku8vvm="*"
+  style={undefined}>
+  <span>
+    I fade in
+  </span>
+</div>
+`;

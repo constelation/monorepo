@@ -1,0 +1,21 @@
+exports[`Style_Views inside a Style_View`] = `
+<div
+  data-css-16fd8ps="*"
+  style={undefined}>
+  <div
+    data-css-1on9f6q="*"
+    style={undefined} />
+  <div
+    data-css-1s71gus="*"
+    style={undefined} />
+  <div
+    data-css-3yrej3="*"
+    style={undefined} />
+</div>
+`;
+
+exports[`nested Style_s combine`] = `
+<div
+  data-css-pqtu3m="*"
+  style={undefined} />
+`;

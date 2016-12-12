@@ -1,0 +1,120 @@
+exports[`align center`] = `
+<div
+  data-css-dsdji4="*"
+  style={undefined}>
+  <div
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+</div>
+`;
+
+exports[`justify and align center`] = `
+<div
+  data-css-1nc584k="*"
+  style={undefined}>
+  <div
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+</div>
+`;
+
+exports[`justify center`] = `
+<div
+  data-css-11s7jcp="*"
+  style={undefined}>
+  <div
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+        "width": 20,
+      }
+    } />
+</div>
+`;
+
+exports[`with children`] = `
+<div
+  data-css-1450ioq="*"
+  style={undefined}>
+  <div
+    style={
+      Object {
+        "backgroundColor": "red",
+        "height": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "green",
+        "height": 20,
+      }
+    } />
+  <div
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "height": 20,
+      }
+    } />
+</div>
+`;

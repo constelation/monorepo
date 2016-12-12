@@ -1,0 +1,47 @@
+exports[`keydown`] = `
+<div
+  style={
+    Object {
+      "height": 2000,
+      "width": 500,
+    }
+  }>
+  Press any key
+</div>
+`;
+
+exports[`keydown escape`] = `
+<div
+  style={
+    Object {
+      "height": 2000,
+      "width": 500,
+    }
+  }>
+  Press Escape key
+</div>
+`;
+
+exports[`resize`] = `
+<div
+  style={
+    Object {
+      "height": 2000,
+      "width": 500,
+    }
+  }>
+  resize me
+</div>
+`;
+
+exports[`scroll`] = `
+<div
+  style={
+    Object {
+      "height": 2000,
+      "width": 500,
+    }
+  }>
+  scroll me
+</div>
+`;
