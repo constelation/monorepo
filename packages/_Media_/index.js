@@ -3,10 +3,7 @@
 var React = require('react')
 
 /*
- * Example:
- *
  * <_Media_ matches='(min-width: 1024px)' onChange={this.handleMatch} />
- *
  */
 class _Media_ extends React.Component {
 

@@ -18,6 +18,6 @@ storiesOf('_Scroll_', module)
   ))
   .add('logs to console scrollEnd with info', () => (
     <div style={{height: '200vh'}}>
-      <_Scroll_ onScrollEnd={action('scrolling-info')} passInfo />
+      <_Scroll_ onEnd={action('scrollEnd-info')} passInfo />
     </div>
   ))

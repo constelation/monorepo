@@ -3,6 +3,9 @@
 var React = require('react')
 var subscribeUIEvent = require('subscribe-ui-event')
 
+/*
+ * <_Scroll_ onScroll={this.handleScroll} throttle={200} />
+ */
 class _Scroll_ extends React.Component {
 
   constructor() {
@@ -18,30 +21,22 @@ class _Scroll_ extends React.Component {
     return false
   }
 
-  componentWillMount() {
-    const {
-      onScroll,
-      onScrollStart,
-      onScrollEnd,
-      throttle,
-      passInfo,
-    } = this.props
-
+  componentDidMount() {
     const options = {
-      throttle,
-      enableScrollInfo: passInfo,
-      useRAF: throttle === 'RAF',
+      throttle: this.props.throttle,
+      enableScrollInfo: this.props.passInfo,
+      useRAF: this.props.throttle === 'RAF',
     }
 
     // Scrolling handled by subscribe-ui-event
-    if (onScroll) {
-      this.scroll = subscribeUIEvent.subscribe('scroll', onScroll, options)
+    if (this.props.onScroll) {
+      this.scroll = subscribeUIEvent.subscribe('scroll', this.handleScroll, options)
     }
-    if (onScrollStart) {
-      this.scrollStart = subscribeUIEvent.subscribe('scrollStart', onScrollStart, options)
+    if (this.props.onStart) {
+      this.scrollStart = subscribeUIEvent.subscribe('scrollStart', this.handleScrollStart, options)
     }
-    if (onScrollEnd) {
-      this.scrollEnd = subscribeUIEvent.subscribe('scrollEnd', onScrollEnd, options)
+    if (this.props.onEnd) {
+      this.scrollEnd = subscribeUIEvent.subscribe('scrollEnd', this.handleScrollEnd, options)
     }
   }
 
@@ -57,6 +52,18 @@ class _Scroll_ extends React.Component {
     if (this.scrollEnd !== null) {
       this.scrollEnd.unsubscribe()
     }
+  }
+
+  handleScroll = (e, { scroll }) => {
+    this.props.onScroll(e, scroll)
+  }
+
+  handleScrollStart = (e, { scroll }) => {
+    this.props.onStart(e, scroll)
+  }
+
+  handleScrollEnd = (e, { scroll }) => {
+    this.props.onEnd(e, scroll)
   }
 
   render() {

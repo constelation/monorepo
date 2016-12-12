@@ -1,10 +1,10 @@
   // @flow
 
-  declare class _Scroll_ extends React$Component<> {
+  declare class _Resize_ extends React$Component<> {
     props: {
       throttle?: boolean | number | 'raf',
       passInfo?: boolean,
-      onScroll?: Function,
+      onResize?: Function,
       onStart?: Function,
       onEnd?: Function,
     };
