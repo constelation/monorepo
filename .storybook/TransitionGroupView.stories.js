@@ -1,8 +1,8 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import TransitionGroupView from '../packages/TransitionGroupView/index.js'
 import View from '../packages/View'
 import Style_ from '../packages/Style_'
+import TransitionGroupView from '../packages/TransitionGroupView/index.js'
 
 const style = {
   backgroundColor: 'lightgrey',
@@ -15,7 +15,7 @@ const appearTransition = {
   },
   appear: {
     opacity: 1,
-    transition: 'opacity 300ms ease',
+    transition: 'opacity 1000ms ease-in',
   },
 }
 
@@ -48,6 +48,13 @@ storiesOf('TransitionGroupView', module)
       <View height='500px' style={style} />
     </TransitionGroupView>
   ))
+  .add('renders without null, undefined, and false children', () => (
+    <TransitionGroupView>
+      {false}
+      {null}
+      {undefined}
+    </TransitionGroupView>
+  ))
   .add('passes props to parent View', () => (
     <Style_ backgroundColor='blue'>
       <TransitionGroupView
@@ -64,7 +71,7 @@ storiesOf('TransitionGroupView', module)
   .add('renders fadeIn appear', () => (
     <TransitionGroupView
       {...appearTransition}
-      appearDuration={300}
+      appearDuration={1000}
     >
       <View height='500px' style={style} />
       <View height='500px' style={style} />

@@ -54,7 +54,7 @@ class TransitionGroupView extends React.PureComponent {
       >
         {
           React.Children.map(this.props.children, (Child) => (
-            React.cloneElement(Child, { ...this.state.transitionStyles })
+            Child && React.cloneElement(Child, { ...this.state.transitionStyles })
           ))
         }
       </CSSTransitionGroup>
