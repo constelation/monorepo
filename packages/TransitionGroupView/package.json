@@ -1,0 +1,24 @@
+{
+  "name": "constelation-TransitionGroupView",
+  "version": "5.1.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "flowtype": "../../node_modules/.bin/flow gen-flow-files *.js --out-dir dist"
+  },
+  "keywords": [],
+  "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
+  "license": "ISC",
+  "peerDependencies": {
+    "glamor": "^2.17.12",
+    "react": "^15.2.1"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.34.0"
+  },
+  "dependencies": {
+    "constelation-View": "^5.1.1",
+    "react-transition-group": "^1.0.0"
+  }
+}

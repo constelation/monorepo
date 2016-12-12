@@ -17,6 +17,7 @@ function loadStories() {
   require('./_Resize_.stories.js')
   require('./_Media_.stories.js')
   require('./decorators.stories.js')
+  require('./TransitionGroupView.stories.js')
 }
 
 configure(loadStories, module)

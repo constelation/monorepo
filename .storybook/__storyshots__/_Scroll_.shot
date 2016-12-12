@@ -1,0 +1,26 @@
+exports[`logs to console`] = `
+<div
+  style={
+    Object {
+      "height": "200vh",
+    }
+  } />
+`;
+
+exports[`logs to console scrollEnd with info`] = `
+<div
+  style={
+    Object {
+      "height": "200vh",
+    }
+  } />
+`;
+
+exports[`logs to console with raf throttle`] = `
+<div
+  style={
+    Object {
+      "height": "200vh",
+    }
+  } />
+`;

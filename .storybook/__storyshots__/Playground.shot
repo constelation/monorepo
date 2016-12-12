@@ -1,0 +1,15 @@
+exports[`Hoverable Style_View`] = `
+<div
+  data-css-19wtuek="*"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={undefined}>
+  <div
+    data-css-1eur0r2="*"
+    style={undefined}>
+    <span>
+      Hover me
+    </span>
+  </div>
+</div>
+`;

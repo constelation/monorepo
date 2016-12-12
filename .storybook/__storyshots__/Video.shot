@@ -1,0 +1,40 @@
+exports[`has controls and muted`] = `
+<video
+  autoPlay={true}
+  controls={true}
+  muted={true}
+  src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" />
+`;
+
+exports[`pauses`] = `
+<video
+  autoPlay={true}
+  controls={true}
+  muted={true}
+  src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" />
+`;
+
+exports[`plays a video`] = `
+<video
+  autoPlay={true}
+  src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" />
+`;
+
+exports[`repeat`] = `
+<video
+  autoPlay={true}
+  controls={true}
+  loop={true}
+  muted={true}
+  src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" />
+`;
+
+exports[`source child`] = `
+<video
+  autoPlay={true}
+  muted={true}>
+  <source
+    src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"
+    type="video/mp4" />
+</video>
+`;
