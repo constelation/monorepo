@@ -12,19 +12,19 @@ class TransitionGroupView extends React.PureComponent {
   state = {
     transitionStyles: style({
       '&.appear': this.props.willAppear,
-      '&.appear-active': this.props.didAppear,
+      '&.appear-active': this.props.appear,
       '&.enter': this.props.willEnter,
-      '&.enter-active': this.props.didEnter,
+      '&.enter-active': this.props.enter,
       '&.leave': this.props.willLeave,
-      '&.leave.leave-active': this.props.didLeave,
+      '&.leave.leave-active': this.props.leave,
     }),
     transitionName: {
       appear: this.props.willAppear && 'appear',
-      enterAppear: this.props.didAppear && 'appear-active',
+      enterAppear: this.props.appear && 'appear-active',
       enter: this.props.willEnter && 'enter',
-      enterActive: this.props.didEnter && 'enter-active',
+      enterActive: this.props.enter && 'enter-active',
       leave: this.props.willLeave && 'leave',
-      leaveActive: this.props.didLeave && 'leave-active',
+      leaveActive: this.props.leave && 'leave-active',
     }
   }
 
@@ -32,25 +32,25 @@ class TransitionGroupView extends React.PureComponent {
     // Do not forward these props
     const props = { ...this.props }
     delete props.willAppear
-    delete props.didAppear
+    delete props.appear
     delete props.willEnter
-    delete props.didEnter
+    delete props.enter
     delete props.willLeave
-    delete props.didLeave
-    delete props.appearTimeout
-    delete props.enterTimeout
-    delete props.leaveTimeout
+    delete props.leave
+    delete props.appearDuration
+    delete props.enterDuration
+    delete props.leaveDuration
 
     return (
       <CSSTransitionGroup
         {...props}
         transitionName={this.state.transitionName}
-        transitionAppear={Boolean(this.props.willAppear || this.props.didAppear)}
-        transitionAppearTimeout={this.props.appearTimeout}
-        transitionEnter={Boolean(this.props.willEnter || this.props.didEnter)}
-        transitionEnterTimeout={this.props.enterTimeout}
-        transitionLeave={Boolean(this.props.willLeave || this.props.didLeave)}
-        transitionLeaveTimeout={this.props.leaveTimeout}
+        transitionAppear={Boolean(this.props.willAppear || this.props.appear)}
+        transitionAppearTimeout={this.props.appearDuration}
+        transitionEnter={Boolean(this.props.willEnter || this.props.enter)}
+        transitionEnterTimeout={this.props.enterDuration}
+        transitionLeave={Boolean(this.props.willLeave || this.props.leave)}
+        transitionLeaveTimeout={this.props.leaveDuration}
       >
         {
           React.Children.map(this.props.children, (Child) => (

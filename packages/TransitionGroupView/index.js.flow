@@ -3,15 +3,15 @@
 declare class TransitionGroupView extends React$PureComponent<> {
   props: {
     willAppear?: Object,
-    didAppear?: Object,
+    appear?: Object,
     willEnter?: Object,
-    didEnter?: Object,
+    enter?: Object,
     willLeave?: Object,
-    didLeave?: Object,
+    leave?: Object,
     component?: React$Element<any>,
-    appearTimeout?: number,
-    enterTimeout?: number,
-    leaveTimeout?: number,
+    appearDuration?: number,
+    enterDuration?: number,
+    leaveDuration?: number,
   };
   render(): any;
 }

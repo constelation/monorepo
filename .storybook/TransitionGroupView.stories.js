@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import TransitionGroupView from '../packages/TransitionGroupView/index.js'
 import View from '../packages/View'
+import Style_ from '../packages/Style_'
 
 const style = {
   backgroundColor: 'lightgrey',
@@ -12,7 +13,7 @@ const appearTransition = {
   willAppear: {
     opacity: 0,
   },
-  didAppear: {
+  appear: {
     opacity: 1,
     transition: 'opacity 300ms ease',
   },
@@ -23,7 +24,7 @@ const enterLeaveTransition = {
     opacity: 0,
     // position: 'absolute',
   },
-  didEnter: {
+  enter: {
     opacity: 1,
     // position: 'absolute',
     backgroundColor: 'green',
@@ -32,7 +33,7 @@ const enterLeaveTransition = {
   willLeave: {
     opacity: 1,
   },
-  didLeave: {
+  leave: {
     opacity: 0,
     backgroundColor: 'red',
     transition: 'opacity 300ms ease',
@@ -47,10 +48,23 @@ storiesOf('TransitionGroupView', module)
       <View height='500px' style={style} />
     </TransitionGroupView>
   ))
+  .add('passes props to parent View', () => (
+    <Style_ backgroundColor='blue'>
+      <TransitionGroupView
+        flex={1}
+        padding={20}
+        width={300}
+      >
+        <View height='500px' style={style} />
+        <View height='500px' style={style} />
+        <View height='500px' style={style} />
+      </TransitionGroupView>
+    </Style_>
+  ))
   .add('renders fadeIn appear', () => (
     <TransitionGroupView
       {...appearTransition}
-      appearTimeout={300}
+      appearDuration={300}
     >
       <View height='500px' style={style} />
       <View height='500px' style={style} />
@@ -81,9 +95,45 @@ storiesOf('TransitionGroupView', module)
         return (
           <TransitionGroupView
             {...enterLeaveTransition}
-            enterTimeout={300}
-            leaveTimeout={300}
-            flex={1}
+            enterDuration={300}
+            leaveDuration={300}
+          >
+            {this.state.children}
+          </TransitionGroupView>
+        )
+      }
+    }
+
+    return (
+      <DynamicChildren />
+    )
+  })
+  .add('2000ms enterDuration', () => {
+    class DynamicChildren extends React.Component {
+      state = {
+        children: [
+          <View key={1} height='200px' style={style} />,
+          <View key={2} height='200px' style={style} />,
+          <View key={3} height='200px' style={style} />,
+        ]
+      }
+
+      componentDidMount() {
+        setTimeout(() => {
+          this.setState({children: [
+            <View key={4} height='200px' style={style} />,
+            <View key={5} height='200px' style={style} />,
+            <View key={6} height='200px' style={style} />,
+          ]})
+        }, 600)
+      }
+
+      render() {
+        return (
+          <TransitionGroupView
+            {...enterLeaveTransition}
+            enterDuration={2000}
+            leaveDuration={300}
           >
             {this.state.children}
           </TransitionGroupView>
