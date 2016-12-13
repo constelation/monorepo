@@ -1,6 +1,7 @@
 import React from 'react'
 import { style } from 'glamor'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import CSSTransitionGroup from 'react-addons-css-transition-group'
 import View from 'constelation-View'
 
 class TransitionGroupView extends React.PureComponent {
@@ -12,9 +13,9 @@ class TransitionGroupView extends React.PureComponent {
   state = {
     transitionStyles: style({
       '&.appear': this.props.willAppear,
-      '&.appear-active': this.props.appear,
+      '&.appear.appear-active': this.props.appear,
       '&.enter': this.props.willEnter,
-      '&.enter-active': this.props.enter,
+      '&.enter.enter-active': this.props.enter,
       '&.leave': this.props.willLeave,
       '&.leave.leave-active': this.props.leave,
     }),

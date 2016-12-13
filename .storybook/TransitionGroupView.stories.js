@@ -28,7 +28,7 @@ const enterLeaveTransition = {
     opacity: 1,
     // position: 'absolute',
     backgroundColor: 'green',
-    transition: 'opacity 300ms ease',
+    transition: 'opacity 800ms ease',
   },
   willLeave: {
     opacity: 1,
@@ -36,7 +36,7 @@ const enterLeaveTransition = {
   leave: {
     opacity: 0,
     backgroundColor: 'red',
-    transition: 'opacity 300ms ease',
+    transition: 'opacity 800ms ease',
   },
 }
 
@@ -102,8 +102,8 @@ storiesOf('TransitionGroupView', module)
         return (
           <TransitionGroupView
             {...enterLeaveTransition}
-            enterDuration={300}
-            leaveDuration={300}
+            enterDuration={800}
+            leaveDuration={800}
           >
             {this.state.children}
           </TransitionGroupView>
@@ -140,7 +140,7 @@ storiesOf('TransitionGroupView', module)
           <TransitionGroupView
             {...enterLeaveTransition}
             enterDuration={2000}
-            leaveDuration={300}
+            leaveDuration={800}
           >
             {this.state.children}
           </TransitionGroupView>
