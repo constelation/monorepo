@@ -1,5 +1,33 @@
   // @flow
 
   declare class Event_ extends React$PureComponent<> {
+    props: {
+      action?: Function,
+      onClick?: Function,
+      onHover?: Function,
+      onDoubleTap?: Function,
+      onPan?: Function,
+      onPanCancel?: Function,
+      onPanEnd?: Function,
+      onPanStart?: Function,
+      onPinch?: Function,
+      onPinchCancel?: Function,
+      onPinchEnd?: Function,
+      onPinchIn?: Function,
+      onPinchOut?: Function,
+      onPinchStart?: Function,
+      onPress?: Function,
+      onPressUp?: Function,
+      onRotate?: Function,
+      onRotateCancel?: Function,
+      onRotateEnd?: Function,
+      onRotateMove?: Function,
+      onRotateStart?: Function,
+      onSwipe?: Function,
+      onTap?: Function,
+      direction?: string,
+      options?: Object,
+      recognizeWith?: Object,
+    };
     render(): any;
   }

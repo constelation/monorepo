@@ -9,8 +9,10 @@
   "keywords": [],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  },
   "peerDependencies": {
-    "lodash": "^4.13.1",
     "react": "^15.2.1"
   }
 }

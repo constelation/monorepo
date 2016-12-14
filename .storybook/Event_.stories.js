@@ -3,7 +3,7 @@ import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
 import Text from '../packages/Text'
 import Style_ from '../packages/Style_'
-import Event_ from '../packages/Event_'
+import Event_ from '../packages/Event_/index.js'
 
 class Hoverable extends React.Component {
 
@@ -37,6 +37,80 @@ class Hoverable extends React.Component {
 }
 
 storiesOf('Event_', module)
+.add('Rotate onTap Event_View', () => {
+  class EventView extends React.Component {
+    state = {
+      isRotated: false,
+    }
+
+    handleClick = () => {
+      this.setState({isRotated: !this.state.isRotated})
+    }
+
+    render() {
+      return (
+        <Event_
+          onTap={this.handleClick}
+        >
+          <Style_
+            transform={`rotate(${this.state.isRotated ? '90deg' : '0deg'})`}
+            transition='transform 1000ms ease'
+          >
+            <View
+              tag='button'
+              height='200px'
+              width='200px'
+              alignHorizontal='center'
+              alignVertical='center'
+            >
+              <Text>Click me</Text>
+            </View>
+          </Style_>
+        </Event_>
+      )
+    }
+  }
+
+  return (
+    <EventView />
+)})
+.add('Rotate onPress Event_View', () => {
+  class EventView extends React.Component {
+    state = {
+      isRotated: false,
+    }
+
+    handleClick = () => {
+      this.setState({isRotated: !this.state.isRotated})
+    }
+
+    render() {
+      return (
+        <Event_
+          onPress={this.handleClick}
+        >
+          <Style_
+            transform={`rotate(${this.state.isRotated ? '90deg' : '0deg'})`}
+            transition='transform 1000ms ease'
+          >
+            <View
+              tag='button'
+              height='200px'
+              width='200px'
+              alignHorizontal='center'
+              alignVertical='center'
+            >
+              <Text>Click me</Text>
+            </View>
+          </Style_>
+        </Event_>
+      )
+    }
+  }
+
+  return (
+    <EventView />
+)})
   .add('Rotate onClick Event_View', () => {
     class EventView extends React.Component {
       state = {
@@ -49,7 +123,9 @@ storiesOf('Event_', module)
 
       render() {
         return (
-          <Event_ onClick={this.handleClick}>
+          <Event_
+            onClick={this.handleClick}
+          >
             <Style_
               transform={`rotate(${this.state.isRotated ? '90deg' : '0deg'})`}
               transition='transform 1000ms ease'
@@ -88,7 +164,9 @@ storiesOf('Event_', module)
 
       render() {
         return (
-          <Event_ onHover={this.handleHover}>
+          <Event_
+            onHover={this.handleHover}
+          >
             <Style_
               backgroundColor={this.state.backgroundColor}
               border='1px solid black'
@@ -133,4 +211,43 @@ storiesOf('Event_', module)
         )}
       </Hoverable>
     </Style_>
+  ))
+  .add('onClick and onTap', () => (
+    <Event_
+      onClick={action('Click')}
+      onTap={action('Tap')}
+    >
+      <Style_
+        backgroundColor='lightgrey'
+        border='1px solid black'
+      >
+        <View
+          height={200}
+          width={200}
+          alignHorizontal='center'
+          alignVertical='center'
+        >
+          <Text>Click me</Text>
+        </View>
+      </Style_>
+    </Event_>
+  ))
+  .add('action', () => (
+    <Event_
+      action={action('action')}
+    >
+      <Style_
+        backgroundColor='lightgrey'
+        border='1px solid black'
+      >
+        <View
+          height={200}
+          width={200}
+          alignHorizontal='center'
+          alignVertical='center'
+        >
+          <Text>Click me</Text>
+        </View>
+      </Style_>
+    </Event_>
   ))

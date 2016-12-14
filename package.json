@@ -3,6 +3,7 @@
     "storybook": "start-storybook -p 9001",
     "test-storybook": "storyshots",
     "deploy-storybook": "storybook-to-ghpages",
+    "build-storybook": "build-storybook -o .out",
     "clean": "lerna exec -- rimraf dist",
     "prebuild": "npm run clean",
     "build": "lerna exec -- babel *.js -d dist --ignore *.native.js,*.js.flow && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\; && lerna exec -- find . -maxdepth 1 -name *.js.flow -exec cp {} dist \\;",
@@ -10,7 +11,7 @@
     "publish": "lerna publish"
   },
   "devDependencies": {
-    "@kadira/storybook": "^2.20.1",
+    "@kadira/storybook": "^2.34.0",
     "@kadira/storybook-deployer": "^1.2.0",
     "@kadira/storyshots": "^2.1.0",
     "babel-cli": "^6.18.0",
