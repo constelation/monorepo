@@ -64,13 +64,12 @@ function updateHammer (hammer, props) {
   //   console.warn('vertical is deprecated, please use `direction` instead')
   // }
 
-  var directionProp = props.direction
   // if (directionProp || props.hasOwnProperty('vertical')) {
   //   direction = directionProp ? directionProp : (props.vertical ? 'DIRECTION_ALL' : 'DIRECTION_HORIZONTAL')
-  if (directionProp) {
-    direction = directionProp ? directionProp : 'DIRECTION_HORIZONTAL'
-    hammer.get('pan').set({ direction: Hammer[direction] })
-    hammer.get('swipe').set({ direction: Hammer[direction] })
+  if (props.direction) {
+    const direction = Hammer[props.direction]
+    hammer.get('pan').set({ direction })
+    hammer.get('swipe').set({ direction })
   }
 
   if (props.options) {

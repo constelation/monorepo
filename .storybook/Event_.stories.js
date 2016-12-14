@@ -251,3 +251,23 @@ storiesOf('Event_', module)
       </Style_>
     </Event_>
   ))
+  .add('swipe vertical and horizontal', () => (
+    <Event_
+      onSwipe={action('swipe-all')}
+      direction='DIRECTION_ALL'
+    >
+      <Style_
+        backgroundColor='lightgrey'
+        border='1px solid black'
+      >
+        <View
+          height={200}
+          width={200}
+          alignHorizontal='center'
+          alignVertical='center'
+        >
+          <Text>Click me</Text>
+        </View>
+      </Style_>
+    </Event_>
+  ))
