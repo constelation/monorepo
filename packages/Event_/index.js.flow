@@ -25,7 +25,7 @@
       onRotateStart?: Function,
       onSwipe?: Function,
       onTap?: Function,
-      direction?: string,
+      direction?: 'DIRECTION_ALL' | 'DIRECTION_VERTICAL' | 'DIRECTION_HORIZONTAL' | 'DIRECTION_DOWN' | 'DIRECTION_UP' | 'DIRECTION_RIGHT' | 'DIRECTION_LEFT' | 'DIRECTION_NONE',
       options?: Object,
       recognizeWith?: Object,
     };
