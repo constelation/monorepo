@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-Row" {
   declare class Row extends React$PureComponent<> {
     props: {
       align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
@@ -49,3 +48,5 @@
     };
     render(): any;
   }
+  declare var exports: typeof Row;
+}

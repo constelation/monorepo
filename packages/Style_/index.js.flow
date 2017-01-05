@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-Style_" {
   declare class Style_ extends React$PureComponent<> {
     props: {
       background?: string,
@@ -24,3 +23,5 @@
     };
     render(): any;
   }
+declare var exports: typeof Style_;
+}

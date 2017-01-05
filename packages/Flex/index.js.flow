@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-Flex" {
   declare class Flex extends React$PureComponent<> {
     props: {
       align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
@@ -50,3 +49,5 @@
     };
     render(): any;
   }
+  declare var exports: typeof Flex;
+}

@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-View" {
   declare class View extends React$PureComponent<> {
     props: {
       alignVertical?: 'top' | 'center' | 'bottom',
@@ -43,3 +42,5 @@
     };
     render(): any;
   }
+  declare var exports: typeof View;
+}

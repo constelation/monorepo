@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-Style_" {
   declare class Style_ extends React$PureComponent<> {
     props: {
       backfaceVisibility?: 'visible' | 'hidden',
@@ -30,3 +29,5 @@
     };
     render(): any;
   }
+  declare var exports: typeof Style_;
+}

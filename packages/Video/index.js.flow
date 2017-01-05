@@ -1,18 +1,19 @@
-// @flow
-
-declare class Video extends React$PureComponent<> {
-  props: {
-    src?: string,
-    controls?: boolean,
-    height?: string | number,
-    repeat?: boolean,
-    muted?: boolean,
-    playsInline?: boolean,
-    paused?: boolean,
-    poster?: string,
-    refNode?: () => {},
-    style?: Object,
-    width?: string | number,
-  };
-  render(): any;
+declare module "constelation-Video" {
+  declare class Video extends React$PureComponent<> {
+    props: {
+      src?: string,
+      controls?: boolean,
+      height?: string | number,
+      repeat?: boolean,
+      muted?: boolean,
+      playsInline?: boolean,
+      paused?: boolean,
+      poster?: string,
+      refNode?: () => {},
+      style?: Object,
+      width?: string | number,
+    };
+    render(): any;
+  }
+  declare var exports: typeof Video;
 }

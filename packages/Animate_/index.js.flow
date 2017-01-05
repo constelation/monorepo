@@ -1,5 +1,4 @@
-  // @flow
-
+declare module "constelation-Animate_" {
   declare class Animate_ extends React$PureComponent<> {
     props: {
       keyframes?: Object,
@@ -13,3 +12,5 @@
     trigger(): void;
     render(): any;
   }
+  declare var exports: typeof Animate_;
+}

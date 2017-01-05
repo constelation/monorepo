@@ -1,18 +1,19 @@
-// @flow
-
-declare class Text extends React$PureComponent<> {
-  props: {
-    bold?: boolean,
-    center?: boolean,
-    color?: string,
-    fontFamily?: string,
-    height?: number,
-    refNode?: () => {},
-    size?: number,
-    spacing?: number,
-    underline?: boolean,
-    uppercase?: boolean,
-    style?: Object | Array<Object>,
-  };
-  render(): any;
+declare module "constelation-Text" {
+  declare class Text extends React$PureComponent<> {
+    props: {
+      bold?: boolean,
+      center?: boolean,
+      color?: string,
+      fontFamily?: string,
+      height?: number,
+      refNode?: () => {},
+      size?: number,
+      spacing?: number,
+      underline?: boolean,
+      uppercase?: boolean,
+      style?: Object | Array<Object>,
+    };
+    render(): any;
+  }
+  declare var exports: typeof Text;
 }
