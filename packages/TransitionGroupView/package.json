@@ -1,6 +1,6 @@
 {
   "name": "constelation-transition-group-view",
-  "version": "5.2.7",
+  "version": "6.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "flow-bin": "^0.34.0"
   },
   "dependencies": {
-    "constelation-View": "^5.1.1",
+    "constelation-View": "^6.0.0",
     "react-addons-css-transition-group": "^15.2.1"
   }
 }

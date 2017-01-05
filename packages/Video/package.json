@@ -1,6 +1,6 @@
 {
   "name": "constelation-Video",
-  "version": "5.2.2",
+  "version": "6.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
