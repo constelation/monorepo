@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
+import Event_ from '../packages/Event_'
 // import ViewNative from '../packages/View/View.native.js'
 
 const style = {
@@ -49,6 +50,49 @@ storiesOf('View', module)
       <View height={40} width={40} backgroundColor='blue' />
     </View>
   ))
+  .add('center shorthand', () => (
+    <View
+      center
+      height='500px'
+      style={style}
+    >
+      <View height={40} width={40} style={{backgroundColor:'red'}} />
+      <View height={40} width={40} style={{backgroundColor:'green'}} />
+      <View height={40} width={40} style={{backgroundColor:'blue'}} />
+    </View>
+  ))
+  .add('inline green and blue', () => (
+    <div>
+      <View height={40} width={40} style={{backgroundColor:'red'}} />
+      <View inline height={40} width={40} style={{backgroundColor:'green'}} />
+      <View inline height={40} width={40} style={{backgroundColor:'blue'}} />
+    </div>
+  ))
+  .add('fit shorthand', () => (
+    <div style={{height: 500, width: 500, border: '5px solid lightgrey'}}>
+      <View fit style={{backgroundColor:'blue'}} />
+    </div>
+  ))
+  .add('click to set `hidden`', () => {
+    class HideAfterTime extends React.Component {
+      state = {
+        isHidden: false,
+      }
+
+      render() {
+        return (
+          <Event_ onClick={() => this.setState( {isHidden: true} )} >
+            <View hidden={this.state.isHidden} height={40} width={40} style={{backgroundColor:'green'}} />
+          </Event_>
+        )
+      }
+    }
+
+    return (
+      <HideAfterTime />
+    )
+  }
+  )
   .add('console.logs refNode', () => (
     <View refNode={action('refNode')} />
   ))

@@ -1,17 +1,11 @@
 
 'use strict';
 
-var displayComponentFactory = require('constelation-display-component-factory')
+var flexComponentFactory = require('constelation-flex-component-factory')
 
-var style = {
-  display: 'flex',
+var requiedStyle = {
   flexDirection: 'row',
 }
 
-// var styleAliases = {
-//   alignHorizontal: 'justifyContent',
-//   alignVertical: 'alignItems',
-// }
-
-// module.exports = displayComponentFactory('Row', style, styleAliases)
-module.exports = displayComponentFactory('Row', style)
+// module.exports = flexComponentFactory('Row', requiedStyle, styleAliases)
+module.exports = flexComponentFactory('Row', requiedStyle)

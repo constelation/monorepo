@@ -1,5 +1,5 @@
 'use strict';
 
-var displayComponentFactory = require('constelation-display-component-factory')
+var flexComponentFactory = require('constelation-flex-component-factory')
 
-module.exports = displayComponentFactory('Flex', {display: 'flex'})
+module.exports = flexComponentFactory('Flex')

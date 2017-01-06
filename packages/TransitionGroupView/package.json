@@ -12,7 +12,8 @@
   "license": "ISC",
   "peerDependencies": {
     "glamor": "^2.17.12",
-    "react": "^15.2.1"
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
   },
   "devDependencies": {
     "flow-bin": "^0.34.0"

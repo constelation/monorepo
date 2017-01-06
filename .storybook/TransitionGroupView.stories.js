@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
 import Style_ from '../packages/Style_'
-import TransitionGroupView from '../packages/TransitionGroupView/index.js'
+import TransitionGroupView from '../packages/TransitionGroupView'
 
 const style = {
   backgroundColor: 'lightgrey',
