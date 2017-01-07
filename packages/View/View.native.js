@@ -1,7 +1,7 @@
 'use strict';
 
-var displayComponentFactory = require('constelation-display-component-factory')
-// var displayComponentFactory = require('../displayComponentFactory/displayComponentFactory.native.js')
+var flexComponentFactory = require('constelation-flex-component-factory')
+// var flexComponentFactory = require('../flexComponentFactory/flexComponentFactory.native.js')
 
 var styleAliases = {
   alignHorizontal: {
@@ -22,5 +22,5 @@ var styleAliases = {
   },
 }
 
-// export default displayComponentFactory('View', null, null, styleAliases)
-module.exports = displayComponentFactory('View', null, null, styleAliases)
+// export default flexComponentFactory('View', null, null, styleAliases)
+module.exports = flexComponentFactory('View', null, null, styleAliases)

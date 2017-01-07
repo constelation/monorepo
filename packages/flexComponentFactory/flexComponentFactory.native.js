@@ -5,7 +5,8 @@ var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
-var layoutStyles = [
+var propsToOmit = [
+  'align',
   'alignSelf',
   'bottom',
   'flex',
@@ -15,6 +16,7 @@ var layoutStyles = [
   'flexShrink',         // consider replacing with 'shrink'
   'flexBasis',          // consider replacing with 'basis'
   'height',
+  'justify',
   'left',
   'margin',
   'marginBottom',
@@ -40,22 +42,50 @@ var layoutStyles = [
   'top',
   'width',
   'zIndex',
+
+  'animated',
+  'center',
+  'refNode',
 ]
 
-var layoutProps = layoutStyles.concat([
-  'align',
-  'justify',
-])
-
 function getStyleFromProps( props, styleAliases ) {
-  var styleFromProps = _pick( props, layoutStyles )
-
-  // align and justify
-  if (props.align) {
-    styleFromProps.alignItems = props.align
-  }
-  if (props.justify) {
-    styleFromProps.justifyContent = props.justify
+  var styleFromProps = {
+    alignSelf: props.alignSelf,
+    alignItems: props.center ? 'center' : props.align,
+    bottom: props.bottom,
+    flex: props.flex,
+    flexDirection: props.flexDirection,      // consider replacing with 'direction'
+    flexWrap: props.flexWrap,                // consider replacing with 'wrap'
+    flexGrow: props.flexGrow,                // consider replacing with 'grow'
+    flexShrink: props.flexShrink,            // consider replacing with 'shrink'
+    flexBasis: props.flexBasis,              // consider replacing with 'basis'
+    height: props.height,
+    justifyContent: props.center ? 'center' : props.justify,
+    left: props.left,
+    margin: props.margin,
+    marginBottom: props.marginBottom,
+    marginLeft: props.marginLeft,
+    marginRight: props.marginRight,
+    marginTop: props.marginTop,
+    marginHorizontal: props.marginHorizontal,
+    marginVertical: props.marginVertical,
+    maxHeight: props.maxHeight,
+    maxWidth: props.maxWidth,
+    minHeight: props.minHeight,
+    minWidth: props.minWidth,
+    overflow: props.overflow,
+    padding: props.padding,
+    paddingBottom: props.paddingBottom,
+    paddingLeft: props.paddingLeft,
+    paddingRight: props.paddingRight,
+    paddingTop: props.paddingTop,
+    paddingHorizontal: props.paddingHorizontal,
+    paddingVertical: props.paddingVertical,
+    position: props.position,
+    right: props.right,
+    top: props.top,
+    width: props.width,
+    zIndex: props.zIndex,
   }
 
   // map styleAliases if there are any
@@ -77,10 +107,10 @@ function getStyleFromProps( props, styleAliases ) {
 
 function getNonStyleProps( props, styleAliases ) {
   if (styleAliases) {
-    return _omit( props, layoutProps.concat( Object.keys( styleAliases ) ) )
+    return _omit( props, propsToOmit.concat( Object.keys( styleAliases ) ) )
   }
 
-  return _omit( props, layoutProps )
+  return _omit( props, propsToOmit )
 }
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
@@ -94,9 +124,8 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       var style = {...defaultStyle, ...styleFromProps, ...this.props.style, ...requiredStyle }
 
       // Use refNode pattern to pass back the DOM's node
-      if (propsWithoutStyle.refNode) {
-        propsWithoutStyle.ref = propsWithoutStyle.refNode
-        delete propsWithoutStyle.refNode
+      if (this.props.refNode) {
+        propsWithoutStyle.ref = this.props.refNode
       }
 
       return this.props.animated
