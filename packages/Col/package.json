@@ -1,6 +1,6 @@
 {
   "name": "constelation-Col",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "dependencies": {
-    "constelation-flex-component-factory": "^6.1.0"
+    "constelation-flex-component-factory": "^6.2.0"
   }
 }
