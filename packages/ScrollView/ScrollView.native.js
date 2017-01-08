@@ -2,7 +2,7 @@ var React = require('react')
 var ReactNative = require('react-native')
 var _omit = require('lodash/omit')
 
-var AnimatedScrollView = Animated.createAnimatedComponent(ReactNative.ScrollView);
+var AnimatedScrollView = ReactNative.Animated.createAnimatedComponent(ReactNative.ScrollView);
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
 var propsToOmit = [
