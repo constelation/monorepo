@@ -20,6 +20,13 @@ var propsToOmit = [
   'flexGrow',           // consider replacing with 'grow'
   'flexShrink',         // consider replacing with 'shrink'
   'flexBasis',          // consider replacing with 'basis'
+
+  'direction',
+  'wrap',
+  'grow',
+  'shrink',
+  'basis',
+
   'height',
   'left',
   'margin',
@@ -70,16 +77,16 @@ function getStyleFromProps( props, styleAliases ) {
   // some defaults from https://github.com/facebook/css-layout#default-values
   var styleFromProps = {
     alignSelf: props.alignSelf,
-    alignItems: props.center ? 'center' : (props.align || 'stretch'),
-    alignContent: props.alignContent || 'flex-start',
+    alignItems: props.center ? 'center' : props.align,
+    alignContent: props.alignContent,
     bottom: props.bottom,
     display: props.hidden ? 'none' : (props.inline ? 'inline-flex' : 'flex'),
     flex: props.flex,
-    flexDirection: props.flexDirection,      // consider replacing with 'direction'
-    flexWrap: props.flexWrap,                // consider replacing with 'wrap'
-    flexGrow: props.flexGrow,                // consider replacing with 'grow'
-    flexShrink: props.flexShrink || 0,       // consider replacing with 'shrink'
-    flexBasis: props.flexBasis,              // consider replacing with 'basis'
+    flexDirection: props.direction || props.flexDirection,      // consider replacing with 'direction'
+    flexWrap: props.wrap || props.flexWrap,                // consider replacing with 'wrap'
+    flexGrow: props.grow === true ? 1 : props.grow || props.flexGrow,                // consider replacing with 'grow'
+    flexShrink: props.shrink || props.flexShrink,       // consider replacing with 'shrink'
+    flexBasis: props.basis || props.flexBasis,              // consider replacing with 'basis'
     height: props.fit ? '100%' : props.height,
     justifyContent: props.center ? 'center' : props.justify,
     left: props.left,
@@ -102,7 +109,7 @@ function getStyleFromProps( props, styleAliases ) {
     paddingRight: props.paddingRight || props.paddingHorizontal,
     paddingTop: props.paddingTop || props.paddingVertical,
     pointerEvents: props.pointerEvents,
-    position: props.position || 'relative',
+    position: props.position,
     right: props.right,
     top: props.top,
     width: props.fit ? '100%' : props.width,
@@ -141,6 +148,10 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
 
     static defaultProps = {
       tag: 'div',
+      flexShrink: 0,
+      position: 'relative',
+      alignContent: 'flex-start',
+      align: 'stretch',
     }
 
     render() {

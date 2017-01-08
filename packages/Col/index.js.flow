@@ -13,6 +13,12 @@ declare module "constelation-Col" {
       flexGrow?: number,
       flexShrink?: number,
       flexBasis?: string | number,
+
+      wrap?: string,
+      grow?: number | boolean,
+      shrink?: number,
+      basis?: string | number,
+
       height?: number | string,
       hidden?: boolean,
       inline?: boolean,

@@ -12,6 +12,12 @@ declare module "constelation-View" {
       flexGrow?: number,
       flexShrink?: number,
       flexBasis?: number,
+
+      wrap?: 'wrap' | 'nowrap',
+      grow?: number | boolean,
+      shrink?: number,
+      basis?: number,
+
       height?: number,
       left?: number,
       margin?: number,

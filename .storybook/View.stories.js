@@ -17,14 +17,14 @@ storiesOf('View', module)
       <div style={{height: 20, backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('with children flex=1 Views', () => (
+  .add('with children `grow` Views', () => (
     <View height='500px' style={style}>
-      <View flex={1} style={{backgroundColor: 'red'}} />
-      <View flex={1} style={{backgroundColor: 'green'}} />
-      <View flex={1} style={{backgroundColor: 'blue'}} />
+      <View grow style={{backgroundColor: 'red'}} />
+      <View grow style={{backgroundColor: 'green'}} />
+      <View grow style={{backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('with children Views and style prop', () => (
+  .add('with children flex=1 Views and style prop', () => (
     <View height='500px' style={style}>
       <View flex={1} style={{backgroundColor: 'red'}} />
       <View flex={1} style={{backgroundColor: 'green'}} />

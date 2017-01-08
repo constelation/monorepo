@@ -13,6 +13,13 @@ declare module "constelation-Flex" {
       flexGrow?: number,
       flexShrink?: number,
       flexBasis?: number,
+
+      direction?: 'column' | 'column-reverse' | 'row' | 'row-reverse',
+      wrap?: 'wrap' | 'nowrap',
+      grow?: number | boolean,
+      shrink?: number,
+      basis?: number,
+
       height?: number,
       left?: number,
       margin?: number,

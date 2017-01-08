@@ -1,5 +1,7 @@
-declare module "constelation-Col" {
-  declare class Col extends React$PureComponent<> {
+// IOS and Android-specific still not added
+
+declare module "constelation-scroll-view" {
+  declare class ScrollView extends React$PureComponent<> {
     props: {
       align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around',
@@ -7,13 +9,7 @@ declare module "constelation-Col" {
       animated?: boolean,
       bottom?: number,
       center?: boolean,
-      fit?: boolean,
       flex?: number | string,
-      flexWrap?: 'wrap' | 'nowrap',
-      flexGrow?: number,
-      flexShrink?: number,
-      flexBasis?: number,
-      wrap?: 'wrap' | 'nowrap',
       grow?: number | boolean,
       shrink?: number,
       basis?: number,
@@ -30,7 +26,6 @@ declare module "constelation-Col" {
       maxWidth?: number,
       minHeight?: number,
       minWidth?: number,
-      overflow?: 'visible' | 'hidden' | 'scroll',
       padding?: number,
       paddingBottom?: number,
       paddingLeft?: number,
@@ -46,8 +41,22 @@ declare module "constelation-Col" {
       tag?: string,
       width?: number,
       zIndex?: number,
+
+      contentContainerStyle?: Object,
+      horizontal?: boolean,
+      keyboardDismissMode?: 'none' | 'interactive' | 'on-drag',
+      keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | boolean,
+      onContentSizeChange?: Function,
+      onScroll?: Function,
+      pagingEnabled?: boolean,
+      refreshControl?: React$Element<*>,
+      removeClippedSubviews?: boolean,
+      scrollEnabled?: boolean,
+      showsHorizontalScrollIndicator?: boolean,
+      showsVerticalScrollIndicator?: boolean,
     };
+    scrollTo(): void;
     render(): any;
   }
-  declare var exports: typeof Col;
+  declare var exports: typeof ScrollView;
 }

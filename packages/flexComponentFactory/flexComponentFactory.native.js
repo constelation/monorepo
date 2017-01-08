@@ -15,6 +15,13 @@ var propsToOmit = [
   'flexGrow',           // consider replacing with 'grow'
   'flexShrink',         // consider replacing with 'shrink'
   'flexBasis',          // consider replacing with 'basis'
+
+  'direction',
+  'wrap',
+  'grow',
+  'shrink',
+  'basis',
+
   'height',
   'justify',
   'left',
@@ -54,11 +61,11 @@ function getStyleFromProps( props, styleAliases ) {
     alignItems: props.center ? 'center' : props.align,
     bottom: props.bottom,
     flex: props.flex,
-    flexDirection: props.flexDirection,      // consider replacing with 'direction'
-    flexWrap: props.flexWrap,                // consider replacing with 'wrap'
-    flexGrow: props.flexGrow,                // consider replacing with 'grow'
-    flexShrink: props.flexShrink,            // consider replacing with 'shrink'
-    flexBasis: props.flexBasis,              // consider replacing with 'basis'
+    flexDirection: props.direction || props.flexDirection,      // consider replacing with 'direction'
+    flexWrap: props.wrap || props.flexWrap,                // consider replacing with 'wrap'
+    flexGrow: props.grow === true ? 1 : props.grow || props.flexGrow,                // consider replacing with 'grow'
+    flexShrink: props.shrink || props.flexShrink,            // consider replacing with 'shrink'
+    flexBasis: props.basis || props.flexBasis,              // consider replacing with 'basis'
     height: props.height,
     justifyContent: props.center ? 'center' : props.justify,
     left: props.left,
