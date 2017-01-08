@@ -1,6 +1,6 @@
 {
   "name": "constelation-scroll-view",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
