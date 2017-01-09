@@ -1,0 +1,17 @@
+{
+  "name": "constelation-image",
+  "version": "6.2.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
+  "license": "ISC",
+  "peerDependencies": {
+    "glamor": "^2.17.12",
+    "lodash": "^4.13.1",
+    "react": "^15.2.1"
+  }
+}

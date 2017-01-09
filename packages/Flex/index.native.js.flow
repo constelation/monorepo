@@ -46,7 +46,6 @@ declare module "constelation-Flex" {
       right?: number,
       style?: Object,
       top?: number,
-      tag?: string,
       width?: number,
       zIndex?: number,
     };

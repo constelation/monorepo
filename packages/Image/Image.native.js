@@ -6,13 +6,16 @@ var _omit = require('lodash/omit')
 var propsToOmit = [
   'align',
   'alignSelf',
+  'justify',
   'bottom',
   'flex',
+  'direction',
+  'wrap',
   'grow',
   'shrink',
   'basis',
+
   'height',
-  'justify',
   'left',
   'margin',
   'marginBottom',
@@ -42,14 +45,19 @@ var propsToOmit = [
   'animated',
   'center',
   'refNode',
+
+  'resizeMode',
+  'tintColor',
 ]
 
-function getStyleFromProps( props, styleAliases ) {
+function getStyleFromProps(props) {
   return {
     alignSelf: props.alignSelf,
     alignItems: props.center ? 'center' : props.align,
     bottom: props.bottom,
     flex: props.flex,
+    flexDirection: props.direction,
+    flexWrap: props.wrap,
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,
     flexBasis: props.basis,
@@ -76,24 +84,25 @@ function getStyleFromProps( props, styleAliases ) {
     paddingHorizontal: props.paddingHorizontal,
     paddingVertical: props.paddingVertical,
     position: props.position,
+    resizeMode: props.resizeMode,
     right: props.right,
+    tintColor: props.tintColor,
     top: props.top,
     width: props.width,
     zIndex: props.zIndex,
   }
 }
 
-function getNonStyleProps( props, styleAliases ) {
+function getNonStyleProps(props) {
   return _omit( props, propsToOmit )
 }
 
-class ScrollView extends React.PureComponent {
-
+class Image extends React.PureComponent {
   render() {
-    var styleFromProps = getStyleFromProps(this.props)
-    var propsWithoutStyle = getNonStyleProps(this.props)
+    var styleFromProps = getStyleFromProps( this.props, styleAliases )
+    var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
 
-    var style = [ styleFromProps, this.props.style ]
+    var style = {...styleFromProps, ...this.props.style }
 
     // Use refNode pattern to pass back the DOM's node
     if (this.props.refNode) {
@@ -101,9 +110,9 @@ class ScrollView extends React.PureComponent {
     }
 
     return this.props.animated
-      ? <ReactNative.Animated.ScrollView {...propsWithoutStyle} style={style}/>
-      : <ReactNative.ScrollView {...propsWithoutStyle} style={style}/>
+      ? <ReactNative.Animated.Image {...propsWithoutStyle} style={style}/>
+      : <ReactNative.Image {...propsWithoutStyle} style={style}/>
   }
 }
 
-module.exports = ScrollView
+module.exports = Image

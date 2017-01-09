@@ -44,7 +44,6 @@ declare module "constelation-View" {
       right?: number,
       style?: Object,
       top?: number,
-      tag?: string,
       width?: number,
       zIndex?: number,
     };

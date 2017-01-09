@@ -43,7 +43,6 @@ declare module "constelation-Col" {
       right?: number,
       style?: Object,
       top?: number,
-      tag?: string,
       width?: number,
       zIndex?: number,
     };

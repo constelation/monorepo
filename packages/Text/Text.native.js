@@ -2,53 +2,41 @@ var React = require('react')
 var ReactNative = require('react-native')
 var _omit = require('lodash/omit')
 
-var textStyleProps = [
+var propsToOmit = [
+  'align',
   'color',
   'fontFamily',
   'size',
   'height',
   'spacing',
   'bold',
+  'weight',
   'underline',
-  // 'decorationLine',
+  'decorationLine',
   // 'decorationLineColor',
   // 'decorationLineStyle',
   'uppercase',
-  'center'
+  'center',
+  'animated'
 ]
 
 function getStyleFromProps(props) {
-  const style = {
-    fontFamily: props.fontFamily,
+  return {
     color: props.color,
+    fontFamily: props.fontFamily,
     fontSize: props.size,
     letterSpacing: props.spacing,
     lineHeight: props.height,
-    // textDecorationLine: props.decorationLine,
+    fontWeight: props.bold ? 'bold' : props.weight,
+    textAlign: props.center ? 'center' : props.align,
+    textDecorationLine: props.underline ? 'underline' : props.decorationLine,
     // textDecorationColor: props.decorationLineColor,
     // textDecorationStyle: props.decorationLineStyle,
   }
-
-  // Bold font-weight
-  if (props.bold) {
-    style.fontWeight = 'bold'
-  }
-
-  // underline
-  if (props.underline) {
-    style.textDecorationLine = 'underline'
-  }
-
-  // Center text-align
-  if (props.center) {
-    style.textAlign = 'center'
-  }
-
-  return style
 }
 
 function getNonStyleProps( props ) {
-  return _omit( props, textStyleProps )
+  return _omit( props, propsToOmit )
 }
 
 class Text extends React.PureComponent {
@@ -63,26 +51,28 @@ class Text extends React.PureComponent {
   }
 
   render() {
-    const { children } = this.props
     const styleFromProps = getStyleFromProps( this.props )
     const propsToPass = getNonStyleProps( this.props )
 
-    let content
-    if (this.props.uppercase && typeof children === 'string') {
-      content = children.toUpperCase()
-    }
-    else {
-      content = children
+    // Handle uppercase if children is a string
+    if (this.props.uppercase && typeof propsToPass.children === 'string') {
+      propsToPass.children = propsToPass.children.toUpperCase()
     }
 
-    return (
+    return this.props.animated
+    ? (
+      <ReactNative.Animated.Text
+        ref={this.setRef}
+        {...propsToPass}
+        style={[styleFromProps, this.props.style]}
+      />
+    )
+    : (
       <ReactNative.Text
         ref={this.setRef}
         {...propsToPass}
         style={[styleFromProps, this.props.style]}
-      >
-        {content}
-      </ReactNative.Text>
+      />
     )
   }
 }
