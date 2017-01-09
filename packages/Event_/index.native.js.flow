@@ -1,0 +1,13 @@
+declare module "constelation-Event_" {
+  declare class Event_ extends React$PureComponent<> {
+    props: {
+      onLongPress?: Function,
+      onPress?: Function,
+      onPressIn?: Function,
+      onPressOut?: Function,
+      pressEffect?: 'opacity',
+    };
+    render(): any;
+  }
+  declare var exports: typeof Event_;
+}
