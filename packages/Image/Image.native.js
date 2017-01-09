@@ -99,8 +99,8 @@ function getNonStyleProps(props) {
 
 class Image extends React.PureComponent {
   render() {
-    var styleFromProps = getStyleFromProps( this.props, styleAliases )
-    var propsWithoutStyle = getNonStyleProps( this.props, styleAliases )
+    var styleFromProps = getStyleFromProps(this.props)
+    var propsWithoutStyle = getNonStyleProps(this.props)
 
     var style = {...styleFromProps, ...this.props.style }
 

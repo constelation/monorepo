@@ -42,7 +42,7 @@ declare module "constelation-image" {
       resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center',
       right?: number,
       shrink?: number,
-      source: string,
+      source: number | string,
       style?: Object,
       tintColor?: string,
       top?: number,
