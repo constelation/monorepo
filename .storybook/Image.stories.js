@@ -4,10 +4,10 @@ import Image from '../Image'
 import Col from '../packages/Col'
 
 storiesOf('Image', module)
-  .add('without children', () => (
+  .addWithInfo('without children', () => (
     <Image src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150' />
   ))
-  .add('with children', () => (
+  .addWithInfo('with children', () => (
     <Image
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
@@ -16,7 +16,7 @@ storiesOf('Image', module)
       I am child text
     </Image>
   ))
-  .add('without children maxWidth', () => (
+  .addWithInfo('without children maxWidth', () => (
     <Image
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
@@ -24,7 +24,7 @@ storiesOf('Image', module)
       height={150}
     />
   ))
-  .add('with children maxWidth', () => (
+  .addWithInfo('with children maxWidth', () => (
     <Image
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
@@ -34,7 +34,7 @@ storiesOf('Image', module)
       I am child text
     </Image>
   ))
-  .add('with Col centered child', () => (
+  .addWithInfo('with Col centered child', () => (
     <Image
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}

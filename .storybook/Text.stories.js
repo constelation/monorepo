@@ -4,37 +4,37 @@ import Text from '../packages/Text'
 // import Text from '../packages/Text/dist/Text.native.js'
 
 storiesOf('Text', module)
-  .add('default', () => (
+  .addWithInfo('default', () => (
     <Text>
       this is text
     </Text>
   ))
-  .add('bold', () => (
+  .addWithInfo('bold', () => (
     <Text bold >
       this is bold text
     </Text>
   ))
-  .add('italic', () => (
+  .addWithInfo('italic', () => (
     <Text italic >
       this is italic text
     </Text>
   ))
-  .add('underline', () => (
+  .addWithInfo('underline', () => (
     <Text underline >
       this is underlined text
     </Text>
   ))
-  .add('underline and strikethrough', () => (
+  .addWithInfo('underline and strikethrough', () => (
     <Text decoration='line-through' underline >
       this is text
     </Text>
   ))
-  .add('uppercase', () => (
+  .addWithInfo('uppercase', () => (
     <Text uppercase >
       this is uppercased text
     </Text>
   ))
-  .add('size, height, spacing, color', () => (
+  .addWithInfo('size, height, spacing, color', () => (
     <Text
       size={30}
       height={20}
@@ -44,14 +44,14 @@ storiesOf('Text', module)
       this is more interesting text
     </Text>
   ))
-  .add('ellipsis', () => (
+  .addWithInfo('ellipsis', () => (
     <div style={{width: 50, display: 'flex'}}>
       <Text ellipsis >
       this is clipped text with an ellipsis
     </Text>
   </div>
   ))
-.add('antialiased', () => (
+.addWithInfo('antialiased', () => (
     <Text antialiased >
     this is antialiased text
   </Text>

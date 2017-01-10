@@ -9,18 +9,18 @@ const style = {
 }
 
 storiesOf('Native-View', module)
-  .add('with childen', () => (
+  .addWithInfo('with childen', () => (
     <ViewNative height={500} style={style}>
       <ViewNative flexGrow={1} style={{backgroundColor: 'red'}} />
       <ViewNative flexGrow={1} style={{backgroundColor: 'green'}} />
       <ViewNative flexGrow={1} style={{backgroundColor: 'blue'}} />
     </ViewNative>
   ))
-  .add('centered', () => (
+  .addWithInfo('centered', () => (
     <ViewNative height={500} center >
       <ViewNative height={50} width={50} style={{backgroundColor: 'red'}} />
     </ViewNative>
   ))
-  .add('animated', () => (
+  .addWithInfo('animated', () => (
     <ViewNative height={500} animated style={style} />
   ))

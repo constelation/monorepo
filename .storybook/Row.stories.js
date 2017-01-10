@@ -5,14 +5,14 @@ import Row from '../packages/Row'
 const style = {backgroundColor: 'lightgrey'}
 
 storiesOf('Row', module)
-  .add('with children', () => (
+  .addWithInfo('with children', () => (
     <Row>
       <div style={{height: 20, width: 20, backgroundColor: 'red'}} />
       <div style={{height: 20, width: 20, backgroundColor: 'green'}} />
       <div style={{height: 20, width: 20, backgroundColor: 'blue'}} />
     </Row>
   ))
-  .add('justify center', () => (
+  .addWithInfo('justify center', () => (
     <Row
       justify='center'
       height='500px'
@@ -23,7 +23,7 @@ storiesOf('Row', module)
       <div style={{height: 20, width: 20, backgroundColor: 'blue'}} />
     </Row>
   ))
-  .add('align center', () => (
+  .addWithInfo('align center', () => (
     <Row
       align='center'
       height='500px'
@@ -34,7 +34,7 @@ storiesOf('Row', module)
       <div style={{height: 20, width: 20, backgroundColor: 'blue'}} />
     </Row>
   ))
-  .add('justify align center', () => (
+  .addWithInfo('justify align center', () => (
     <Row
       align='center'
       justify='center'

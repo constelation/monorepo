@@ -41,21 +41,21 @@ const enterLeaveTransition = {
 }
 
 storiesOf('TransitionGroupView', module)
-  .add('renders children', () => (
+  .addWithInfo('renders children', () => (
     <TransitionGroupView>
       <View height='500px' style={style} />
       <View height='500px' style={style} />
       <View height='500px' style={style} />
     </TransitionGroupView>
   ))
-  .add('renders without null, undefined, and false children', () => (
+  .addWithInfo('renders without null, undefined, and false children', () => (
     <TransitionGroupView>
       {false}
       {null}
       {undefined}
     </TransitionGroupView>
   ))
-  .add('passes props to parent View', () => (
+  .addWithInfo('passes props to parent View', () => (
     <Style_ backgroundColor='blue'>
       <TransitionGroupView
         flex={1}
@@ -68,7 +68,7 @@ storiesOf('TransitionGroupView', module)
       </TransitionGroupView>
     </Style_>
   ))
-  .add('renders fadeIn appear', () => (
+  .addWithInfo('renders fadeIn appear', () => (
     <TransitionGroupView
       {...appearTransition}
       appearDuration={1000}

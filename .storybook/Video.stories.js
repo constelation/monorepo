@@ -4,18 +4,18 @@ import Video from '../packages/Video/dist'
 // import Text from '../packages/Text/dist/Text.native.js'
 
 storiesOf('Video', module)
-  .add('plays a video', () => (
+  .addWithInfo('plays a video', () => (
     <Video src='http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4' />
   ))
-  .add('source child', () => (
+  .addWithInfo('source child', () => (
     <Video muted >
       <source src='http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4' type='video/mp4' />
     </Video>
   ))
-  .add('has controls and muted', () => (
+  .addWithInfo('has controls and muted', () => (
     <Video src='http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4' controls muted />
   ))
-  .add('repeat', () => (
+  .addWithInfo('repeat', () => (
     <Video src='http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4' controls muted repeat />
   ))
   .add('pauses', () => {

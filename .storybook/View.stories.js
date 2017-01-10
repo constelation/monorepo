@@ -10,35 +10,35 @@ const style = {
 }
 
 storiesOf('View', module)
-  .add('with children divs and inline style', () => (
+  .addWithInfo('with children divs and inline style', () => (
     <View height='500px' style={style}>
       <div style={{height: 20, backgroundColor: 'red'}} />
       <div style={{height: 20, backgroundColor: 'green'}} />
       <div style={{height: 20, backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('with children `grow` Views', () => (
+  .addWithInfo('with children `grow` Views', () => (
     <View height='500px' style={style}>
       <View grow style={{backgroundColor: 'red'}} />
       <View grow style={{backgroundColor: 'green'}} />
       <View grow style={{backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('with children flex=1 Views and style prop', () => (
+  .addWithInfo('with children flex=1 Views and style prop', () => (
     <View height='500px' style={style}>
       <View flex={1} style={{backgroundColor: 'red'}} />
       <View flex={1} style={{backgroundColor: 'green'}} />
       <View flex={1} style={{backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('only using inlineStyle', () => (
+  .addWithInfo('only using inlineStyle', () => (
     <View inlineStyle={{height: 500, backgroundColor: 'lightgrey', border: '1px solid black'}}>
       <View inlineStyle={{flex: 1, backgroundColor: 'red'}} />
       <View inlineStyle={{flex: 1, backgroundColor: 'green'}} />
       <View inlineStyle={{flex: 1, backgroundColor: 'blue'}} />
     </View>
   ))
-  .add('alignVertical center alignHorizontal right', () => (
+  .addWithInfo('alignVertical center alignHorizontal right', () => (
     <View
       height='500px'
       alignHorizontal='right'
@@ -50,7 +50,7 @@ storiesOf('View', module)
       <View height={40} width={40} backgroundColor='blue' />
     </View>
   ))
-  .add('center shorthand', () => (
+  .addWithInfo('center shorthand', () => (
     <View
       center
       height='500px'
@@ -61,14 +61,14 @@ storiesOf('View', module)
       <View height={40} width={40} style={{backgroundColor:'blue'}} />
     </View>
   ))
-  .add('inline green and blue', () => (
+  .addWithInfo('inline green and blue', () => (
     <div>
       <View height={40} width={40} style={{backgroundColor:'red'}} />
       <View inline height={40} width={40} style={{backgroundColor:'green'}} />
       <View inline height={40} width={40} style={{backgroundColor:'blue'}} />
     </div>
   ))
-  .add('fit shorthand', () => (
+  .addWithInfo('fit shorthand', () => (
     <div style={{height: 500, width: 500, border: '5px solid lightgrey'}}>
       <View fit style={{backgroundColor:'blue'}} />
     </div>
@@ -93,7 +93,7 @@ storiesOf('View', module)
     )
   }
   )
-  .add('console.logs refNode', () => (
+  .addWithInfo('console.logs refNode', () => (
     <View refNode={action('refNode')} />
   ))
 //

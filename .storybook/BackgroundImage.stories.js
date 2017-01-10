@@ -4,14 +4,14 @@ import BackgroundImage from '../packages/BackgroundImage'
 import Col from '../packages/Col'
 
 storiesOf('BackgroundImage', module)
-  .add('without children', () => (
+  .addWithInfo('without children', () => (
     <BackgroundImage
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
       height={150}
     />
   ))
-  .add('with children', () => (
+  .addWithInfo('with children', () => (
     <BackgroundImage
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
@@ -20,7 +20,7 @@ storiesOf('BackgroundImage', module)
       I am child text
     </BackgroundImage>
   ))
-  .add('with maxWidth', () => (
+  .addWithInfo('with maxWidth', () => (
     <BackgroundImage
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}
@@ -28,7 +28,7 @@ storiesOf('BackgroundImage', module)
       height={150}
     />
   ))
-  .add('with Col centered child', () => (
+  .addWithInfo('with Col centered child', () => (
     <BackgroundImage
       src='https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
       width={350}

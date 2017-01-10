@@ -4,7 +4,7 @@ import View from '../packages/View'
 import Style_ from '../packages/Style_'
 
 storiesOf('Style_', module)
-  .add('Style_Views inside a Style_View', () => (
+  .addWithInfo('Style_Views inside a Style_View', () => (
     <Style_
       backgroundColor='lightgrey'
       border='1px solid black'
@@ -28,7 +28,7 @@ storiesOf('Style_', module)
       </View>
     </Style_>
   ))
-  .add('nested Style_s combine', () => (
+  .addWithInfo('nested Style_s combine', () => (
     <Style_ backgroundColor='lightgrey' >
       <Style_ border='1px solid black' >
         <View

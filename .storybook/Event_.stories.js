@@ -190,7 +190,7 @@ storiesOf('Event_', module)
     return (
       <EventStyleView />
   )})
-  .add('Hoverable Style_View', () => (
+  .addWithInfo('Hoverable Style_View', () => (
     <Style_ backgroundColor='grey'>
       <Hoverable>
         {(isHovering) => (
@@ -212,7 +212,7 @@ storiesOf('Event_', module)
       </Hoverable>
     </Style_>
   ))
-  .add('onClick and onTap', () => (
+  .addWithInfo('onClick and onTap', () => (
     <Event_
       onClick={action('Click')}
       onTap={action('Tap')}
@@ -232,7 +232,7 @@ storiesOf('Event_', module)
       </Style_>
     </Event_>
   ))
-  .add('action', () => (
+  .addWithInfo('action', () => (
     <Event_
       action={action('action')}
     >
@@ -251,7 +251,7 @@ storiesOf('Event_', module)
       </Style_>
     </Event_>
   ))
-  .add('swipe vertical and horizontal', () => (
+  .addWithInfo('swipe vertical and horizontal', () => (
     <Event_
       onSwipe={action('swipe-all')}
       direction='DIRECTION_ALL'

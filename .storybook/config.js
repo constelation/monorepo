@@ -1,24 +1,26 @@
-import { configure } from '@kadira/storybook'
+import { configure, setAddon } from '@kadira/storybook'
+import infoAddon from '@kadira/react-storybook-addon-info'
 
 function loadStories() {
-  require('./Button.stories.js')
-  require('./BackgroundImage.stories.js')
-  require('./View.stories.js')
-  require('./NativeView.stories.js')
-  // require('./Perf.stories.js')
-  require('./Style_.stories.js')
-  require('./Event_.stories.js')
-  require('./Animate_.stories.js')
-  require('./Playground.stories.js')
-  require('./Col.stories.js')
-  require('./Row.stories.js')
-  require('./Text.stories.js')
-  require('./Video.stories.js')
-  require('./_Scroll_.stories.js')
-  require('./_Resize_.stories.js')
-  require('./_Media_.stories.js')
-  require('./decorators.stories.js')
-  require('./TransitionGroupView.stories.js')
+  require('./Button.stories')
+  require('./BackgroundImage.stories')
+  require('./View.stories')
+  require('./NativeView.stories')
+  // require('./Perf.stories')
+  require('./Style_.stories')
+  require('./Event_.stories')
+  require('./Animate_.stories')
+  require('./Playground.stories')
+  require('./Col.stories')
+  require('./Row.stories')
+  require('./Text.stories')
+  require('./Video.stories')
+  require('./_Scroll_.stories')
+  require('./_Resize_.stories')
+  require('./_Media_.stories')
+  require('./decorators.stories')
+  require('./TransitionGroupView.stories')
 }
 
+setAddon(infoAddon);
 configure(loadStories, module)
