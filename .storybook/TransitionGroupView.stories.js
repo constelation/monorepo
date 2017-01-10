@@ -48,7 +48,7 @@ storiesOf('TransitionGroupView', module)
       <View height='500px' style={style} />
     </TransitionGroupView>
   ))
-  .addWithInfo('renders without null, undefined, and false children', () => (
+  .add('renders without null, undefined, and false children', () => (
     <TransitionGroupView>
       {false}
       {null}
