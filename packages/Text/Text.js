@@ -13,6 +13,7 @@ var propsToOmit = [
   'ellipsis',
   'fontFamily',
   'height',
+  'italic',
   'size',
   'spacing',
   'tag',
@@ -32,6 +33,11 @@ function getStyleFromProps(props) {
     textDecoration: props.decoration,
     textTransform: props.uppercase ? 'uppercase' : props.transform,
     fontWeight: props.bold ? 'bold' : props.weight,
+  }
+
+  // italic
+  if (props.italic) {
+    style.fontStyle = 'italic'
   }
 
   // Underline font-weight

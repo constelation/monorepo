@@ -11,6 +11,7 @@ declare module "constelation-Text" {
       ellipsis?: boolean,
       fontFamily?: string,
       height?: string | number,
+      italic?: boolean,
       refNode?: () => {},
       size?: string | number,
       spacing?: string | number,

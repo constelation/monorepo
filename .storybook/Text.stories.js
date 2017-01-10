@@ -14,6 +14,11 @@ storiesOf('Text', module)
       this is bold text
     </Text>
   ))
+  .add('italic', () => (
+    <Text italic >
+      this is italic text
+    </Text>
+  ))
   .add('underline', () => (
     <Text underline >
       this is underlined text
