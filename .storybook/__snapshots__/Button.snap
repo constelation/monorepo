@@ -1,6 +1,0 @@
-exports[`with text child`] = `
-<button
-  data-css-1fnlr2="*">
-  This is a button
-</button>
-`;
