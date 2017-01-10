@@ -3,17 +3,23 @@ var glamorReact = require('glamor/react')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')
 
-var textProps = [
-  'fontFamily',
-  'color',
-  'size',
-  'height',
-  'spacing',
+var propsToOmit = [
+  'antialiased',
+  'align',
   'bold',
-  'underline',
+  'center',
+  'color',
   'decoration',
+  'ellipsis',
+  'fontFamily',
+  'height',
+  'size',
+  'spacing',
+  'tag',
+  'transform',
+  'underline',
   'uppercase',
-  'center'
+  'weight',
 ]
 
 function getStyleFromProps(props) {
@@ -22,12 +28,10 @@ function getStyleFromProps(props) {
     color: props.color,
     fontSize: props.size,
     letterSpacing: props.spacing,
+    textAlign: props.center ? 'center' : props.align,
     textDecoration: props.decoration,
-  }
-
-  // Bold font-weight
-  if (props.bold) {
-    style.fontWeight = 'bold'
+    textTransform: props.uppercase ? 'uppercase' : props.transform,
+    fontWeight: props.bold ? 'bold' : props.weight,
   }
 
   // Underline font-weight
@@ -40,14 +44,17 @@ function getStyleFromProps(props) {
     }
   }
 
-  // Uppercase text-transform
-  if (props.uppercase) {
-    style.textTransform = 'uppercase'
+  // ellipsis
+  if (props.ellipsis) {
+    style.textOverflow = 'ellipsis'
+    style.overflow = 'hidden'
+    style.whiteSpace = 'nowrap'
   }
 
-  // Center text-align
-  if (props.center) {
-    style.textAlign = 'center'
+  // antialiased
+  if (props.antialiased) {
+    style.WebkitFontSmoothing = 'antialiased'
+    style.MozOsxFontSmoothing = 'grayscale'
   }
 
   var height = props.height
@@ -64,27 +71,15 @@ function getStyleFromProps(props) {
 }
 
 function getNonStyleProps(props) {
-  return _omit(props, textProps)
+  return _omit(props, propsToOmit)
 }
 
 class Text extends React.PureComponent {
-  static propTypes = {
-    bold: React.PropTypes.bool,
-    underline: React.PropTypes.bool,
-    center: React.PropTypes.bool,
-    color: React.PropTypes.string,
-    decoration: React.PropTypes.string,
-    fontFamily: React.PropTypes.string,
-    height: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    refNode: React.PropTypes.func,
-    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    spacing: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    tag: React.PropTypes.string,
-    uppercase: React.PropTypes.bool,
-  }
 
   static defaultProps = {
     tag: 'span',
+    // from https://bitsofco.de/the-new-system-font-stack/
+    fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell, "Helvetica Neue", sans-serif'
   }
 
   render() {
@@ -93,9 +88,6 @@ class Text extends React.PureComponent {
 
     var css = _assign({}, styleFromProps, this.props.css)
     propsToPass.css = css
-
-    // No need to pass the tag prop down
-    delete propsToPass.tag
 
     // Use refNode pattern to pass back the DOM's node
     if (propsToPass.refNode) {

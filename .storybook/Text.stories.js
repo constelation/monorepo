@@ -39,3 +39,15 @@ storiesOf('Text', module)
       this is more interesting text
     </Text>
   ))
+  .add('ellipsis', () => (
+    <div style={{width: 50, display: 'flex'}}>
+      <Text ellipsis >
+      this is clipped text with an ellipsis
+    </Text>
+  </div>
+  ))
+.add('antialiased', () => (
+    <Text antialiased >
+    this is antialiased text
+  </Text>
+))
