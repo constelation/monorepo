@@ -3,7 +3,7 @@
     "storybook": "start-storybook -p 9001",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
-    "build-storybook": "build-storybook -o .out",
+    "build-storybook": "build-storybook -o docs",
     "clean": "lerna exec -- rimraf dist",
     "prebuild": "npm run clean",
     "build": "lerna exec -- babel *.js -d dist --ignore *.native.js,*.js.flow && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\;",

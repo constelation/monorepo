@@ -11,7 +11,7 @@ stories.addDecorator(withKnobs)
 
 stories.addWithInfo('default', () => (
   <Text>
-    text(this is text)
+    this is text
   </Text>
 ))
 stories.addWithInfo('bold', () => (
