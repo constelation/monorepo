@@ -1,0 +1,19 @@
+dependencies: \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Modules/RCTDevMenu.m \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Modules/RCTDevMenu.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTKeyCommands.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTRootView.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/kylepoole/github/monorepo/node_modules/react-native/React/Base/RCTWebSocketObserverProtocol.h

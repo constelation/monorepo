@@ -1,7 +1,7 @@
 import React from 'react'
-import { storiesOf, action } from '@kadira/storybook'
+import { storiesOf } from '@kadira/react-native-storybook';
 // import Event_ from '../packages/Event_'
-import ViewNative from '../packages/View/dist/View.native.js'
+import View from '../packages/View/View.native.js'
 
 const style = {
   backgroundColor: 'lightgrey',
@@ -9,18 +9,18 @@ const style = {
 }
 
 storiesOf('Native-View', module)
-  .addWithInfo('with childen', () => (
-    <ViewNative height={500} style={style}>
-      <ViewNative flexGrow={1} style={{backgroundColor: 'red'}} />
-      <ViewNative flexGrow={1} style={{backgroundColor: 'green'}} />
-      <ViewNative flexGrow={1} style={{backgroundColor: 'blue'}} />
-    </ViewNative>
+  .add('with childen', () => (
+    <View height={500} style={style}>
+      <View flexGrow={1} style={{backgroundColor: 'red'}} />
+      <View flexGrow={1} style={{backgroundColor: 'green'}} />
+      <View flexGrow={1} style={{backgroundColor: 'blue'}} />
+    </View>
   ))
-  .addWithInfo('centered', () => (
-    <ViewNative height={500} center >
-      <ViewNative height={50} width={50} style={{backgroundColor: 'red'}} />
-    </ViewNative>
+  .add('centered', () => (
+    <View height={500} center >
+      <View height={50} width={50} style={{backgroundColor: 'red'}} />
+    </View>
   ))
-  .addWithInfo('animated', () => (
-    <ViewNative height={500} animated style={style} />
+  .add('animated', () => (
+    <View height={500} animated style={style} />
   ))
