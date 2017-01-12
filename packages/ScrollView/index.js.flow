@@ -1,15 +1,12 @@
-// IOS and Android-specific still not added
-
-// scrollToStart(): void;
-// scrollToEnd(): void;
+// alignHorizontal?: 'left' | 'center' | 'right',
+// alignVertical?: 'top' | 'center' | 'bottom',
+// showsHorizontalScrollIndicator?: boolean,
+// showsVerticalScrollIndicator?: boolean,
 
 declare module "constelation-scroll-view" {
   declare class ScrollView extends React$PureComponent<> {
     props: {
-      align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
-      justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around',
       alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
-      animated?: boolean,
       bottom?: number,
       center?: boolean,
       flex?: number | string,
@@ -36,29 +33,23 @@ declare module "constelation-scroll-view" {
       paddingTop?: number,
       paddingVertical?: number,
       paddingHorizontal?: number,
-      position?: 'absolute' | 'relative',
+      position?: string,
       refNode?: () => {},
       right?: number,
       style?: Object,
       top?: number,
+      tag?: string,
       width?: number,
       zIndex?: number,
 
       bounces?: boolean,
-      contentContainerStyle?: Object,
       horizontal?: boolean,
-      keyboardDismissMode?: 'none' | 'interactive' | 'on-drag',
-      keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | boolean,
-      onContentSizeChange?: Function,
       onScroll?: Function,
-      pagingEnabled?: boolean,
-      refreshControl?: React$Element<*>,
-      removeClippedSubviews?: boolean,
       scrollEnabled?: boolean,
-      showsHorizontalScrollIndicator?: boolean,
-      showsVerticalScrollIndicator?: boolean,
     };
     scrollTo(): void;
+    scrollToStart(): void;
+    scrollToEnd(): void;
     render(): any;
   }
   declare var exports: typeof ScrollView;

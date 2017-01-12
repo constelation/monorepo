@@ -5,6 +5,7 @@ function loadStories() {
   require('./Button.stories')
   require('./BackgroundImage.stories')
   require('./View.stories')
+  require('./ScrollView.stories')
   require('./NativeView.stories')
   // require('./Perf.stories')
   require('./Style_.stories')
