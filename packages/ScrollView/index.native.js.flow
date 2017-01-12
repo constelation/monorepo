@@ -55,6 +55,7 @@ declare module "constelation-scroll-view" {
       refreshControl?: React$Element<*>,
       removeClippedSubviews?: boolean,
       scrollEnabled?: boolean,
+      scrollEventThrottle?: number,
       showsHorizontalScrollIndicator?: boolean,
       showsVerticalScrollIndicator?: boolean,
     };
