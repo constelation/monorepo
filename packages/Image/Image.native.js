@@ -98,9 +98,28 @@ function getNonStyleProps(props) {
 }
 
 class Image extends React.PureComponent {
+  static getSize = ReactNative.Image.getSize
+  static prefetch = ReactNative.Image.prefetch
+  static resolveAssetSource = ReactNative.Image.resolveAssetSource
+  static resizeMode = ReactNative.Image.resizeMode
+
   render() {
     var styleFromProps = getStyleFromProps(this.props)
     var propsWithoutStyle = getNonStyleProps(this.props)
+
+    /* Since Image runs style props through StyleSheet.flatten(),
+     * and flatten will override values with undefined if passed,
+     * remove height and width so images can size themselves.
+     *
+     * see https://github.com/facebook/react-native/blob/master/Libraries/Image/Image.ios.js#L349
+     * and https://github.com/exponent/react-native/blob/master/Libraries/StyleSheet/__tests__/flattenStyle-test.js#L37
+     */
+    if (styleFromProps.height === undefined) {
+      delete styleFromProps.height
+    }
+    if (styleFromProps.width === undefined) {
+      delete styleFromProps.width
+    }
 
     var style = {...styleFromProps, ...this.props.style }
 

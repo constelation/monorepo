@@ -1,5 +1,9 @@
 declare module "constelation-image" {
   declare class Image extends React$PureComponent<> {
+    static getSize(uri: string, success: Function, failure: Function) : void;
+    static prefetch(url: string) : any;
+    static resolveAssetSource() : any;
+    static resizeMode() : any;
     props: {
       align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
