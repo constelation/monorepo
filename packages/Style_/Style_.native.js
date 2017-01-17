@@ -26,6 +26,7 @@ var styles = [
   'shadowOffset',
   'shadowOpacity',
   'shadowRadius',
+  'tintColor',
   'transform',
 ]
 

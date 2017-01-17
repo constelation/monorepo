@@ -24,6 +24,7 @@ declare module "constelation-Style_" {
       shadowOffset?: {width?: number, height?: number},
       shadowOpacity?: number,
       shadowRadius?: number,
+      tintColor?: string,
       transform?: Array<Object>,
       style?: Object,
     };
