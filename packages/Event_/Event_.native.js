@@ -150,10 +150,10 @@ class Event_ extends React.PureComponent {
 
     if (hasTouchableProps(this.props)) {
       if (this.props.pressEffect === 'opacity') {
-        return <TouchableOpacity {...propsToPass} />
+        return <TouchableOpacity {...propsToPass}>{this.props.children}</TouchableOpacity>
       }
 
-      return <TouchableWithoutFeedback {...propsToPass} />
+      return <TouchableWithoutFeedback {...propsToPass}>{this.props.children}</TouchableWithoutFeedback>
     }
 
     const child = React.Children.only(this.props.children)
