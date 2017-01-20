@@ -1,6 +1,13 @@
 declare module "constelation-Event_" {
   declare class Event_ extends React$PureComponent<> {
     props: {
+      hitSlop?: number,
+      hitSlopVertical?: number,
+      hitSlopHorizontal?: number,
+      hitSlopTop?: number,
+      hitSlopRight?: number,
+      hitSlopBottom?: number,
+      hitSlopLeft?: number,
       onLongPress?: Function,
       onPress?: Function,
       onPressIn?: Function,

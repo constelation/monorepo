@@ -71,6 +71,14 @@ var propsToOmit = [
   'inline',
   'fit',
   'center',
+
+  'hitSlop',
+  'hitSlopVertical',
+  'hitSlopHorizontal',
+  'hitSlopTop',
+  'hitSlopRight',
+  'hitSlopBottom',
+  'hitSlopLeft',
 ]
 
 function getStyleFromProps( props, styleAliases ) {
@@ -134,6 +142,16 @@ function getStyleFromProps( props, styleAliases ) {
   return styleFromProps
 }
 
+function hasHitSlopProp(props) {
+  return props.hitSlop
+    || props.hitSlopVertical
+    || props.hitSlopHorizontal
+    || props.hitSlopTop
+    || props.hitSlopRight
+    || props.hitSlopBottom
+    || props.hitSlopLeft
+}
+
 function getNonStyleProps( props, styleAliases ) {
   if (styleAliases) {
     return _omit( props, propsToOmit.concat( _keys( styleAliases ) ) )
@@ -141,6 +159,18 @@ function getNonStyleProps( props, styleAliases ) {
 
   return _omit( props, propsToOmit )
 }
+
+const Slop = (props) => (
+  <span
+    style={{
+      position: 'absolute',
+      top: -(props.hitSlopTop || props.hitSlopVertical || props.hitSlop || 0),
+      right: -(props.hitSlopRight || props.hitSlopHorizontal || props.hitSlop || 0),
+      bottom: -(props.hitSlopBottom || props.hitSlopVertical || props.hitSlop || 0),
+      left: -(props.hitSlopLeft || props.hitSlopHorizontal || props.hitSlop || 0),
+    }}
+  />
+)
 
 module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
   return class extends React.PureComponent {
@@ -168,6 +198,29 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
       if (propsToPass.refNode) {
         propsToPass.ref = propsToPass.refNode
         delete propsToPass.refNode
+      }
+
+      if (hasHitSlopProp(this.props)) {
+        const HitSlop = (
+          <Slop
+            hitSlop={this.props.hitSlop}
+            hitSlopTop={this.props.hitSlopTop}
+            hitSlopRight={this.props.hitSlopRight}
+            hitSlopBottom={this.props.hitSlopBottom}
+            hitSlopLeft={this.props.hitSlopLeft}
+            hitSlopVertical={this.props.hitSlopVertical}
+            hitSlopHorizontal={this.props.hitSlopHorizontal}
+          />
+        )
+
+        if (propsToPass.children == null) {
+          propsToPass.children = HitSlop
+        }
+        else {
+          // convert children to array, then prepend Slop
+          propsToPass.children = React.Children.toArray(propsToPass.children)
+          propsToPass.children.unshift(HitSlop)
+        }
       }
 
       return glamorReact.createElement( this.props.tag, propsToPass )

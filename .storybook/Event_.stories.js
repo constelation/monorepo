@@ -111,6 +111,54 @@ storiesOf('Event_', module)
   return (
     <EventView />
 )})
+.add('tap with hitSlop', () => {
+  class EventView extends React.Component {
+    state = {
+      isRotated: false,
+    }
+
+    handleClick = () => {
+      this.setState({isRotated: !this.state.isRotated})
+    }
+
+    render() {
+      return (
+        <Style_
+          border='1px dashed blue'
+        >
+          <View
+            inline
+            padding={20}
+          >
+            <Event_
+              onTap={this.handleClick}
+              hitSlop={20}
+            >
+              <Style_
+                transform={`rotate(${this.state.isRotated ? '90deg' : '0deg'})`}
+                transition='transform 1000ms ease'
+              >
+                <View
+                  tag='button'
+                  height='200px'
+                  width='200px'
+                  alignHorizontal='center'
+                  alignVertical='center'
+                >
+                  <Text>Click outside me</Text>
+                  {/* <Text>another</Text> */}
+                </View>
+              </Style_>
+            </Event_>
+          </View>
+        </Style_>
+      )
+    }
+  }
+
+  return (
+    <EventView />
+)})
   .add('Rotate onClick Event_View', () => {
     class EventView extends React.Component {
       state = {

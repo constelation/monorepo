@@ -6,14 +6,52 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import React from 'react'
+import _omit from 'lodash/omit'
 
 // }}}
+
+var propsToOmit = [
+  'children',
+  'hitSlop',
+  'hitSlopVertical',
+  'hitSlopHorizontal',
+  'hitSlopTop',
+  'hitSlopRight',
+  'hitSlopBottom',
+  'hitSlopLeft',
+  'pressEffect',
+]
 
 function hasTouchableProps(props) {
   return props.hasOwnProperty('onPress')
     || props.hasOwnProperty('onLongPress')
     || props.hasOwnProperty('onPressIn')
     || props.hasOwnProperty('onPressOut')
+}
+
+function hasHitSlopProp(props) {
+  return props.hitSlop
+    || props.hitSlopVertical
+    || props.hitSlopHorizontal
+    || props.hitSlopTop
+    || props.hitSlopRight
+    || props.hitSlopBottom
+    || props.hitSlopLeft
+}
+
+function buildHitSlop({ hitSlop, ...props}) {
+  //TODO remove accepting hitSlop object in the future
+  if (typeof hitSlop === 'object') {
+    return hitSlop
+  }
+  else {
+    return {
+      top: props.hitSlopTop || props.hitSlopVertical || hitSlop || 0,
+      right: props.hitSlopRight || props.hitSlopHorizontal || hitSlop || 0,
+      bottom: props.hitSlopBottom || props.hitSlopVertical || hitSlop || 0,
+      left: props.hitSlopLeft || props.hitSlopHorizontal || hitSlop || 0
+    }
+  }
 }
 
 /*
@@ -104,23 +142,23 @@ class TouchableOpacity extends React.PureComponent {
 // TODO: throw an error if the two are ever passed in.
 class Event_ extends React.PureComponent {
   render() {
-    const { pressEffect, ...props } = this.props
+    const propsToPass = _omit(this.props, propsToOmit )
 
-    if (hasTouchableProps(props)) {
-
-      if (pressEffect === 'opacity') {
-        return <TouchableOpacity {...props} />
-      }
-
-      return <TouchableWithoutFeedback {...props} />
+    if (hasHitSlopProp) {
+      propsToPass.hitSlop = buildHitSlop(this.props)
     }
 
-    const child = React.Children.only(props.children)
+    if (hasTouchableProps(this.props)) {
+      if (this.props.pressEffect === 'opacity') {
+        return <TouchableOpacity {...propsToPass} />
+      }
 
-    // without removing children, this would infinite loop
-    delete props.children
+      return <TouchableWithoutFeedback {...propsToPass} />
+    }
 
-    return React.cloneElement( child, props )
+    const child = React.Children.only(this.props.children)
+
+    return React.cloneElement( child, propsToPass )
   }
 }
 
