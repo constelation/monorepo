@@ -2,3 +2,8 @@ node_modules/
 dist/
 .tern-port
 .DS_Store
+
+# ignore generated files in modules
+#packages/*/*.js
+#packages/*/*.d.ts
+#packages/*/*.js.flow

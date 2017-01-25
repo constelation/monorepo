@@ -1,9 +1,30 @@
-var React = require('react')
-var glamorReact = require('glamor/react')
-var _omit = require('lodash/omit')
-var _assign = require('lodash/assign')
+import React from 'react'
+import glamorReact from 'glamor/react'
+import _omit from 'lodash/omit'
 
-var propsToOmit = [
+export interface IProps {
+  antialiased?: boolean,
+  align?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent',
+  bold?: boolean,
+  center?: boolean,
+  color?: string,
+  css?: Object,
+  decoration?: string,
+  ellipsis?: boolean,
+  fontFamily?: string,
+  height?: string | number,
+  italic?: boolean,
+  refNode?: () => {},
+  size?: string | number,
+  spacing?: string | number,
+  tag?: string,
+  transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'full-width',
+  underline?: boolean,
+  uppercase?: boolean,
+  weight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900',
+}
+
+const propsToOmit = [
   'antialiased',
   'align',
   'bold',
@@ -21,9 +42,11 @@ var propsToOmit = [
   'underline',
   'uppercase',
   'weight',
+
+  'refNode',
 ]
 
-function getStyleFromProps(props) {
+function getStyleFromProps(props: IProps) {
   const style = {
     fontFamily: props.fontFamily,
     color: props.color,
@@ -63,7 +86,7 @@ function getStyleFromProps(props) {
     style.MozOsxFontSmoothing = 'grayscale'
   }
 
-  var height = props.height
+  const height = props.height
 
   // sanitize lineHeight when it is a number
   if (typeof height === 'number') {
@@ -76,12 +99,11 @@ function getStyleFromProps(props) {
   return style
 }
 
-function getNonStyleProps(props) {
+function getNonStyleProps(props: IProps) {
   return _omit(props, propsToOmit)
 }
 
-class Text extends React.PureComponent {
-
+export default class Text extends React.PureComponent<IProps, void> {
   static defaultProps = {
     tag: 'span',
     // from https://bitsofco.de/the-new-system-font-stack/
@@ -89,20 +111,17 @@ class Text extends React.PureComponent {
   }
 
   render() {
-    var styleFromProps = getStyleFromProps(this.props)
-    var propsToPass = getNonStyleProps(this.props)
+    const styleFromProps = getStyleFromProps(this.props)
+    const propsToPass = getNonStyleProps(this.props)
 
-    var css = _assign({}, styleFromProps, this.props.css)
+    const css = { ...styleFromProps, ...this.props.css }
     propsToPass.css = css
 
     // Use refNode pattern to pass back the DOM's node
-    if (propsToPass.refNode) {
-      propsToPass.ref = propsToPass.refNode
-      delete propsToPass.refNode
+    if (this.props.refNode) {
+      propsToPass.ref = this.props.refNode
     }
 
     return glamorReact.createElement(this.props.tag, propsToPass)
   }
 }
-
-module.exports = Text
