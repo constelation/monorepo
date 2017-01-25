@@ -59,7 +59,7 @@ function getStyleFromProps(props: IProps) {
   }
 }
 
-function getNonStyleProps(props: IProps) {
+function getNonStyleProps(props: IProps): any {
   return _omit(props, propsToOmit)
 }
 
@@ -91,14 +91,14 @@ export default class Text extends React.PureComponent<IProps, void> {
           ref={this.setRef}
           {...propsToPass }
           style={[styleFromProps, this.props.style]}
-          />
+        />
       )
       : (
         <ReactNative.Text
           ref={this.setRef}
           {...propsToPass }
           style={[styleFromProps, this.props.style]}
-          />
+        />
       )
   }
 }

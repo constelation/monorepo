@@ -47,7 +47,7 @@ const propsToOmit = [
 ]
 
 function getStyleFromProps(props: IProps) {
-  const style = {
+  const style: any = {
     fontFamily: props.fontFamily,
     color: props.color,
     fontSize: props.size,
@@ -99,7 +99,7 @@ function getStyleFromProps(props: IProps) {
   return style
 }
 
-function getNonStyleProps(props: IProps) {
+function getNonStyleProps(props: IProps): any {
   return _omit(props, propsToOmit)
 }
 

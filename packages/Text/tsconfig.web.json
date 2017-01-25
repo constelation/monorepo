@@ -2,10 +2,15 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise"
+        ],
         "jsx": "react",
         "outDir": ".",
-        "rootDir": "src",
         "moduleResolution": "node",
+        "removeComments": true,
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
         "experimentalDecorators": true,
@@ -13,10 +18,7 @@
         "allowJs": false,
         "declaration": true
     },
-    "include": [
-        "src/*"
-    ],
-    "exclude": [
-        "node_modules"
+    "files": [
+        "src/index.tsx"
     ]
 }

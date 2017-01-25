@@ -4,6 +4,6 @@ dist/
 .DS_Store
 
 # ignore generated files in modules
-#packages/*/*.js
-#packages/*/*.d.ts
-#packages/*/*.js.flow
+packages/*/*.js
+packages/*/*.d.ts
+packages/*/*.js.flow
