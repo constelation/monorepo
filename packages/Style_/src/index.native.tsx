@@ -1,6 +1,6 @@
-import * as React from 'react'
-import * as _omit from 'lodash/omit'
-import * as _pick from 'lodash/pick'
+import React from 'react'
+import _omit from 'lodash/omit'
+import _pick from 'lodash/pick'
 
 interface IProps {
   backfaceVisibility?: 'visible' | 'hidden',
@@ -59,7 +59,7 @@ function getStyleFromProps(props: IProps) {
   return _pick(props, styles)
 }
 
-function getNonStyleProps(props: IProps) {
+function getNonStyleProps(props: IProps): any {
   return _omit(props, styles)
 }
 
