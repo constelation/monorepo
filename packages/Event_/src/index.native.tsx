@@ -1,5 +1,3 @@
-// imports {{{
-
 import {
   Animated,
   Easing,
@@ -8,9 +6,22 @@ import {
 import React from 'react'
 import _omit from 'lodash/omit'
 
-// }}}
+export interface IProps {
+  hitSlop?: number,
+  hitSlopVertical?: number,
+  hitSlopHorizontal?: number,
+  hitSlopTop?: number,
+  hitSlopRight?: number,
+  hitSlopBottom?: number,
+  hitSlopLeft?: number,
+  onLongPress?: Function,
+  onPress?: Function,
+  onPressIn?: Function,
+  onPressOut?: Function,
+  pressEffect?: 'opacity',
+}
 
-var propsToOmit = [
+const propsToOmit = [
   'children',
   'hitSlop',
   'hitSlopVertical',
@@ -22,14 +33,14 @@ var propsToOmit = [
   'pressEffect',
 ]
 
-function hasTouchableProps(props) {
+function hasTouchableProps(props: IProps) {
   return props.hasOwnProperty('onPress')
     || props.hasOwnProperty('onLongPress')
     || props.hasOwnProperty('onPressIn')
     || props.hasOwnProperty('onPressOut')
 }
 
-function hasHitSlopProp(props) {
+function hasHitSlopProp(props: IProps) {
   return props.hitSlop
     || props.hitSlopVertical
     || props.hitSlopHorizontal
@@ -39,7 +50,7 @@ function hasHitSlopProp(props) {
     || props.hitSlopLeft
 }
 
-function buildHitSlop({ hitSlop, ...props}) {
+function buildHitSlop({ hitSlop, ...props}: IProps) {
   //TODO remove accepting hitSlop object in the future
   if (typeof hitSlop === 'object') {
     return hitSlop
@@ -58,7 +69,7 @@ function buildHitSlop({ hitSlop, ...props}) {
  * Most code taken from RN's TouchableOpacity:
  * https://github.com/facebook/react-native/blob/master/Libraries/Components/Touchable/TouchableOpacity.js
  */
-class TouchableOpacity extends React.PureComponent {
+class TouchableOpacity extends React.PureComponent<IProps, void> {
 
   static defaultProps = {
     activeOpacity: 0.2,
@@ -68,7 +79,7 @@ class TouchableOpacity extends React.PureComponent {
     super()
 
     this.opacityAnim = new Animated.Value(1)
-    this.opacityStyle = {opacity: this.opacityAnim}
+    this.opacityStyle = { opacity: this.opacityAnim }
 
     this.handlePressIn = this.handlePressIn.bind(this)
     this.handlePressOut = this.handlePressOut.bind(this)
@@ -77,7 +88,7 @@ class TouchableOpacity extends React.PureComponent {
     this._opacityInactive = this._opacityInactive.bind(this)
   }
 
-  handlePressIn(e) {
+  handlePressIn(e: any) {
     if (e.dispatchConfig.registrationName === 'onResponderGrant') {
       this._opacityActive(0)
     }
@@ -87,7 +98,7 @@ class TouchableOpacity extends React.PureComponent {
     this.props.onPressIn && this.props.onPressIn(e)
   }
 
-  handlePressOut(e) {
+  handlePressOut(e: any) {
     this._opacityInactive(250)
     this.props.onPressOut && this.props.onPressOut(e)
   }
@@ -95,7 +106,7 @@ class TouchableOpacity extends React.PureComponent {
   /**
    * Animate the touchable to a new opacity.
    */
-  setOpacityTo(value, duration) {
+  setOpacityTo(value: number, duration: number) {
     Animated.timing(
       this.opacityAnim,
       {
@@ -107,11 +118,11 @@ class TouchableOpacity extends React.PureComponent {
     ).start()
   }
 
-  _opacityActive(duration) {
+  _opacityActive(duration: number) {
     this.setOpacityTo(this.props.activeOpacity, duration)
   }
 
-  _opacityInactive(duration) {
+  _opacityInactive(duration: number) {
     this.setOpacityTo(1, duration)
   }
 
@@ -140,11 +151,11 @@ class TouchableOpacity extends React.PureComponent {
 // Note: the way Touchable takes over PanResponder events.
 // This means the two can not be combined in one View.
 // TODO: throw an error if the two are ever passed in.
-class Event_ extends React.PureComponent {
+export default class Event_ extends React.PureComponent<IProps, void> {
   render() {
-    const propsToPass = _omit(this.props, propsToOmit )
+    const propsToPass = _omit(this.props, propsToOmit)
 
-    if (hasHitSlopProp) {
+    if (hasHitSlopProp(this.props)) {
       propsToPass.hitSlop = buildHitSlop(this.props)
     }
 
@@ -158,8 +169,6 @@ class Event_ extends React.PureComponent {
 
     const child = React.Children.only(this.props.children)
 
-    return React.cloneElement( child, propsToPass )
+    return React.cloneElement(child, propsToPass)
   }
 }
-
-module.exports = Event_
