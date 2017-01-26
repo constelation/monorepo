@@ -7,7 +7,7 @@
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
     "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
     "build": "npm run build:native; npm run copy",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "constelation",
