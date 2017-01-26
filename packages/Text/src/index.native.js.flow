@@ -1,4 +1,4 @@
-declare module "constelation-Text" {
+declare module "constelation-text" {
   declare class Text extends React$PureComponent<> {
     props: {
       animated?: boolean,

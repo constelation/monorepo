@@ -1,6 +1,6 @@
-import React from 'react'
-import glamorReact from 'glamor/react'
-import _omit from 'lodash/omit'
+import * as React from 'react'
+import * as glamorReact from 'glamor/react'
+import * as _omit from 'lodash/omit'
 
 export interface IProps {
   antialiased?: boolean,
