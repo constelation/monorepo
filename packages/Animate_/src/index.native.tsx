@@ -1,5 +1,3 @@
-// imports {{{
-
 import {
   Animated,
   Easing,
@@ -7,7 +5,16 @@ import {
 import React from 'react'
 import _omit from 'lodash/omit'
 
-// }}}
+export interface IProps {
+  animation?: Object | 'fadeIn' | 'fadeOut',
+  autoplay?: boolean,
+  delay?: number,
+  duration?: number,
+  easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
+  repeat?: boolean,
+  onStart?: Function,
+  onEnd?: Function,
+}
 
 const easings = {
   'linear': Easing.linear,
@@ -47,15 +54,15 @@ const propsToOmit = [
 ]
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
-function compareNumbers(a, b) {
+function compareNumbers(a: number, b: number) {
   return a - b
 }
 
-function notNull(value) {
+function notNull(value?: number) {
   return value !== null
 }
 
-function parsePosition(value) {
+function parsePosition(value: string) {
   // if (value === 'from') {
   //   return 0
   // }
@@ -69,12 +76,11 @@ function parsePosition(value) {
   return parsed
 }
 
-function getNonStyleProps( props ) {
-  return _omit( props, propsToOmit )
+function getNonStyleProps(props: IProps): any {
+  return _omit(props, propsToOmit)
 }
 
-export default class Animate_ extends React.Component {
-
+export default class Animate_ extends React.Component<IProps, void> {
   static defaultProps = {
     autoplay: true,
     easing: 'ease',
@@ -84,7 +90,7 @@ export default class Animate_ extends React.Component {
   animatedValue = new Animated.Value(0)
   style = {}
 
-  constructor(props) {
+  constructor(props: IProps) {
     super()
 
     if (typeof props.animation === 'object') {
@@ -100,7 +106,7 @@ export default class Animate_ extends React.Component {
   }
 
   //TODO deal with transform/translates
-  createInterpolationsStyle = (animation) => {
+  private createInterpolationsStyle = (animation: any) => {
     // create a simple 0 -> 1 interpolation
     if (animation.from) {
       Object.keys(animation.from).forEach(key => {
@@ -111,7 +117,7 @@ export default class Animate_ extends React.Component {
       })
     }
     // create a more complication 0 ... 1 interpolation using keyframes
-    else if(animation[0]) {
+    else if (animation[0]) {
       const inputRange = Object.keys(animation).map(parsePosition).filter(notNull)
       inputRange.sort(compareNumbers)
 
@@ -133,7 +139,7 @@ export default class Animate_ extends React.Component {
 
   }
 
-  animate = (toValue) => {
+  private animate = (toValue) => {
     this.props.onStart && this.props.onStart()
 
     Animated.timing(
@@ -148,7 +154,7 @@ export default class Animate_ extends React.Component {
     ).start(this.handleEnd)
   }
 
-  handleEnd = () => {
+  private handleEnd = () => {
     this.props.onEnd && this.props.onEnd()
 
     if (this.props.repeat) {
@@ -156,8 +162,7 @@ export default class Animate_ extends React.Component {
     }
   }
 
-  // Public
-  trigger = () => {
+  public trigger = () => {
     this.animatedValue.setValue(0)
     this.animate(1)
   }
@@ -171,7 +176,7 @@ export default class Animate_ extends React.Component {
   render() {
     var Child = React.Children.only(this.props.children)
 
-    var propsToPass = getNonStyleProps( this.props )
+    var propsToPass = getNonStyleProps(this.props)
 
     // Style_'s render() runs before Child's, so add its style props back in
     propsToPass.style = { ...this.style, ...Child.props.style }
@@ -179,7 +184,6 @@ export default class Animate_ extends React.Component {
     // used by child View/Text/ScrollView/Image
     propsToPass.animated = true
 
-    return React.cloneElement( Child, propsToPass )
+    return React.cloneElement(Child, propsToPass)
   }
 }
-module.exports = Animate_

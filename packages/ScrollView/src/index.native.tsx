@@ -144,7 +144,6 @@ function getNonStyleProps(props: IProps) {
 }
 
 export default class ScrollView extends React.PureComponent<IProps, void> {
-
   render() {
     const styleFromProps = getStyleFromProps(this.props)
     const propsWithoutStyle = getNonStyleProps(this.props)

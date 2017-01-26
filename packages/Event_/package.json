@@ -20,6 +20,6 @@
     "react": "^15.2.1"
   },
   "optionalDependencies": {
-    "glamor": "^2.17.12"
+    "hammerjs": "^2.0.8"
   }
 }
