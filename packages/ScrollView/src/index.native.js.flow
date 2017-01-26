@@ -29,6 +29,7 @@ declare module "constelation-scroll-view" {
       maxWidth?: number,
       minHeight?: number,
       minWidth?: number,
+      overflow?: 'visible' | 'hidden' | 'scroll',
       padding?: number,
       paddingBottom?: number,
       paddingLeft?: number,
