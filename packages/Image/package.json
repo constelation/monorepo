@@ -1,17 +1,25 @@
 {
   "name": "constelation-image",
-  "version": "6.3.7",
+  "version": "7.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "homepage": "https://github.com/constelation/monorepo",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
+    "build": "npm run build:native; npm run copy",
+    "test": "echo \"Error: no test specified\" && exit 1",
   },
-  "keywords": [],
+  "keywords": [
+    "constelation",
+    "image"
+  ],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "peerDependencies": {
-    "glamor": "^2.17.12",
     "lodash": "^4.13.1",
     "react": "^15.2.1"
+  },
+  "optionalDependencies": {
+    "glamor": "^2.17.12"
   }
 }

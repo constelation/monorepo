@@ -10,7 +10,7 @@ declare module "constelation-View" {
       bottom?: number | string,
       center?: boolean,
       fit?: boolean,
-      
+
       flex?: number | string,
       wrap?: string,
       grow?: number | boolean,
