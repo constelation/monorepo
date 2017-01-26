@@ -2,7 +2,7 @@ import React from 'react'
 import _omit from 'lodash/omit'
 import _pick from 'lodash/pick'
 
-interface IProps {
+export interface IProps {
   backfaceVisibility?: 'visible' | 'hidden',
   backgroundColor?: string,
   borderColor?: string,
@@ -63,7 +63,7 @@ function getNonStyleProps(props: IProps): any {
   return _omit(props, styles)
 }
 
-class Style_ extends React.PureComponent<IProps, void> {
+export default class Style_ extends React.PureComponent<IProps, void> {
   render() {
     const styleFromProps = getStyleFromProps(this.props)
     const propsToPass = getNonStyleProps(this.props)
