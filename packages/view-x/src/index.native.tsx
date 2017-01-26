@@ -1,7 +1,7 @@
-import * as React from 'react'
-import * as ReactNative from 'react-native'
-import * as glamorReact from 'glamor/react'
-import * as _omit from 'lodash/omit'
+import React from 'react'
+import ReactNative from 'react-native'
+import glamorReact from 'glamor/react'
+import _omit from 'lodash/omit'
 
 export interface IProps {
   alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
@@ -152,7 +152,7 @@ function getStyleFromProps(props: IProps) {
     alignItems: getAlignItems(props),
     bottom: props.bottom,
     flex: props.flex,
-    flexDirection: props.horizontal === true ? 'row' : 'col',
+    flexDirection: props.horizontal === true ? 'row' : 'column',
     flexWrap: props.wrap,
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,

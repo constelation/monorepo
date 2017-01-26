@@ -191,7 +191,7 @@ function getStyleFromProps(props: IProps) {
     bottom: props.bottom,
     display: props.hidden ? 'none' : (props.inline ? 'inline-flex' : 'flex'),
     flex: props.flex,
-    flexDirection: props.horizontal === true ? 'row' : 'col',
+    flexDirection: props.horizontal === true ? 'row' : 'column',
     flexWrap: props.wrap,
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,
