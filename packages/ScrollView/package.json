@@ -1,6 +1,6 @@
 {
   "name": "constelation-scroll-view",
-  "version": "7.0.0",
+  "version": "7.0.3",
   "description": "",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
