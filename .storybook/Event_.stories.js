@@ -3,7 +3,7 @@ import { storiesOf, action } from '@kadira/storybook'
 import View from '../packages/View'
 import Text from '../packages/Text'
 import Style_ from '../packages/Style_'
-import Event_ from '../packages/Event_/index.js'
+import Event_ from '../packages/Event_'
 
 class Hoverable extends React.Component {
 

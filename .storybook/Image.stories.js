@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import Image from '../Image'
+import Image from '../packages/Image'
 import Col from '../packages/Col'
 
 storiesOf('Image', module)
