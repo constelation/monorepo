@@ -1,4 +1,4 @@
-declare module "constelation-View" {
+declare module "constelation-view" {
   declare class View extends React$PureComponent<> {
     props: {
       alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',

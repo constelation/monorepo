@@ -1,13 +1,13 @@
 {
   "name": "constelation-text",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "",
   "homepage": "https://github.com/constelation/monorepo",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
     "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
     "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
-    "build": "npm run build:web && npm run build:native && npm run copy",
+    "build": "npm run build:web; npm run build:native; npm run copy",
     "test": "echo \"Error: no test specified\" && exit 1",
     "flowtype": "../../node_modules/.bin/flow gen-flow-files *.js --out-dir dist"
   },

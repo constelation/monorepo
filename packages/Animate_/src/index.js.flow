@@ -1,4 +1,4 @@
-declare module "constelation-Animate_" {
+declare module "constelation-animate_" {
   declare class Animate_ extends React$PureComponent<> {
     props: {
       keyframes?: Object,

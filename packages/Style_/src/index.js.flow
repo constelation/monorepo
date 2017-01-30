@@ -1,4 +1,4 @@
-declare module "constelation-Style_" {
+declare module "constelation-style_" {
   declare class Style_ extends React$PureComponent<> {
     props: {
       background?: string,

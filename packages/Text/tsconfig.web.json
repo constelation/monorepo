@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        // "module": "es6",
         "module": "commonjs",
         "target": "es5",
         "lib": [
@@ -9,7 +10,6 @@
         ],
         "jsx": "react",
         "outDir": ".",
-        "moduleResolution": "node",
         "removeComments": true,
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,

@@ -87,8 +87,8 @@ export default class Animate_ extends React.Component<IProps, void> {
     useNativeDriver: true,
   }
 
-  animatedValue = new Animated.Value(0)
-  style = {}
+  private animatedValue = new Animated.Value(0)
+  private style = {}
 
   constructor(props: IProps) {
     super()

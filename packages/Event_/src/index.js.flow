@@ -1,4 +1,4 @@
-declare module "constelation-Event_" {
+declare module "constelation-event_" {
   declare class Event_ extends React$PureComponent<> {
     props: {
       action?: Function,
