@@ -26,8 +26,21 @@ export interface IProps {
   shadowOffset?: { width?: number, height?: number },
   shadowOpacity?: number,
   shadowRadius?: number,
-  transform?: Array<Object>,
   style?: Object,
+
+  // transforms
+  translateX?: number,
+  translateY?: number,
+  scale?: number,
+  scaleX?: number,
+  scaleY?: number,
+  skewX?: string,
+  skewY?: string,
+  rotate?: string,
+  rotateX?: string,
+  rotateY?: string,
+  rotateZ?: string,
+  perspective?: number,
 }
 const styles = [
   'backgroundColor',
@@ -52,15 +65,56 @@ const styles = [
   'shadowOffset',
   'shadowOpacity',
   'shadowRadius',
-  'transform',
 ]
 
+const TRANSFORM_STYLE_PROPERTIES = [
+  'perspective',
+  'rotate',
+  'rotateX',
+  'rotateY',
+  'rotateZ',
+  'scale',
+  'scaleX',
+  'scaleY',
+  'skewX',
+  'skewY',
+  'translateX',
+  'translateY',
+]
+
+const propsToOmit = styles.concat(TRANSFORM_STYLE_PROPERTIES)
+
+function hasTransforms(style: any): boolean {
+  return (TRANSFORM_STYLE_PROPERTIES.some(transform => style.hasOwnProperty(transform)))
+}
+
+// credits: https://github.com/oblador/react-native-animatable/blob/master/wrapStyleTransforms.js
+function buildTransforms(style: any): any[] {
+  const transform: any[] = []
+
+  Object.keys(style).forEach((key) => {
+    if (TRANSFORM_STYLE_PROPERTIES.indexOf(key) !== -1) {
+      transform.push({
+        [key]: style[key],
+      })
+    }
+  })
+
+  return transform
+}
+
 function getStyleFromProps(props: IProps) {
-  return _pick(props, styles)
+  const stylesFromProps: any = _pick(props, styles)
+
+  if (hasTransforms(props)) {
+    stylesFromProps.transform = buildTransforms(props)
+  }
+
+  return stylesFromProps
 }
 
 function getNonStyleProps(props: IProps): any {
-  return _omit(props, styles)
+  return _omit(props, propsToOmit)
 }
 
 export default class Style_ extends React.PureComponent<IProps, void> {
