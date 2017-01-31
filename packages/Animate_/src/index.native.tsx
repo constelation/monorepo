@@ -145,7 +145,6 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   private validateStyleForNativeDriver = (styleName: string) => {
-    // TODO use transform whitelist
     if (this.useNativeDriver && !NATIVE_DRIVER_STYLES.hasOwnProperty(styleName)) {
       this.useNativeDriver = false
     }
