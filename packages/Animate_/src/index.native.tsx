@@ -58,12 +58,8 @@ const propsToOmit = [
  *
  * from https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/NativeAnimatedHelper.js#L108
  */
-const STYLES_WHITELIST = {
+const NATIVE_DRIVER_STYLES = {
   opacity: true,
-  transform: true,
-}
-
-const TRANSFORM_WHITELIST = {
   translateX: true,
   translateY: true,
   scale: true,
@@ -73,7 +69,24 @@ const TRANSFORM_WHITELIST = {
   rotateX: true,
   rotateY: true,
   perspective: true,
+  // Other transforms not nativeDriver-capable:
+  // skewX, skewY, rotateZ,
 }
+
+const TRANSFORM_STYLE_PROPERTIES = [
+  'perspective',
+  'rotate',
+  'rotateX',
+  'rotateY',
+  'rotateZ',
+  'scale',
+  'scaleX',
+  'scaleY',
+  'skewX',
+  'skewY',
+  'translateX',
+  'translateY',
+]
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
@@ -102,6 +115,10 @@ function getNonStyleProps(props: IProps): any {
   return _omit(props, propsToOmit)
 }
 
+function isTransform(styleName: string): boolean {
+  return TRANSFORM_STYLE_PROPERTIES.indexOf(styleName) !== -1
+}
+
 export default class Animate_ extends React.Component<IProps, void> {
   static defaultProps = {
     autoplay: false,
@@ -109,7 +126,7 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   private animatedValue = new Animated.Value(0)
-  private style = {}
+  private style: any = {}
   private useNativeDriver = true
 
   constructor(props: IProps) {
@@ -127,24 +144,42 @@ export default class Animate_ extends React.Component<IProps, void> {
     this.props.autoplay && this.animate(1)
   }
 
-  private validStyleForNativeDriver = (styleName: string) => {
+  private validateStyleForNativeDriver = (styleName: string) => {
     // TODO use transform whitelist
-    if (this.useNativeDriver && !STYLES_WHITELIST.hasOwnProperty(key)) {
+    if (this.useNativeDriver && !NATIVE_DRIVER_STYLES.hasOwnProperty(styleName)) {
       this.useNativeDriver = false
     }
   }
 
-  //TODO deal with transform/translates
+  private addStyle = (style: string, interpolatedStyle: Object) => {
+    if (isTransform(style)) {
+      // If this is a transform style, add it to a transform array
+      const transformStyle = { [style]: interpolatedStyle }
+
+      if (Array.isArray(this.style.transform)) {
+        this.style.transform.push(transformStyle)
+      }
+      else {
+        this.style.transform = [transformStyle]
+      }
+    }
+    else {
+      this.style[style] = interpolatedStyle
+    }
+  }
+
   private createInterpolationsStyle = (animation: any) => {
     // create a simple 0 -> 1 interpolation
     if (animation.from) {
-      Object.keys(animation.from).forEach(key => {
-        this.validStyleForNativeDriver(key)
+      Object.keys(animation.from).forEach(style => {
+        this.validateStyleForNativeDriver(style)
 
-        this.style[key] = this.animatedValue.interpolate({
+        const interpolatedStyle = this.animatedValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [animation.from[key], animation.to[key]],
+          outputRange: [animation.from[style], animation.to[style]],
         })
+
+        this.addStyle(style, interpolatedStyle)
       })
     }
     // create a more complication 0 ... 1 interpolation using keyframes
@@ -161,18 +196,20 @@ export default class Animate_ extends React.Component<IProps, void> {
       })
 
       Array.from(stylesInAnimation).forEach(style => {
-        this.validStyleForNativeDriver(style)
+        this.validateStyleForNativeDriver(style)
 
-        this.style[style] = this.animatedValue.interpolate({
+        const interpolatedStyle = this.animatedValue.interpolate({
           inputRange: inputRange,
           outputRange: inputRange.map(frame => animation[frame][style]),
         })
+
+        this.addStyle(style, interpolatedStyle)
       })
     }
 
   }
 
-  private animate = (toValue) => {
+  private animate = (toValue: number) => {
     this.props.onStart && this.props.onStart()
 
     Animated.timing(
@@ -212,8 +249,8 @@ export default class Animate_ extends React.Component<IProps, void> {
     var propsToPass = getNonStyleProps(this.props)
 
     // Style_'s render() runs before Child's, so add its style props back in
+    // TODO: merge Child's transform object if it exists
     propsToPass.style = { ...this.style, ...Child.props.style }
-
     // used by child View/Text/ScrollView/Image
     propsToPass.animated = true
 
