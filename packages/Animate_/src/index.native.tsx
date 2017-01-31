@@ -53,6 +53,28 @@ const propsToOmit = [
   'onEnd',
 ]
 
+/**
+ * Styles allowed by the native animated implementation.
+ *
+ * from https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/NativeAnimatedHelper.js#L108
+ */
+const STYLES_WHITELIST = {
+  opacity: true,
+  transform: true,
+}
+
+const TRANSFORM_WHITELIST = {
+  translateX: true,
+  translateY: true,
+  scale: true,
+  scaleX: true,
+  scaleY: true,
+  rotate: true,
+  rotateX: true,
+  rotateY: true,
+  perspective: true,
+}
+
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
   return a - b
@@ -82,13 +104,13 @@ function getNonStyleProps(props: IProps): any {
 
 export default class Animate_ extends React.Component<IProps, void> {
   static defaultProps = {
-    autoplay: true,
+    autoplay: false,
     easing: 'ease',
-    useNativeDriver: true,
   }
 
   private animatedValue = new Animated.Value(0)
   private style = {}
+  private useNativeDriver = true
 
   constructor(props: IProps) {
     super()
@@ -105,11 +127,20 @@ export default class Animate_ extends React.Component<IProps, void> {
     this.props.autoplay && this.animate(1)
   }
 
+  private validStyleForNativeDriver = (styleName: string) => {
+    // TODO use transform whitelist
+    if (this.useNativeDriver && !STYLES_WHITELIST.hasOwnProperty(key)) {
+      this.useNativeDriver = false
+    }
+  }
+
   //TODO deal with transform/translates
   private createInterpolationsStyle = (animation: any) => {
     // create a simple 0 -> 1 interpolation
     if (animation.from) {
       Object.keys(animation.from).forEach(key => {
+        this.validStyleForNativeDriver(key)
+
         this.style[key] = this.animatedValue.interpolate({
           inputRange: [0, 1],
           outputRange: [animation.from[key], animation.to[key]],
@@ -130,6 +161,8 @@ export default class Animate_ extends React.Component<IProps, void> {
       })
 
       Array.from(stylesInAnimation).forEach(style => {
+        this.validStyleForNativeDriver(style)
+
         this.style[style] = this.animatedValue.interpolate({
           inputRange: inputRange,
           outputRange: inputRange.map(frame => animation[frame][style]),
@@ -149,7 +182,7 @@ export default class Animate_ extends React.Component<IProps, void> {
         easing: (typeof this.props.easing === 'function') ? this.props.easing : easings[this.props.easing],
         duration: this.props.duration,
         delay: this.props.delay,
-        useNativeDriver: this.props.useNativeDrive,
+        useNativeDriver: this.useNativeDriver,
       },
     ).start(this.handleEnd)
   }
