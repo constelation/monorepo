@@ -24,8 +24,20 @@ declare module "constelation-style_" {
       shadowOffset?: {width?: number, height?: number},
       shadowOpacity?: number,
       shadowRadius?: number,
-      transform?: Array<Object>,
       style?: Object,
+      
+      translateX?: number,
+      translateY?: number,
+      scale?: number,
+      scaleX?: number,
+      scaleY?: number,
+      skewX?: string,
+      skewY?: string,
+      rotate?: string,
+      rotateX?: string,
+      rotateY?: string,
+      rotateZ?: string,
+      perspective?: number,
     };
     render(): any;
   }
