@@ -1,21 +1,27 @@
 {
-  "name": "constelation-Text",
-  "version": "6.3.3",
+  "name": "constelation-text",
+  "version": "7.0.3",
   "description": "",
-  "main": "dist/index.js",
+  "homepage": "https://github.com/constelation/monorepo",
   "scripts": {
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
+    "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
+    "build": "npm run build:web; npm run build:native; npm run copy",
     "test": "echo \"Error: no test specified\" && exit 1",
     "flowtype": "../../node_modules/.bin/flow gen-flow-files *.js --out-dir dist"
   },
-  "keywords": [],
+  "keywords": [
+    "constelation",
+    "text"
+  ],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "peerDependencies": {
-    "glamor": "^2.17.12",
     "lodash": "^4.13.1",
     "react": "^15.2.1"
   },
-  "devDependencies": {
-    "flow-bin": "^0.34.0"
+  "optionalDependencies": {
+    "glamor": "^2.17.12"
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
 // import Event_ from '../packages/Event_'
-import ViewNative from '../packages/View/dist/View.native.js'
+import ViewNative from '../packages/View/View.native.js'
 
 const style = {
   backgroundColor: 'lightgrey',

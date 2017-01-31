@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf, action } from '@kadira/storybook'
-import Video from '../packages/Video/dist'
+import Video from '../packages/Video/index.js'
 // import Text from '../packages/Text/dist/Text.native.js'
 
 storiesOf('Video', module)

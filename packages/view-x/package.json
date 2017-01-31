@@ -1,5 +1,5 @@
 {
-  "name": "constelation-style_",
+  "name": "constelation-view",
   "version": "7.0.3",
   "description": "",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "keywords": [
     "constelation",
-    "style"
+    "view"
   ],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",

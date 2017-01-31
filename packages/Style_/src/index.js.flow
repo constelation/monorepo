@@ -1,0 +1,27 @@
+declare module "constelation-style_" {
+  declare class Style_ extends React$PureComponent<> {
+    props: {
+      background?: string,
+      backgroundColor?: string,
+      boxShadow?: string,
+      border?: string,
+      borderTop?: string,
+      borderRight?: string,
+      borderBottom?: string,
+      borderLeft?: string,
+      borderColor?: string,
+      borderStyle?: string,
+      borderRadius?: string | number,
+      borderWidth?: string | number,
+      opacity?: number,
+      outline?: string,
+      style?: Object,
+      transform?: string,
+      transition?: string,
+      visibility?: string,
+      willChange?: string,
+    };
+    render(): any;
+  }
+declare var exports: typeof Style_;
+}

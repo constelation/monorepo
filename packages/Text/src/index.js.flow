@@ -1,0 +1,27 @@
+declare module "constelation-text" {
+  declare class Text extends React$PureComponent<> {
+    props: {
+      antialiased?: boolean,
+      align?: 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent',
+      bold?: boolean,
+      center?: boolean,
+      color?: string,
+      css?: Object,
+      decoration?: string,
+      ellipsis?: boolean,
+      fontFamily?: string,
+      height?: string | number,
+      italic?: boolean,
+      refNode?: () => {},
+      size?: string | number,
+      spacing?: string | number,
+      tag?: string,
+      transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'full-width',
+      underline?: boolean,
+      uppercase?: boolean,
+      weight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900',
+    };
+    render(): any;
+  }
+  declare var exports: typeof Text;
+}

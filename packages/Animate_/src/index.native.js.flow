@@ -1,0 +1,17 @@
+declare module "constelation-animate_" {
+  declare class Animate_ extends React$PureComponent<> {
+    props: {
+      animation?: Object | 'fadeIn' | 'fadeOut',
+      autoplay?: boolean,
+      delay?: number,
+      duration?: number,
+      easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
+      repeat?: boolean,
+      onStart?: Function,
+      onEnd?: Function,
+    };
+    trigger(): void;
+    render(): any;
+  }
+  declare var exports: typeof Animate_;
+}

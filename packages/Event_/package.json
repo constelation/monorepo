@@ -1,19 +1,25 @@
 {
-  "name": "constelation-Event_",
-  "version": "6.5.1",
+  "name": "constelation-event_",
+  "version": "7.0.3",
   "description": "",
-  "main": "dist/index.js",
   "scripts": {
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
+    "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
+    "build": "npm run build:native; npm run copy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "constelation",
+    "event"
+  ],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
-  "dependencies": {
-    "hammerjs": "^2.0.8"
-  },
   "peerDependencies": {
-    "react": "^15.2.1",
-    "lodash": "^4.13.1"
+    "lodash": "^4.13.1",
+    "react": "^15.2.1"
+  },
+  "optionalDependencies": {
+    "hammerjs": "^2.0.8"
   }
 }
