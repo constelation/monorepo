@@ -9,6 +9,7 @@ export interface IProps {
   animation?: Object | 'fadeIn' | 'fadeOut',
   autoplay?: boolean,
   delay?: number,
+  direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
   duration?: number,
   easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
   repeat?: boolean,
@@ -47,6 +48,7 @@ const defaultAnimations = {
 const propsToOmit = [
   'duration',
   'delay',
+  'direction',
   'easing',
   'animation',
   'onStart',
@@ -104,7 +106,7 @@ function parsePosition(value: string) {
   // else if (value === 'to') {
   //   return 1
   // }
-  const parsed = parseFloat(value, 10)
+  const parsed = parseFloat(value)
   if (isNaN(parsed) || parsed < 0 || parsed > 1) {
     return null
   }
@@ -122,16 +124,32 @@ function isTransform(styleName: string): boolean {
 export default class Animate_ extends React.Component<IProps, void> {
   static defaultProps = {
     autoplay: false,
+    direction: 'normal',
     easing: 'ease',
   }
 
-  private animatedValue = new Animated.Value(0)
+  private fromValue: number
+  private toValue: number
+  private animatedValue: any
   private style: any = {}
   private useNativeDriver = true
 
   constructor(props: IProps) {
     super()
 
+    // Set up the animated value that'll be used to interpolate and run the animation
+    let startingAnimatedValue
+    if (props.direction === 'reverse' || props.direction === 'alternateReverse') {
+      this.fromValue = 1
+      this.toValue = 0
+    }
+    else {
+      this.fromValue = 0
+      this.toValue = 1
+    }
+    this.animatedValue = new Animated.Value(this.fromValue)
+
+    // Build interpolations for each style
     if (typeof props.animation === 'object') {
       this.createInterpolationsStyle(props.animation)
     }
@@ -141,7 +159,7 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   componentDidMount() {
-    this.props.autoplay && this.animate(1)
+    this.props.autoplay && this.animate()
   }
 
   private validateStyleForNativeDriver = (styleName: string) => {
@@ -174,7 +192,7 @@ export default class Animate_ extends React.Component<IProps, void> {
         this.validateStyleForNativeDriver(style)
 
         const interpolatedStyle = this.animatedValue.interpolate({
-          inputRange: [0, 1],
+          inputRange: [this.fromValue, this.toValue],
           outputRange: [animation.from[style], animation.to[style]],
         })
 
@@ -185,6 +203,11 @@ export default class Animate_ extends React.Component<IProps, void> {
     else if (animation[0]) {
       const inputRange = Object.keys(animation).map(parsePosition).filter(notNull)
       inputRange.sort(compareNumbers)
+
+      if (this.fromValue === 1) {
+        // reverse range so it goes 1 ... 0
+        inputRange.reverse()
+      }
 
       const stylesInAnimation = new Set()
 
@@ -208,8 +231,10 @@ export default class Animate_ extends React.Component<IProps, void> {
 
   }
 
-  private animate = (toValue: number) => {
+  private animate = () => {
     this.props.onStart && this.props.onStart()
+
+    const toValue = this.toValue
 
     Animated.timing(
       this.animatedValue,
@@ -221,6 +246,11 @@ export default class Animate_ extends React.Component<IProps, void> {
         useNativeDriver: this.useNativeDriver,
       },
     ).start(this.handleEnd)
+
+    if (this.props.direction === 'alternate' || this.props.direction === 'alternateReverse') {
+      this.toValue = this.fromValue
+      this.fromValue = toValue
+    }
   }
 
   private handleEnd = () => {
@@ -232,15 +262,13 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   public trigger = () => {
-    this.animatedValue.setValue(0)
-    this.animate(1)
-  }
+    // non-alternate animations should be reset before re-animated
+    if (this.props.direction === 'normal' || this.props.direction === 'reverse') {
+      this.animatedValue.setValue(this.fromValue)
+    }
 
-  // Public
-  // reverse = () => {
-  //   this.animatedValue.setValue(1)
-  //   this.animate(0)
-  // }
+    this.animate()
+  }
 
   render() {
     var Child = React.Children.only(this.props.children)
