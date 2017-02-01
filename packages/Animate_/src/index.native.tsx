@@ -7,12 +7,26 @@ import _omit from 'lodash/omit'
 
 export interface IProps {
   animation?: Object | 'fadeIn' | 'fadeOut',
+
+  /** Animate on mount. Default false. */
   autoplay?: boolean,
+
+  /** Start the animation after delay (milliseconds). Default 0. */
   delay?: number,
   direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
+
+  /** Length of animation (milliseconds). Default 500. */
   duration?: number,
+
+  /**  Easing function to define curve. Default 'inOut' for ios. */
   easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
+
+  /** Controls "bounciness"/overshoot. Default 7. */
+  friction?: number,
   repeat?: boolean,
+
+  /** Controls speed. Default 40. */
+  tension?: number,
   onStart?: Function,
   onEnd?: Function,
 }
@@ -44,16 +58,6 @@ const defaultAnimations = {
     },
   },
 }
-
-const propsToOmit = [
-  'duration',
-  'delay',
-  'direction',
-  'easing',
-  'animation',
-  'onStart',
-  'onEnd',
-]
 
 /**
  * Styles allowed by the native animated implementation.
@@ -90,6 +94,29 @@ const TRANSFORM_STYLE_PROPERTIES = [
   'translateY',
 ]
 
+const TIMING_PROPERTIES = [
+  'duration',
+  'easing',
+  'delay',
+]
+
+const SPRING_PROPERTIES = [
+  'friction',
+  'tension',
+]
+
+const propsToOmit = [
+  ...TIMING_PROPERTIES,
+  ...SPRING_PROPERTIES,
+  'animation',
+  'autoplay',
+  'direction',
+  'onStart',
+  'onEnd',
+  'repeat',
+]
+
+
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
   return a - b
@@ -100,13 +127,8 @@ function notNull(value?: number) {
 }
 
 function parsePosition(value: string) {
-  // if (value === 'from') {
-  //   return 0
-  // }
-  // else if (value === 'to') {
-  //   return 1
-  // }
   const parsed = parseFloat(value)
+
   if (isNaN(parsed) || parsed < 0 || parsed > 1) {
     return null
   }
@@ -121,11 +143,18 @@ function isTransform(styleName: string): boolean {
   return TRANSFORM_STYLE_PROPERTIES.indexOf(styleName) !== -1
 }
 
+function hasTimingProps(props: IProps): boolean {
+  return (TIMING_PROPERTIES.some(timingProp => props.hasOwnProperty(timingProp)))
+}
+
+function hasSpringProps(props: IProps): boolean {
+  return (SPRING_PROPERTIES.some(springProp => props.hasOwnProperty(springProp)))
+}
+
 export default class Animate_ extends React.Component<IProps, void> {
   static defaultProps = {
     autoplay: false,
     direction: 'normal',
-    easing: 'ease',
   }
 
   private fromValue: number
@@ -228,24 +257,44 @@ export default class Animate_ extends React.Component<IProps, void> {
         this.addStyle(style, interpolatedStyle)
       })
     }
-
   }
 
   private animate = () => {
-    this.props.onStart && this.props.onStart()
-
     const toValue = this.toValue
 
-    Animated.timing(
-      this.animatedValue,
-      {
-        toValue,
-        easing: (typeof this.props.easing === 'function') ? this.props.easing : easings[this.props.easing],
-        duration: this.props.duration,
-        delay: this.props.delay,
-        useNativeDriver: this.useNativeDriver,
-      },
-    ).start(this.handleEnd)
+    let animation
+    if (hasTimingProps(this.props)) {
+      animation = Animated.timing(
+        this.animatedValue,
+        {
+          toValue,
+          easing: (typeof this.props.easing === 'function') ? this.props.easing : easings[this.props.easing],
+          duration: this.props.duration,
+          delay: this.props.delay,
+          useNativeDriver: this.useNativeDriver,
+        },
+      )
+
+      // In Dev mode, warn dev if Spring and Timing props are declared
+      if (__DEV__ && hasSpringProps(this.props)) {
+        console.warn('You have Timing and Spring props declared. Defaulting to animated.timing(). Spring props are ignored.')
+      }
+    }
+    // default to Spring if no timing props are passed in
+    else {
+      // NOTE: can use `delay` prop with Animated.sequence() and Animated.delay() if the need arises
+      animation = Animated.spring(
+        this.animatedValue,
+        {
+          toValue,
+          friction: this.props.friction,
+          tension: this.props.tension,
+        },
+      )
+    }
+
+    this.props.onStart && this.props.onStart()
+    animation.start(this.handleEnd)
 
     if (this.props.direction === 'alternate' || this.props.direction === 'alternateReverse') {
       this.toValue = this.fromValue

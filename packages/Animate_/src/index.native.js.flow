@@ -7,7 +7,9 @@ declare module "constelation-animate_" {
       direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
       duration?: number,
       easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
+      friction?: number,
       repeat?: boolean,
+      tension?: number,
       onStart?: Function,
       onEnd?: Function,
     };

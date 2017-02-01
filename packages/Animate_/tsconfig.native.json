@@ -5,13 +5,20 @@
         "jsx": "react",
         "outDir": ".",
         "moduleResolution": "node",
-        "removeComments": true,
+        // "removeComments": true,
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
         "allowJs": false,
         "declaration": true
+        // "lib": [
+        //     "DOM",
+        //     "ScriptHost",
+        //     "DOM.Iterable",
+        //     "ES6",
+        //     "ES2015"
+        // ]
     },
     "files": [
         "src/index.native.tsx"
