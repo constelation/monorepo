@@ -6,6 +6,7 @@ import React from 'react'
 import _omit from 'lodash/omit'
 
 export interface IProps {
+  /** Keyframes used for interpolating animation */
   animation?: Object | 'fadeIn' | 'fadeOut',
 
   /** Animate on mount. Default false. */
@@ -13,6 +14,8 @@ export interface IProps {
 
   /** Start the animation after delay (milliseconds). Default 0. */
   delay?: number,
+
+  /** 0 -> 1 | 1 -> 0 | 0 -> 1, 1 -> 0 | 1 -> 0, 0 -> 1 */
   direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
 
   /** Length of animation (milliseconds). Default 500. */
@@ -23,6 +26,8 @@ export interface IProps {
 
   /** Controls "bounciness"/overshoot. Default 7. */
   friction?: number,
+
+  /** Repeat animation indefinitely */
   repeat?: boolean,
 
   /** Controls speed. Default 40. */
@@ -116,7 +121,6 @@ const propsToOmit = [
   'repeat',
 ]
 
-
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
   return a - b
@@ -152,10 +156,15 @@ function hasSpringProps(props: IProps): boolean {
 }
 
 export default class Animate_ extends React.Component<IProps, void> {
+  static contextTypes = {
+    timingMultiplier: React.PropTypes.number
+  }
+
   static defaultProps = {
     autoplay: false,
     direction: 'normal',
   }
+
 
   private fromValue: number
   private toValue: number
@@ -264,18 +273,31 @@ export default class Animate_ extends React.Component<IProps, void> {
 
     let animation
     if (hasTimingProps(this.props)) {
+      let duration = this.props.duration
+      let delay = this.props.delay
+
+      if (__DEV__) {
+        duration = (duration || 500) * this.context.timingMultiplier
+
+        if (delay) {
+          delay = delay * this.context.timingMultiplier
+        }
+      }
+
+      // TODO: cache this animation (and its reverse if needed)
+      // to avoid re-creating this object on every animate() call
       animation = Animated.timing(
         this.animatedValue,
         {
           toValue,
+          duration,
+          delay,
           easing: (typeof this.props.easing === 'function') ? this.props.easing : easings[this.props.easing],
-          duration: this.props.duration,
-          delay: this.props.delay,
           useNativeDriver: this.useNativeDriver,
         },
       )
 
-      // In Dev mode, warn dev if Spring and Timing props are declared
+      // In Dev mode, warn if Spring and Timing props are declared
       if (__DEV__ && hasSpringProps(this.props)) {
         console.warn('You have Timing and Spring props declared. Defaulting to animated.timing(). Spring props are ignored.')
       }
@@ -331,5 +353,25 @@ export default class Animate_ extends React.Component<IProps, void> {
     propsToPass.animated = true
 
     return React.cloneElement(Child, propsToPass)
+  }
+}
+
+export interface IConfigProps {
+  timingMultiplier: number,
+}
+
+export class AnimationConfig extends React.Component<IConfigProps, void> {
+  static childContextTypes = {
+    timingMultiplier: React.PropTypes.number
+  }
+
+  getChildContext() {
+    return {
+      timingMultiplier: this.props.timingMultiplier,
+    }
+  }
+
+  render() {
+    return React.Children.only(this.props.children);
   }
 }
