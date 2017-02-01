@@ -12,9 +12,22 @@ declare module "constelation-animate_" {
       tension?: number,
       onStart?: Function,
       onEnd?: Function,
+      triggerEvent?: string,
+      startEvent?: string,
+      endEvent?: string,
     };
     trigger(): void;
     render(): any;
   }
-  declare var exports: typeof Animate_;
+  declare class AnimationConfig extends React$PureComponent<> {
+    props: {
+      timingMultiplier: number,
+    };
+    render(): any;
+  }
+  declare var emitter: Function;
+
+  declare export var AnimationConfig: typeof AnimationConfig;
+  declare export var emitter: typeof emitter;
+  declare export default typeof Animate_
 }
