@@ -29,6 +29,7 @@
     "jest": "^18.1.0",
     "lerna": "2.0.0-beta.32",
     "lodash": "^4.17.4",
+    "mitt": "^1.0.1",
     "raf": "^3.3.0",
     "react": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",

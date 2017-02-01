@@ -1,3 +1,4 @@
+import mitt from 'mitt'
 import {
   Animated,
   Easing,
@@ -34,6 +35,15 @@ export interface IProps {
   tension?: number,
   onStart?: Function,
   onEnd?: Function,
+
+  /** Event name which will trigger animation to start */
+  triggerEvent?: string,
+
+  /** Event name fired when animation starts */
+  startEvent?: string,
+
+  /** Event name fired when animation ends */
+  endEvent?: string,
 }
 
 const easings = {
@@ -119,7 +129,13 @@ const propsToOmit = [
   'onStart',
   'onEnd',
   'repeat',
+  'triggerEvent',
+  'startEvent',
+  'endEvent'
 ]
+
+// Used for coordinating animations
+export const emitter = mitt()
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
@@ -165,7 +181,6 @@ export default class Animate_ extends React.Component<IProps, void> {
     direction: 'normal',
   }
 
-
   private fromValue: number
   private toValue: number
   private animatedValue: any
@@ -197,7 +212,23 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   componentDidMount() {
-    this.props.autoplay && this.animate()
+    if (this.props.autoplay) {
+      this.animate()
+    }
+    else if (this.props.triggerEvent) {
+      emitter.on(this.props.triggerEvent, this.onTriggerEvent)
+    }
+  }
+
+  componentWillUnmount() {
+    // unsubscribe listener if it exists
+    if (this.props.triggerEvent) {
+      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
+    }
+  }
+
+  private onTriggerEvent = () => {
+    this.animate()
   }
 
   private validateStyleForNativeDriver = (styleName: string) => {
@@ -284,8 +315,8 @@ export default class Animate_ extends React.Component<IProps, void> {
         }
       }
 
-      // TODO: cache this animation (and its reverse if needed)
-      // to avoid re-creating this object on every animate() call
+      // TODO: save this animation (and its reverse if needed)
+      // to avoid re-creating it on every animate() call
       animation = Animated.timing(
         this.animatedValue,
         {
@@ -316,6 +347,9 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
 
     this.props.onStart && this.props.onStart()
+    if (typeof this.props.startEvent === 'string') {
+      emitter.emit(this.props.startEvent)
+    }
     animation.start(this.handleEnd)
 
     if (this.props.direction === 'alternate' || this.props.direction === 'alternateReverse') {
@@ -326,6 +360,10 @@ export default class Animate_ extends React.Component<IProps, void> {
 
   private handleEnd = () => {
     this.props.onEnd && this.props.onEnd()
+
+    if (typeof this.props.endEvent === 'string') {
+      emitter.emit(this.props.endEvent)
+    }
 
     if (this.props.repeat) {
       this.trigger()
@@ -372,6 +410,6 @@ export class AnimationConfig extends React.Component<IConfigProps, void> {
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    return React.Children.only(this.props.children)
   }
 }
