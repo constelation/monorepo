@@ -11,10 +11,10 @@ declare module "constelation-animate_" {
       repeat?: boolean,
       tension?: number,
       onStart?: Function,
+      onStartEvent?: string,
       onEnd?: Function,
+      onEndEvent?: string,
       triggerEvent?: string,
-      startEvent?: string,
-      endEvent?: string,
     };
     trigger(): void;
     render(): any;
@@ -25,7 +25,7 @@ declare module "constelation-animate_" {
     };
     render(): any;
   }
-  declare var emitter: Function;
+  declare var emitter: Object;
 
   declare export var AnimationConfig: typeof AnimationConfig;
   declare export var emitter: typeof emitter;

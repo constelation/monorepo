@@ -40,13 +40,13 @@ export interface IProps {
   triggerEvent?: string,
 
   /** Event name fired when animation starts */
-  startEvent?: string,
+  onStartEvent?: string,
 
   /** Event name fired when animation ends */
-  endEvent?: string,
+  onEndEvent?: string,
 }
 
-const easings = {
+const EASINGS = {
   'linear': Easing.linear,
   'ease': Easing.ease,
   'in': Easing.in(Easing.ease),
@@ -55,7 +55,7 @@ const easings = {
   'inOutQuad': Easing.inOut(Easing.quad),
 }
 
-const defaultAnimations = {
+const DEFAULT_ANIMATIONS = {
   'fadeIn': {
     from: {
       opacity: 0,
@@ -130,8 +130,8 @@ const propsToOmit = [
   'onEnd',
   'repeat',
   'triggerEvent',
-  'startEvent',
-  'endEvent'
+  'onStartEvent',
+  'onEndEvent'
 ]
 
 // Used for coordinating animations
@@ -171,7 +171,7 @@ function hasSpringProps(props: IProps): boolean {
   return (SPRING_PROPERTIES.some(springProp => props.hasOwnProperty(springProp)))
 }
 
-export default class Animate_ extends React.Component<IProps, void> {
+export default class Animate_ extends React.PureComponent<IProps, void> {
   static contextTypes = {
     timingMultiplier: React.PropTypes.number
   }
@@ -190,25 +190,11 @@ export default class Animate_ extends React.Component<IProps, void> {
   constructor(props: IProps) {
     super()
 
-    // Set up the animated value that'll be used to interpolate and run the animation
-    let startingAnimatedValue
-    if (props.direction === 'reverse' || props.direction === 'alternateReverse') {
-      this.fromValue = 1
-      this.toValue = 0
-    }
-    else {
-      this.fromValue = 0
-      this.toValue = 1
-    }
+    this.setFromAndToValues(props.direction)
+
     this.animatedValue = new Animated.Value(this.fromValue)
 
-    // Build interpolations for each style
-    if (typeof props.animation === 'object') {
-      this.createInterpolationsStyle(props.animation)
-    }
-    else if (typeof props.animation === 'string') {
-      this.createInterpolationsStyle(defaultAnimations[props.animation])
-    }
+    this.buildKeyframes(props.animation)
   }
 
   componentDidMount() {
@@ -227,16 +213,46 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
   }
 
+  componentWillUpdate(nextProps: IProps) {
+    if (nextProps.animation !== this.props.animation) {
+      this.buildKeyframes(nextProps.animation)
+    }
+    if (nextProps.direction !== this.props.direction) {
+      this.setFromAndToValues(nextProps.direction)
+    }
+    if (nextProps.triggerEvent !== this.props.triggerEvent) {
+      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
+
+      if (nextProps.triggerEvent) {
+        emitter.on(nextProps.triggerEvent, this.onTriggerEvent)
+      }
+    }
+  }
+
+  private setFromAndToValues = (direction: string) => {
+    // Set up the animated value that'll be used to interpolate and run the animation
+    if (direction === 'reverse' || direction === 'alternateReverse') {
+      this.fromValue = 1
+      this.toValue = 0
+    }
+    else {
+      this.fromValue = 0
+      this.toValue = 1
+    }
+  }
+
   private onTriggerEvent = () => {
     this.animate()
   }
 
+  // TODO: bring this outside of class
   private validateStyleForNativeDriver = (styleName: string) => {
     if (this.useNativeDriver && !NATIVE_DRIVER_STYLES.hasOwnProperty(styleName)) {
       this.useNativeDriver = false
     }
   }
 
+  // TODO: bring this outside of class
   private addStyle = (style: string, interpolatedStyle: Object) => {
     if (isTransform(style)) {
       // If this is a transform style, add it to a transform array
@@ -254,23 +270,46 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
   }
 
-  private createInterpolationsStyle = (animation: any) => {
+  // TODO: bring this outside of class
+  private buildKeyframes = (animation: Object | string) => {
+    // Build interpolations for each style
+    if (typeof animation === 'object') {
+      this.setInterpolationsFromKeyframes(animation)
+    }
+    else if (typeof animation === 'string') {
+      if (DEFAULT_ANIMATIONS.hasOwnProperty(animation)) {
+        this.setInterpolationsFromKeyframes(DEFAULT_ANIMATIONS[animation])
+      }
+      else {
+        try {
+          const keyFrames = JSON.parse(animation);
+          this.setInterpolationsFromKeyframes(keyFrames)
+        }
+        catch (e) {
+          console.error('Error parsing your animation. Make sure it is valid json (double-quotes, no trailing commas)', animation);
+        }
+      }
+    }
+  }
+
+  // TODO: bring this outside of class
+  private setInterpolationsFromKeyframes = (keyframes: any) => {
     // create a simple 0 -> 1 interpolation
-    if (animation.from) {
-      Object.keys(animation.from).forEach(style => {
+    if (keyframes.from) {
+      Object.keys(keyframes.from).forEach(style => {
         this.validateStyleForNativeDriver(style)
 
         const interpolatedStyle = this.animatedValue.interpolate({
           inputRange: [this.fromValue, this.toValue],
-          outputRange: [animation.from[style], animation.to[style]],
+          outputRange: [keyframes.from[style], keyframes.to[style]],
         })
 
         this.addStyle(style, interpolatedStyle)
       })
     }
     // create a more complication 0 ... 1 interpolation using keyframes
-    else if (animation[0]) {
-      const inputRange = Object.keys(animation).map(parsePosition).filter(notNull)
+    else if (keyframes[0]) {
+      const inputRange = Object.keys(keyframes).map(parsePosition).filter(notNull)
       inputRange.sort(compareNumbers)
 
       if (this.fromValue === 1) {
@@ -281,7 +320,7 @@ export default class Animate_ extends React.Component<IProps, void> {
       const stylesInAnimation = new Set()
 
       inputRange.forEach(frame => {
-        Object.keys(animation[frame]).forEach(style => {
+        Object.keys(keyframes[frame]).forEach(style => {
           stylesInAnimation.add(style)
         })
       })
@@ -291,7 +330,7 @@ export default class Animate_ extends React.Component<IProps, void> {
 
         const interpolatedStyle = this.animatedValue.interpolate({
           inputRange: inputRange,
-          outputRange: inputRange.map(frame => animation[frame][style]),
+          outputRange: inputRange.map(frame => keyframes[frame][style]),
         })
 
         this.addStyle(style, interpolatedStyle)
@@ -323,7 +362,7 @@ export default class Animate_ extends React.Component<IProps, void> {
           toValue,
           duration,
           delay,
-          easing: (typeof this.props.easing === 'function') ? this.props.easing : easings[this.props.easing],
+          easing: (typeof this.props.easing === 'function') ? this.props.easing : EASINGS[this.props.easing],
           useNativeDriver: this.useNativeDriver,
         },
       )
@@ -347,8 +386,8 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
 
     this.props.onStart && this.props.onStart()
-    if (typeof this.props.startEvent === 'string') {
-      emitter.emit(this.props.startEvent)
+    if (typeof this.props.onStartEvent === 'string') {
+      emitter.emit(this.props.onStartEvent)
     }
     animation.start(this.handleEnd)
 
@@ -361,8 +400,8 @@ export default class Animate_ extends React.Component<IProps, void> {
   private handleEnd = () => {
     this.props.onEnd && this.props.onEnd()
 
-    if (typeof this.props.endEvent === 'string') {
-      emitter.emit(this.props.endEvent)
+    if (typeof this.props.onEndEvent === 'string') {
+      emitter.emit(this.props.onEndEvent)
     }
 
     if (this.props.repeat) {
