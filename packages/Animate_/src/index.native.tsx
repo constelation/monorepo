@@ -11,7 +11,7 @@ export interface IProps {
   animation?: Object | 'fadeIn' | 'fadeOut',
 
   /** Animate on mount. Default false. */
-  autoplay?: boolean,
+  autostart?: boolean,
 
   /** Start the animation after delay (milliseconds). Default 0. */
   delay?: number,
@@ -28,20 +28,24 @@ export interface IProps {
   /** Controls "bounciness"/overshoot. Default 7. */
   friction?: number,
 
-  /** Repeat animation indefinitely */
-  repeat?: boolean,
+  /** Number of times to animate. Default 1. 'infinite' to repeat */
+  repeat?: boolean | number,
 
   /** Controls speed. Default 40. */
   tension?: number,
   useNativeDriver?: boolean,
-  onStart?: Function,
-  onEnd?: Function,
 
   /** Event name which will trigger animation to start */
-  triggerEvent?: string,
+  startEvent?: string,
+
+  /** callback when animation starts */
+  onStart?: Function,
 
   /** Event name fired when animation starts */
   onStartEvent?: string,
+
+  /** callback when animation ends */
+  onEnd?: Function,
 
   /** Event name fired when animation ends */
   onEndEvent?: string,
@@ -60,18 +64,18 @@ const EASINGS = {
 
 const DEFAULT_ANIMATIONS = {
   'fadeIn': {
-    from: {
+    0: {
       opacity: 0,
     },
-    to: {
+    1: {
       opacity: 1,
     },
   },
   'fadeOut': {
-    from: {
+    0: {
       opacity: 1,
     },
-    to: {
+    1: {
       opacity: 0,
     },
   },
@@ -127,24 +131,29 @@ const propsToOmit = [
   ...TIMING_PROPERTIES,
   ...SPRING_PROPERTIES,
   'animation',
-  'autoplay',
+  'autostart',
   'direction',
-  'onStart',
-  'onEnd',
   'repeat',
-  'triggerEvent',
+  'startEvent',
+  'onStart',
   'onStartEvent',
+  'onEnd',
   'onEndEvent',
   'style',
   'useNativeDriver'
 ]
 
 // Used for coordinating animations
-export const emitter = mitt()
+const emitter = mitt()
+export const emit = emitter.emit
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
   return a - b
+}
+
+function compareNumbersReverse(a: number, b: number) {
+  return b - a
 }
 
 function notNull(value?: number) {
@@ -202,7 +211,7 @@ function buildTimingAnimation(toValue: number, animatedValue: any, props: IProps
     }
 
     // check for wrapping animation multiplier
-    if (context.timingMultipier != null) {
+    if (context.timingMultiplier != null) {
       duration = (duration || 500) * context.timingMultiplier
 
       if (delay) {
@@ -241,14 +250,14 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   static defaultProps = {
-    autoplay: false,
+    autostart: false,
     direction: 'normal',
     useNativeDriver: false,
   }
 
-  private fromValue: number
-  private toValue: number
+  private startingValue: number
   private animatedValue: any
+  private iterationCount: number = 0
   private style: any = {}
   private animation: any
   private animationReverse: any
@@ -257,88 +266,71 @@ export default class Animate_ extends React.Component<IProps, void> {
   // private useNativeDriver = true
 
   constructor(props: IProps, context: any) {
-    super()
+    super(props)
 
-    this.setFromAndToValues(props.direction)
-
-    this.animatedValue = new Animated.Value(this.fromValue)
+    this.startingValue = isNormalStartingDirection(props.direction) ? 0 : 1
+    this.isAnimatingNormal = this.startingValue === 0
+    this.animatedValue = new Animated.Value(this.startingValue)
 
     this.setAnimations(props, context)
-
-    this.buildKeyframes(props.animation)
-
-    this.isAnimatingNormal = isNormalStartingDirection(props.direction)
+    this.buildKeyframes(props.animation, props.direction)
   }
 
   componentDidMount() {
-    if (this.props.autoplay) {
+    if (this.props.autostart) {
       this.animate()
     }
-    else if (this.props.triggerEvent) {
-      emitter.on(this.props.triggerEvent, this.onTriggerEvent)
+    else if (this.props.startEvent != null) {
+      emitter.on(this.props.startEvent, this.onTriggerEvent)
     }
   }
 
   componentWillUnmount() {
     // unsubscribe listener if it exists
-    if (this.props.triggerEvent) {
-      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
+    if (this.props.startEvent) {
+      emitter.off(this.props.startEvent, this.onTriggerEvent)
     }
   }
 
   componentWillUpdate(nextProps: IProps) {
     if (nextProps.animation !== this.props.animation) {
-      this.buildKeyframes(nextProps.animation)
+      this.buildKeyframes(nextProps.animation, nextProps.direction)
     }
-    if (nextProps.direction !== this.props.direction) {
-      this.setFromAndToValues(nextProps.direction)
-    }
-    if (nextProps.triggerEvent !== this.props.triggerEvent) {
-      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
-
-      if (nextProps.triggerEvent) {
-        emitter.on(nextProps.triggerEvent, this.onTriggerEvent)
+    if (nextProps.startEvent !== this.props.startEvent) {
+      if (this.props.startEvent != null) {
+        emitter.off(this.props.startEvent, this.onTriggerEvent)
       }
-    }
-  }
-
-  private setFromAndToValues = (direction: string) => {
-    // Set up the animated value that'll be used to interpolate and run the animation
-    if (isNormalStartingDirection(direction)) {
-      this.fromValue = 0
-      this.toValue = 1
-    }
-    else {
-      this.fromValue = 1
-      this.toValue = 0
+      if (nextProps.startEvent != null) {
+        emitter.on(nextProps.startEvent, this.onTriggerEvent)
+      }
     }
   }
 
   private setAnimations = (props: IProps, context: any) => {
     if (hasTimingProps(props)) {
       if (hasNormalAnimation(props.direction)) {
-        this.animation = buildTimingAnimation(this.toValue, this.animatedValue, props, context)
+        this.animation = buildTimingAnimation(1, this.animatedValue, props, context)
       }
 
       if (hasReverseAnimation(props.direction)) {
-        this.animationReverse = buildTimingAnimation(this.fromValue, this.animatedValue, props, context)
+        this.animationReverse = buildTimingAnimation(0, this.animatedValue, props, context)
       }
     }
     // default to Spring if no timing props are passed in
     else {
       // NOTE: can use `delay` prop with Animated.sequence() and Animated.delay() if the need arises
       if (hasNormalAnimation(props.direction)) {
-        this.animation = buildSpringAnimation(this.toValue, this.animatedValue, props)
+        this.animation = buildSpringAnimation(1, this.animatedValue, props)
       }
 
       if (hasReverseAnimation(props.direction)) {
-        this.animationReverse = buildSpringAnimation(this.fromValue, this.animatedValue, props)
+        this.animationReverse = buildSpringAnimation(0, this.animatedValue, props)
       }
     }
   }
 
   private onTriggerEvent = () => {
-    this.animate()
+    this.start()
   }
 
   // TODO: bring this outside of class
@@ -367,19 +359,21 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   // TODO: bring this outside of class
-  private buildKeyframes = (animation: Object | string) => {
+  private buildKeyframes = (animation: Object | string, direction: string) => {
+    const isNormalDirection = isNormalStartingDirection(direction)
+
     // Build interpolations for each style
     if (typeof animation === 'object') {
-      this.setInterpolationsFromKeyframes(animation)
+      this.setInterpolationsFromKeyframes(animation, isNormalDirection)
     }
     else if (typeof animation === 'string') {
       if (DEFAULT_ANIMATIONS.hasOwnProperty(animation)) {
-        this.setInterpolationsFromKeyframes(DEFAULT_ANIMATIONS[animation])
+        this.setInterpolationsFromKeyframes(DEFAULT_ANIMATIONS[animation], isNormalDirection)
       }
       else {
         try {
           const keyFrames = JSON.parse(animation);
-          this.setInterpolationsFromKeyframes(keyFrames)
+          this.setInterpolationsFromKeyframes(keyFrames, isNormalDirection)
         }
         catch (e) {
           console.error('Error parsing your animation. Make sure it is valid json (double-quotes, no trailing commas)', animation);
@@ -389,49 +383,28 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   // TODO: bring this outside of class
-  private setInterpolationsFromKeyframes = (keyframes: any) => {
-    // create a simple 0 -> 1 interpolation
-    if (keyframes.from) {
-      Object.keys(keyframes.from).forEach(style => {
-        // this.validateStyleForNativeDriver(style)
+  private setInterpolationsFromKeyframes = (keyframes: any, isNormalDirection: boolean) => {
+    const inputRange = Object.keys(keyframes).map(parsePosition).filter(notNull)
+    inputRange.sort(isNormalStartingDirection ? compareNumbers : compareNumbersReverse)
 
-        const interpolatedStyle = this.animatedValue.interpolate({
-          inputRange: [this.fromValue, this.toValue],
-          outputRange: [keyframes.from[style], keyframes.to[style]],
-        })
+    const stylesInAnimation = new Set()
 
-        this.addStyle(style, interpolatedStyle)
+    inputRange.forEach(frame => {
+      Object.keys(keyframes[frame]).forEach(style => {
+        stylesInAnimation.add(style)
       })
-    }
-    // create a more complication 0 ... 1 interpolation using keyframes
-    else if (keyframes[0]) {
-      const inputRange = Object.keys(keyframes).map(parsePosition).filter(notNull)
-      inputRange.sort(compareNumbers)
+    })
 
-      if (this.fromValue === 1) {
-        // reverse range so it goes 1 ... 0
-        inputRange.reverse()
-      }
+    Array.from(stylesInAnimation).forEach(style => {
+      // this.validateStyleForNativeDriver(style)
 
-      const stylesInAnimation = new Set()
-
-      inputRange.forEach(frame => {
-        Object.keys(keyframes[frame]).forEach(style => {
-          stylesInAnimation.add(style)
-        })
+      const interpolatedStyle = this.animatedValue.interpolate({
+        inputRange: inputRange,
+        outputRange: inputRange.map(frame => keyframes[frame][style]),
       })
 
-      Array.from(stylesInAnimation).forEach(style => {
-        // this.validateStyleForNativeDriver(style)
-
-        const interpolatedStyle = this.animatedValue.interpolate({
-          inputRange: inputRange,
-          outputRange: inputRange.map(frame => keyframes[frame][style]),
-        })
-
-        this.addStyle(style, interpolatedStyle)
-      })
-    }
+      this.addStyle(style, interpolatedStyle)
+    })
   }
 
   private animate = () => {
@@ -450,39 +423,33 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
   }
 
-  private handleEnd = (status: any) => {
-    this.props.onEnd && this.props.onEnd(status)
+  private handleEnd = ({ finished }) => {
+    this.hasFinishedPreviousAnimation = finished
 
+    if (finished) {
+      this.iterationCount += 1
+
+      if (isAlternatingDirection(this.props.direction)) {
+        this.isAnimatingNormal = !this.isAnimatingNormal
+      }
+    }
+
+    // ending hooks
+    this.props.onEnd && this.props.onEnd(finished)
     if (typeof this.props.onEndEvent === 'string') {
       emitter.emit(this.props.onEndEvent)
     }
 
-    this.hasFinishedPreviousAnimation = status.finished
-
-    if (status.finished === true) {
-      if (isAlternatingDirection(this.props.direction)) {
-        this.isAnimatingNormal = !this.isAnimatingNormal
-      }
-
-      if (this.props.repeat) {
-        this.start()
-      }
+    // start again if finished and set to repeat
+    if (finished && this.props.repeat && (this.props.repeat === true || this.props.repeat > this.iterationCount)) {
+      this.start()
     }
-  }
-
-  public trigger = () => {
-    // non-alternate animations should be reset before re-animated
-    if (this.hasFinishedPreviousAnimation && !isAlternatingDirection(this.props.direction)) {
-      this.animatedValue.setValue(this.fromValue)
-    }
-
-    this.animate()
   }
 
   public start = () => {
     // non-alternate animations should be reset before re-animated
     if (this.hasFinishedPreviousAnimation && !isAlternatingDirection(this.props.direction)) {
-      this.animatedValue.setValue(this.fromValue)
+      this.animatedValue.setValue(this.startingValue)
     }
 
     this.animate()
@@ -491,7 +458,7 @@ export default class Animate_ extends React.Component<IProps, void> {
   public restart = () => {
     // non-alternate animations should be reset before re-animated
     if (!isAlternatingDirection(this.props.direction)) {
-      this.animatedValue.setValue(this.fromValue)
+      this.animatedValue.setValue(this.startingValue)
     }
 
     this.animate()
