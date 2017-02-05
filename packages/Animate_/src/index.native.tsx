@@ -1,4 +1,5 @@
 import mitt from 'mitt'
+import JSON5 from 'json5'
 import {
   Animated,
   Easing,
@@ -201,6 +202,15 @@ function isNormalStartingDirection(direction: string): boolean {
   return direction === 'normal' || direction === 'alternate'
 }
 
+/**
+ * Wrap with outer curlies
+ * Wrap keys with quotes since json5 doesn't handle numeric literals as property names
+ * see https://github.com/json5/json5/issues/55#issuecomment-277532169
+ */
+function convertCustomAnimationFormatToJSON5Format(custom: string): string {
+  return '{' + custom.replace(/(['"])?([a-z0-9A-Z._]+)(['"])?:/g, '"$2": ') + '}'
+}
+
 function buildTimingAnimation(toValue: number, animatedValue: any, props: IProps, context: any) {
   let { duration, delay } = props
 
@@ -372,11 +382,11 @@ export default class Animate_ extends React.Component<IProps, void> {
       }
       else {
         try {
-          const keyFrames = JSON.parse(animation);
+          const keyFrames = JSON5.parse(convertCustomAnimationFormatToJSON5Format(animation));
           this.setInterpolationsFromKeyframes(keyFrames, isNormalDirection)
         }
         catch (e) {
-          console.error('Error parsing your animation. Make sure it is valid json (double-quotes, no trailing commas)', animation);
+          console.error('Error parsing your animation. See docs on correct format.', e);
         }
       }
     }
