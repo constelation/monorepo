@@ -1,4 +1,5 @@
 import mitt from 'mitt'
+import JSON5 from 'json5'
 import {
   Animated,
   Easing,
@@ -11,7 +12,7 @@ export interface IProps {
   animation?: Object | 'fadeIn' | 'fadeOut',
 
   /** Animate on mount. Default false. */
-  autoplay?: boolean,
+  autostart?: boolean,
 
   /** Start the animation after delay (milliseconds). Default 0. */
   delay?: number,
@@ -28,22 +29,29 @@ export interface IProps {
   /** Controls "bounciness"/overshoot. Default 7. */
   friction?: number,
 
-  /** Repeat animation indefinitely */
-  repeat?: boolean,
+  /** Number of times to animate. Default 1. 'infinite' to repeat */
+  repeat?: boolean | number,
 
   /** Controls speed. Default 40. */
   tension?: number,
-  onStart?: Function,
-  onEnd?: Function,
+  useNativeDriver?: boolean,
 
   /** Event name which will trigger animation to start */
-  triggerEvent?: string,
+  startEvent?: string,
+
+  /** callback when animation starts */
+  onStart?: Function,
 
   /** Event name fired when animation starts */
   onStartEvent?: string,
 
+  /** callback when animation ends */
+  onEnd?: Function,
+
   /** Event name fired when animation ends */
   onEndEvent?: string,
+
+  style?: any,
 }
 
 const EASINGS = {
@@ -57,18 +65,18 @@ const EASINGS = {
 
 const DEFAULT_ANIMATIONS = {
   'fadeIn': {
-    from: {
+    0: {
       opacity: 0,
     },
-    to: {
+    1: {
       opacity: 1,
     },
   },
   'fadeOut': {
-    from: {
+    0: {
       opacity: 1,
     },
-    to: {
+    1: {
       opacity: 0,
     },
   },
@@ -124,22 +132,29 @@ const propsToOmit = [
   ...TIMING_PROPERTIES,
   ...SPRING_PROPERTIES,
   'animation',
-  'autoplay',
+  'autostart',
   'direction',
-  'onStart',
-  'onEnd',
   'repeat',
-  'triggerEvent',
+  'startEvent',
+  'onStart',
   'onStartEvent',
-  'onEndEvent'
+  'onEnd',
+  'onEndEvent',
+  'style',
+  'useNativeDriver'
 ]
 
 // Used for coordinating animations
-export const emitter = mitt()
+const emitter = mitt()
+export const emit = emitter.emit
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
   return a - b
+}
+
+function compareNumbersReverse(a: number, b: number) {
+  return b - a
 }
 
 function notNull(value?: number) {
@@ -171,86 +186,169 @@ function hasSpringProps(props: IProps): boolean {
   return (SPRING_PROPERTIES.some(springProp => props.hasOwnProperty(springProp)))
 }
 
-export default class Animate_ extends React.PureComponent<IProps, void> {
+function hasNormalAnimation(direction: string): boolean {
+  return direction === 'normal' || direction === 'alternate' || direction === 'alternateReverse'
+}
+
+function hasReverseAnimation(direction: string): boolean {
+  return direction === 'reverse' || direction === 'alternate' || direction === 'alternateReverse'
+}
+
+function isAlternatingDirection(direction: string): boolean {
+  return direction === 'alternate' || direction === 'alternateReverse'
+}
+
+function isNormalStartingDirection(direction: string): boolean {
+  return direction === 'normal' || direction === 'alternate'
+}
+
+/**
+ * Wrap with outer curlies
+ * Wrap keys with quotes since json5 doesn't handle numeric literals as property names
+ * see https://github.com/json5/json5/issues/55#issuecomment-277532169
+ */
+function convertCustomAnimationFormatToJSON5Format(custom: string): string {
+  return '{' + custom.replace(/(['"])?([a-z0-9A-Z._]+)(['"])?:/g, '"$2": ') + '}'
+}
+
+function buildTimingAnimation(toValue: number, animatedValue: any, props: IProps, context: any) {
+  let { duration, delay } = props
+
+  if (__DEV__) {
+    // In Dev mode, warn if Spring and Timing props are declared
+    if (hasSpringProps(props)) {
+      console.warn('You have Timing and Spring props declared. Defaulting to animated.timing(). Spring props are ignored.')
+    }
+
+    // check for wrapping animation multiplier
+    if (context.timingMultiplier != null) {
+      duration = (duration || 500) * context.timingMultiplier
+
+      if (delay) {
+        delay = delay * context.timingMultiplier
+      }
+    }
+  }
+
+  return Animated.timing(
+    animatedValue,
+    {
+      toValue,
+      duration,
+      delay,
+      easing: (typeof props.easing === 'function') ? props.easing : EASINGS[props.easing],
+      useNativeDriver: props.useNativeDriver,
+    }
+  )
+}
+
+function buildSpringAnimation(toValue: number, animatedValue: any, props: IProps) {
+  return Animated.spring(
+    animatedValue,
+    {
+      toValue,
+      friction: props.friction,
+      tension: props.tension,
+    }
+  )
+}
+
+
+export default class Animate_ extends React.Component<IProps, void> {
   static contextTypes = {
     timingMultiplier: React.PropTypes.number
   }
 
   static defaultProps = {
-    autoplay: false,
+    autostart: false,
     direction: 'normal',
+    useNativeDriver: false,
   }
 
-  private fromValue: number
-  private toValue: number
+  private startingValue: number
   private animatedValue: any
+  private iterationCount: number = 0
   private style: any = {}
-  private useNativeDriver = true
+  private animation: any
+  private animationReverse: any
+  private isAnimatingNormal: boolean
+  private hasFinishedPreviousAnimation: boolean = false
+  // private useNativeDriver = true
 
-  constructor(props: IProps) {
-    super()
+  constructor(props: IProps, context: any) {
+    super(props)
 
-    this.setFromAndToValues(props.direction)
+    this.startingValue = isNormalStartingDirection(props.direction) ? 0 : 1
+    this.isAnimatingNormal = this.startingValue === 0
+    this.animatedValue = new Animated.Value(this.startingValue)
 
-    this.animatedValue = new Animated.Value(this.fromValue)
-
-    this.buildKeyframes(props.animation)
+    this.setAnimations(props, context)
+    this.buildKeyframes(props.animation, props.direction)
   }
 
   componentDidMount() {
-    if (this.props.autoplay) {
+    if (this.props.autostart) {
       this.animate()
     }
-    else if (this.props.triggerEvent) {
-      emitter.on(this.props.triggerEvent, this.onTriggerEvent)
+    else if (this.props.startEvent != null) {
+      emitter.on(this.props.startEvent, this.onTriggerEvent)
     }
   }
 
   componentWillUnmount() {
     // unsubscribe listener if it exists
-    if (this.props.triggerEvent) {
-      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
+    if (this.props.startEvent) {
+      emitter.off(this.props.startEvent, this.onTriggerEvent)
     }
   }
 
   componentWillUpdate(nextProps: IProps) {
     if (nextProps.animation !== this.props.animation) {
-      this.buildKeyframes(nextProps.animation)
+      this.buildKeyframes(nextProps.animation, nextProps.direction)
     }
-    if (nextProps.direction !== this.props.direction) {
-      this.setFromAndToValues(nextProps.direction)
-    }
-    if (nextProps.triggerEvent !== this.props.triggerEvent) {
-      emitter.off(this.props.triggerEvent, this.onTriggerEvent)
-
-      if (nextProps.triggerEvent) {
-        emitter.on(nextProps.triggerEvent, this.onTriggerEvent)
+    if (nextProps.startEvent !== this.props.startEvent) {
+      if (this.props.startEvent != null) {
+        emitter.off(this.props.startEvent, this.onTriggerEvent)
+      }
+      if (nextProps.startEvent != null) {
+        emitter.on(nextProps.startEvent, this.onTriggerEvent)
       }
     }
   }
 
-  private setFromAndToValues = (direction: string) => {
-    // Set up the animated value that'll be used to interpolate and run the animation
-    if (direction === 'reverse' || direction === 'alternateReverse') {
-      this.fromValue = 1
-      this.toValue = 0
+  private setAnimations = (props: IProps, context: any) => {
+    if (hasTimingProps(props)) {
+      if (hasNormalAnimation(props.direction)) {
+        this.animation = buildTimingAnimation(1, this.animatedValue, props, context)
+      }
+
+      if (hasReverseAnimation(props.direction)) {
+        this.animationReverse = buildTimingAnimation(0, this.animatedValue, props, context)
+      }
     }
+    // default to Spring if no timing props are passed in
     else {
-      this.fromValue = 0
-      this.toValue = 1
+      // NOTE: can use `delay` prop with Animated.sequence() and Animated.delay() if the need arises
+      if (hasNormalAnimation(props.direction)) {
+        this.animation = buildSpringAnimation(1, this.animatedValue, props)
+      }
+
+      if (hasReverseAnimation(props.direction)) {
+        this.animationReverse = buildSpringAnimation(0, this.animatedValue, props)
+      }
     }
   }
 
   private onTriggerEvent = () => {
-    this.animate()
+    this.start()
   }
 
   // TODO: bring this outside of class
-  private validateStyleForNativeDriver = (styleName: string) => {
-    if (this.useNativeDriver && !NATIVE_DRIVER_STYLES.hasOwnProperty(styleName)) {
-      this.useNativeDriver = false
-    }
-  }
+  // private validateStyleForNativeDriver = (styleName: string) => {
+  //   if (this.useNativeDriver && !NATIVE_DRIVER_STYLES.hasOwnProperty(styleName)) {
+  //     this.useNativeDriver = false
+  //   }
+  // }
 
   // TODO: bring this outside of class
   private addStyle = (style: string, interpolatedStyle: Object) => {
@@ -271,151 +369,120 @@ export default class Animate_ extends React.PureComponent<IProps, void> {
   }
 
   // TODO: bring this outside of class
-  private buildKeyframes = (animation: Object | string) => {
+  private buildKeyframes = (animation: Object | string, direction: string) => {
+    const isNormalDirection = isNormalStartingDirection(direction)
+
     // Build interpolations for each style
     if (typeof animation === 'object') {
-      this.setInterpolationsFromKeyframes(animation)
+      this.setInterpolationsFromKeyframes(animation, isNormalDirection)
     }
     else if (typeof animation === 'string') {
       if (DEFAULT_ANIMATIONS.hasOwnProperty(animation)) {
-        this.setInterpolationsFromKeyframes(DEFAULT_ANIMATIONS[animation])
+        this.setInterpolationsFromKeyframes(DEFAULT_ANIMATIONS[animation], isNormalDirection)
       }
       else {
         try {
-          const keyFrames = JSON.parse(animation);
-          this.setInterpolationsFromKeyframes(keyFrames)
+          const keyFrames = JSON5.parse(convertCustomAnimationFormatToJSON5Format(animation));
+          this.setInterpolationsFromKeyframes(keyFrames, isNormalDirection)
         }
         catch (e) {
-          console.error('Error parsing your animation. Make sure it is valid json (double-quotes, no trailing commas)', animation);
+          console.error('Error parsing your animation. See docs on correct format.', e);
         }
       }
     }
   }
 
   // TODO: bring this outside of class
-  private setInterpolationsFromKeyframes = (keyframes: any) => {
-    // create a simple 0 -> 1 interpolation
-    if (keyframes.from) {
-      Object.keys(keyframes.from).forEach(style => {
-        this.validateStyleForNativeDriver(style)
+  private setInterpolationsFromKeyframes = (keyframes: any, isNormalDirection: boolean) => {
+    const inputRange = Object.keys(keyframes).map(parsePosition).filter(notNull)
+    inputRange.sort(isNormalStartingDirection ? compareNumbers : compareNumbersReverse)
 
-        const interpolatedStyle = this.animatedValue.interpolate({
-          inputRange: [this.fromValue, this.toValue],
-          outputRange: [keyframes.from[style], keyframes.to[style]],
-        })
+    const stylesInAnimation = new Set()
 
-        this.addStyle(style, interpolatedStyle)
+    inputRange.forEach(frame => {
+      Object.keys(keyframes[frame]).forEach(style => {
+        stylesInAnimation.add(style)
       })
-    }
-    // create a more complication 0 ... 1 interpolation using keyframes
-    else if (keyframes[0]) {
-      const inputRange = Object.keys(keyframes).map(parsePosition).filter(notNull)
-      inputRange.sort(compareNumbers)
+    })
 
-      if (this.fromValue === 1) {
-        // reverse range so it goes 1 ... 0
-        inputRange.reverse()
-      }
+    Array.from(stylesInAnimation).forEach(style => {
+      // this.validateStyleForNativeDriver(style)
 
-      const stylesInAnimation = new Set()
-
-      inputRange.forEach(frame => {
-        Object.keys(keyframes[frame]).forEach(style => {
-          stylesInAnimation.add(style)
-        })
+      const interpolatedStyle = this.animatedValue.interpolate({
+        inputRange: inputRange,
+        outputRange: inputRange.map(frame => keyframes[frame][style]),
       })
 
-      Array.from(stylesInAnimation).forEach(style => {
-        this.validateStyleForNativeDriver(style)
-
-        const interpolatedStyle = this.animatedValue.interpolate({
-          inputRange: inputRange,
-          outputRange: inputRange.map(frame => keyframes[frame][style]),
-        })
-
-        this.addStyle(style, interpolatedStyle)
-      })
-    }
+      this.addStyle(style, interpolatedStyle)
+    })
   }
 
   private animate = () => {
-    const toValue = this.toValue
-
-    let animation
-    if (hasTimingProps(this.props)) {
-      let duration = this.props.duration
-      let delay = this.props.delay
-
-      if (__DEV__) {
-        duration = (duration || 500) * this.context.timingMultiplier
-
-        if (delay) {
-          delay = delay * this.context.timingMultiplier
-        }
-      }
-
-      // TODO: save this animation (and its reverse if needed)
-      // to avoid re-creating it on every animate() call
-      animation = Animated.timing(
-        this.animatedValue,
-        {
-          toValue,
-          duration,
-          delay,
-          easing: (typeof this.props.easing === 'function') ? this.props.easing : EASINGS[this.props.easing],
-          useNativeDriver: this.useNativeDriver,
-        },
-      )
-
-      // In Dev mode, warn if Spring and Timing props are declared
-      if (__DEV__ && hasSpringProps(this.props)) {
-        console.warn('You have Timing and Spring props declared. Defaulting to animated.timing(). Spring props are ignored.')
-      }
-    }
-    // default to Spring if no timing props are passed in
-    else {
-      // NOTE: can use `delay` prop with Animated.sequence() and Animated.delay() if the need arises
-      animation = Animated.spring(
-        this.animatedValue,
-        {
-          toValue,
-          friction: this.props.friction,
-          tension: this.props.tension,
-        },
-      )
-    }
-
+    // starting hooks
     this.props.onStart && this.props.onStart()
     if (typeof this.props.onStartEvent === 'string') {
       emitter.emit(this.props.onStartEvent)
     }
-    animation.start(this.handleEnd)
 
-    if (this.props.direction === 'alternate' || this.props.direction === 'alternateReverse') {
-      this.toValue = this.fromValue
-      this.fromValue = toValue
+    // start animation
+    if (this.isAnimatingNormal === true) {
+      this.animation.start(this.handleEnd)
+    }
+    else {
+      this.animationReverse.start(this.handleEnd)
     }
   }
 
-  private handleEnd = () => {
-    this.props.onEnd && this.props.onEnd()
+  private handleEnd = ({ finished }) => {
+    this.hasFinishedPreviousAnimation = finished
 
+    if (finished) {
+      this.iterationCount += 1
+
+      if (isAlternatingDirection(this.props.direction)) {
+        this.isAnimatingNormal = !this.isAnimatingNormal
+      }
+    }
+
+    // ending hooks
+    this.props.onEnd && this.props.onEnd(finished)
     if (typeof this.props.onEndEvent === 'string') {
       emitter.emit(this.props.onEndEvent)
     }
 
-    if (this.props.repeat) {
-      this.trigger()
+    // start again if finished and set to repeat
+    if (finished && this.props.repeat && (this.props.repeat === true || this.props.repeat > this.iterationCount)) {
+      this.start()
     }
   }
 
-  public trigger = () => {
+  public start = () => {
     // non-alternate animations should be reset before re-animated
-    if (this.props.direction === 'normal' || this.props.direction === 'reverse') {
-      this.animatedValue.setValue(this.fromValue)
+    if (this.hasFinishedPreviousAnimation && !isAlternatingDirection(this.props.direction)) {
+      this.animatedValue.setValue(this.startingValue)
     }
 
     this.animate()
+  }
+
+  public restart = () => {
+    // non-alternate animations should be reset before re-animated
+    if (!isAlternatingDirection(this.props.direction)) {
+      this.animatedValue.setValue(this.startingValue)
+    }
+
+    this.animate()
+  }
+
+  public stop = () => {
+    // start animation
+    if (this.isAnimatingNormal === true) {
+      this.animation.start(this.handleEnd)
+    }
+    else {
+      this.animationReverse.start(this.handleEnd)
+    }
+    this.animation.stop()
   }
 
   render() {
@@ -425,7 +492,7 @@ export default class Animate_ extends React.PureComponent<IProps, void> {
 
     // Style_'s render() runs before Child's, so add its style props back in
     // TODO: merge Child's transform object if it exists
-    propsToPass.style = { ...this.style, ...Child.props.style }
+    propsToPass.style = { ...this.props.style, ...this.style, ...Child.props.style }
     // used by child View/Text/ScrollView/Image
     propsToPass.animated = true
 
