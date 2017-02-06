@@ -2,7 +2,6 @@ declare module "constelation-animate_" {
   declare class Animate_ extends React$Component<> {
     props: {
       animation?: Object | 'fadeIn' | 'fadeOut' | string,
-      autostart?: boolean,
       delay?: number,
       direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
       duration?: number,
@@ -10,7 +9,9 @@ declare module "constelation-animate_" {
       friction?: number,
       repeat?: boolean | number,
       tension?: number,
-      startEvent?: string,
+      start?: boolean,
+      startOnEvent?: string,
+      startOnChange?: any,
       onStart?: Function,
       onStartEvent?: string,
       onEnd?: Function,
@@ -27,9 +28,9 @@ declare module "constelation-animate_" {
     };
     render(): any;
   }
-  declare var emit: Function;
+  declare var emitAnimationEvent: Function;
 
   declare export var AnimationConfig: typeof AnimationConfig;
-  declare export var emit: typeof emitter;
+  declare export var emitAnimationEvent: typeof emitAnimationEvent;
   declare export default typeof Animate_
 }

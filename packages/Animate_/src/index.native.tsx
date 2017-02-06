@@ -11,9 +11,6 @@ export interface IProps {
   /** Keyframes used for interpolating animation */
   animation?: Object | 'fadeIn' | 'fadeOut',
 
-  /** Animate on mount. Default false. */
-  autostart?: boolean,
-
   /** Start the animation after delay (milliseconds). Default 0. */
   delay?: number,
 
@@ -36,8 +33,17 @@ export interface IProps {
   tension?: number,
   useNativeDriver?: boolean,
 
+  /**
+   *  Start animation when value is true, and when it changes to true. Default false.
+   *  Pass in `start` to start animation on mount.
+  */
+  start?: boolean,
+
   /** Event name which will trigger animation to start */
-  startEvent?: string,
+  startOnEvent?: string,
+
+  /** Start animation when value changes */
+  startOnChange?: any,
 
   /** callback when animation starts */
   onStart?: Function,
@@ -132,21 +138,22 @@ const propsToOmit = [
   ...TIMING_PROPERTIES,
   ...SPRING_PROPERTIES,
   'animation',
-  'autostart',
   'direction',
-  'repeat',
-  'startEvent',
   'onStart',
   'onStartEvent',
   'onEnd',
   'onEndEvent',
+  'repeat',
+  'start',
+  'startOnEvent',
+  'startOnChange',
   'style',
   'useNativeDriver'
 ]
 
 // Used for coordinating animations
 const emitter = mitt()
-export const emit = emitter.emit
+export const emitAnimationEvent = emitter.emit
 
 // from https://github.com/oblador/react-native-animatable/blob/master/createAnimation.js
 function compareNumbers(a: number, b: number) {
@@ -260,14 +267,14 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   static defaultProps = {
-    autostart: false,
+    start: false,
     direction: 'normal',
     useNativeDriver: false,
   }
 
   private startingValue: number
   private animatedValue: any
-  private iterationCount: number = 0
+  private repeatIterationCount: number = 0
   private style: any = {}
   private animation: any
   private animationReverse: any
@@ -287,18 +294,18 @@ export default class Animate_ extends React.Component<IProps, void> {
   }
 
   componentDidMount() {
-    if (this.props.autostart) {
+    if (this.props.start) {
       this.animate()
     }
-    else if (this.props.startEvent != null) {
-      emitter.on(this.props.startEvent, this.onTriggerEvent)
+    else if (this.props.startOnEvent != null) {
+      emitter.on(this.props.startOnEvent, this.start)
     }
   }
 
   componentWillUnmount() {
     // unsubscribe listener if it exists
-    if (this.props.startEvent) {
-      emitter.off(this.props.startEvent, this.onTriggerEvent)
+    if (this.props.startOnEvent) {
+      emitter.off(this.props.startOnEvent, this.start)
     }
   }
 
@@ -306,13 +313,22 @@ export default class Animate_ extends React.Component<IProps, void> {
     if (nextProps.animation !== this.props.animation) {
       this.buildKeyframes(nextProps.animation, nextProps.direction)
     }
-    if (nextProps.startEvent !== this.props.startEvent) {
-      if (this.props.startEvent != null) {
-        emitter.off(this.props.startEvent, this.onTriggerEvent)
+    // handle start toggling from false to true
+    if (!this.props.start && nextProps.start) {
+      this.start()
+    }
+    // handle start event changing
+    if (nextProps.startOnEvent !== this.props.startOnEvent) {
+      if (this.props.startOnEvent != null) {
+        emitter.off(this.props.startOnEvent, this.start)
       }
-      if (nextProps.startEvent != null) {
-        emitter.on(nextProps.startEvent, this.onTriggerEvent)
+      if (nextProps.startOnEvent != null) {
+        emitter.on(nextProps.startOnEvent, this.start)
       }
+    }
+    // handle startOnChange's value changing
+    if (nextProps.startOnChange !== this.props.startOnChange) {
+      this.start()
     }
   }
 
@@ -339,9 +355,9 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
   }
 
-  private onTriggerEvent = () => {
-    this.start()
-  }
+  // private onTriggerEvent = () => {
+  //   this.start()
+  // }
 
   // TODO: bring this outside of class
   // private validateStyleForNativeDriver = (styleName: string) => {
@@ -419,10 +435,14 @@ export default class Animate_ extends React.Component<IProps, void> {
 
   private animate = () => {
     // starting hooks
-    this.props.onStart && this.props.onStart()
-    if (typeof this.props.onStartEvent === 'string') {
-      emitter.emit(this.props.onStartEvent)
-    }
+    // TODO: on call start hooks if not part of repeat
+    // Q: How best to handle pause/resume of animations?
+    // if (this.repeatIterationCount === 0) {
+      this.props.onStart && this.props.onStart()
+      if (typeof this.props.onStartEvent === 'string') {
+        emitter.emit(this.props.onStartEvent)
+      }
+    // }
 
     // start animation
     if (this.isAnimatingNormal === true) {
@@ -436,12 +456,8 @@ export default class Animate_ extends React.Component<IProps, void> {
   private handleEnd = ({ finished }) => {
     this.hasFinishedPreviousAnimation = finished
 
-    if (finished) {
-      this.iterationCount += 1
-
-      if (isAlternatingDirection(this.props.direction)) {
-        this.isAnimatingNormal = !this.isAnimatingNormal
-      }
+    if (finished && isAlternatingDirection(this.props.direction)) {
+      this.isAnimatingNormal = !this.isAnimatingNormal
     }
 
     // ending hooks
@@ -451,8 +467,17 @@ export default class Animate_ extends React.Component<IProps, void> {
     }
 
     // start again if finished and set to repeat
-    if (finished && this.props.repeat && (this.props.repeat === true || this.props.repeat > this.iterationCount)) {
-      this.start()
+    if (finished && this.props.repeat) {
+      this.repeatIterationCount += 1
+
+      if (this.props.repeat === true || this.props.repeat > this.repeatIterationCount) {
+        // repeat animation
+        this.start()
+      }
+      else if (this.props.repeat <= this.repeatIterationCount) {
+        // reset iteration count add the end of a repeat
+        this.repeatIterationCount = 0
+      }
     }
   }
 
