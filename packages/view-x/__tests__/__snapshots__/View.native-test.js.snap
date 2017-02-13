@@ -1,0 +1,43 @@
+exports[`test renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "stretch",
+      "alignSelf": undefined,
+      "bottom": undefined,
+      "flex": undefined,
+      "flexBasis": undefined,
+      "flexDirection": "column",
+      "flexGrow": undefined,
+      "flexShrink": undefined,
+      "flexWrap": undefined,
+      "height": undefined,
+      "justifyContent": undefined,
+      "left": undefined,
+      "margin": undefined,
+      "marginBottom": undefined,
+      "marginHorizontal": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "marginVertical": undefined,
+      "maxHeight": undefined,
+      "maxWidth": undefined,
+      "minHeight": undefined,
+      "minWidth": undefined,
+      "overflow": undefined,
+      "padding": undefined,
+      "paddingBottom": undefined,
+      "paddingHorizontal": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "paddingVertical": undefined,
+      "position": undefined,
+      "right": undefined,
+      "top": undefined,
+      "width": undefined,
+      "zIndex": undefined,
+    }
+  } />
+`;

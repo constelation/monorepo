@@ -1,0 +1,10 @@
+exports[`test renders correctly 1`] = `
+<div
+  className={
+    Object {
+      "data-css-1dhhihx": "",
+    }
+  }
+  srink={0}
+  style={undefined} />
+`;
