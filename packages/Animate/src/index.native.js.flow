@@ -1,0 +1,36 @@
+declare module "constelation-animate" {
+  declare class Animate extends React$Component<> {
+    props: {
+      animation?: Object | 'fadeIn' | 'fadeOut' | string,
+      delay?: number,
+      direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
+      duration?: number,
+      easing?: 'linear' | 'ease' | 'in' | 'out' | 'inOut' | 'inOutQuad',
+      friction?: number,
+      repeat?: boolean | number,
+      tension?: number,
+      start?: boolean,
+      startOnEvent?: string,
+      startOnChange?: any,
+      onStart?: Function,
+      onStartEvent?: string,
+      onEnd?: Function,
+      onEndEvent?: string,
+    };
+    start(): void;
+    restart(): void;
+    stop(): void;
+    render(): any;
+  }
+  declare class AnimationConfig extends React$PureComponent<> {
+    props: {
+      timingMultiplier: number,
+    };
+    render(): any;
+  }
+  declare var emitAnimationEvent: Function;
+
+  declare export var AnimationConfig: typeof AnimationConfig;
+  declare export var emitAnimationEvent: typeof emitAnimationEvent;
+  declare export default typeof Animate
+}
