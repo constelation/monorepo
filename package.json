@@ -2,6 +2,7 @@
   "scripts": {
     "storybook": "start-storybook -p 9001",
     "test": "jest",
+    "test-watch": "jest --watch",
     "build-storybook": "build-storybook -o docs",
     "clean": "lerna exec -- rimraf dist",
     "prebuild": "npm run clean",
