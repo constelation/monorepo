@@ -38,6 +38,7 @@ declare module "constelation-view" {
       paddingTop?: number,
       paddingVertical?: number,
       paddingHorizontal?: number,
+      pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto',
       position?: 'absolute' | 'relative',
       refNode?: () => {},
       right?: number,

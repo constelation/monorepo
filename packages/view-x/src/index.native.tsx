@@ -42,6 +42,7 @@ export interface IProps {
   paddingTop?: number,
   paddingVertical?: number,
   paddingHorizontal?: number,
+  pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto',
   position?: 'absolute' | 'relative',
   refNode?: () => {},
   right?: number,
@@ -125,8 +126,10 @@ function getAlignItems(props: IProps) {
   else if (props.center === true) {
     return 'center'
   }
+  else if (props.horizontal === true) {
+    return 'flex-start'
+  }
   else {
-    // default without using defaultProps
     return 'stretch'
   }
 }

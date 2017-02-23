@@ -12,6 +12,22 @@ test('renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+test('default alignItems=stretch', () => {
+  const view = renderer.create(
+    <View />
+  ).toJSON();
+
+  expect(view.props.style.alignItems).toBe('stretch')
+});
+
+test('default horizontal alignItems=flex-start', () => {
+  const view = renderer.create(
+    <View horizontal />
+  ).toJSON();
+
+  expect(view.props.style.alignItems).toBe('flex-start')
+});
+
 test('alignVertical and alignHorizontal', () => {
   const view = renderer.create(
     <View
