@@ -7,6 +7,7 @@ export interface IProps {
   align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
   animated?: boolean,
+  aspectRatio?: number,
   basis?: number,
   bottom?: number,
   center?: boolean,
@@ -41,6 +42,7 @@ export interface IProps {
   paddingVertical?: number,
   paddingHorizontal?: number,
   position?: 'absolute' | 'relative',
+  ratioGrow?: boolean,
   refNode?: () => {},
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center',
   right?: number,
@@ -57,6 +59,7 @@ export interface IProps {
 const propsToOmit = [
   'align',
   'alignSelf',
+  'aspectRatio',
   'justify',
   'bottom',
   'flex',
@@ -97,7 +100,8 @@ const propsToOmit = [
   'center',
   'refNode',
 
-  'resizeMode',
+  'ratioGrow',
+  // 'resizeMode',
   'tintColor',
 ]
 
@@ -105,6 +109,7 @@ function getStyleFromProps(props: IProps) {
   return {
     alignSelf: props.alignSelf,
     alignItems: props.center ? 'center' : props.align,
+    aspectRatio: props.aspectRatio,
     bottom: props.bottom,
     flex: props.flex,
     flexDirection: props.direction,
@@ -135,7 +140,7 @@ function getStyleFromProps(props: IProps) {
     paddingHorizontal: props.paddingHorizontal,
     paddingVertical: props.paddingVertical,
     position: props.position,
-    resizeMode: props.resizeMode,
+    // resizeMode: props.resizeMode,
     right: props.right,
     tintColor: props.tintColor,
     top: props.top,
@@ -157,6 +162,19 @@ export default class Image extends React.PureComponent<IProps, void> {
   render() {
     const styleFromProps = getStyleFromProps(this.props)
     const propsWithoutStyle = getNonStyleProps(this.props)
+
+    // NOTE: this does not work if parent has alignItems='center' set
+    if (this.props.ratioGrow) {
+      const source = ReactNative.Image.resolveAssetSource(this.props.source)
+
+      styleFromProps.flexGrow = 1
+      styleFromProps.height = null
+      styleFromProps.width = null
+
+      if (source !== null && source.width !== 0) {
+        styleFromProps.aspectRatio = source.height / source.width
+      }
+    }
 
     /* Since Image runs style props through StyleSheet.flatten(),
      * and flatten will override values with undefined if passed,
