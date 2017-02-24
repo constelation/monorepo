@@ -17,7 +17,7 @@ var privateProps = {
   options: true,
   recognizeWith: true,
   // vertical: true,
-    onHover: true, // added from react-hammerjs clone
+  onHover: true, // added from react-hammerjs clone
 }
 
 /**
@@ -54,12 +54,12 @@ Object.keys(handlerToEvent).forEach(function (i) {
 })
 
 function hasHammerEventProp(props) {
-  return Object.keys(props).some(function(prop) {
+  return Object.keys(props).some(function (prop) {
     return typeof handlerToEvent[prop] === 'string'
   })
 }
 
-function updateHammer (hammer, props) {
+function updateHammer(hammer, props) {
   // if (props.hasOwnProperty('vertical')) {
   //   console.warn('vertical is deprecated, please use `direction` instead')
   // }

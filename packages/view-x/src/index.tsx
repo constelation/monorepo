@@ -161,8 +161,10 @@ function getAlignItems(props: IProps) {
   else if (props.center === true) {
     return 'center'
   }
+  else if (props.horizontal === true) {
+    return 'flex-start'
+  }
   else {
-    // default without using defaultProps
     return 'stretch'
   }
 }

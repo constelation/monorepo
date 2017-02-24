@@ -1,45 +1,53 @@
 declare module "constelation-style_" {
+  declare type Props = {
+    backfaceVisibility?: 'visible' | 'hidden',
+    backgroundColor?: string,
+    borderColor?: string,
+    borderTopColor?: string,
+    borderRightColor?: string,
+    borderBottomColor?: string,
+    borderLeftColor?: string,
+    borderRadius?: number,
+    borderTopLeftRadius?: number,
+    borderTopRightRadius?: number,
+    borderBottomLeftRadius?: number,
+    borderBottomRightRadius?: number,
+    borderStyle?: 'solid' | 'dotted' | 'dashed',
+    borderWidth?: number,
+    borderTopWidth?: number,
+    borderRightWidth?: number,
+    borderBottomWidth?: number,
+    borderLeftWidth?: number,
+    opacity?: number,
+    shadowColor?: string,
+    shadowOffset?: {width?: number, height?: number},
+    shadowOpacity?: number,
+    shadowRadius?: number,
+    style?: Object,
+    translateX?: number,
+    translateY?: number,
+    scale?: number,
+    scaleX?: number,
+    scaleY?: number,
+    skewX?: string,
+    skewY?: string,
+    rotate?: string,
+    rotateX?: string,
+    rotateY?: string,
+    rotateZ?: string,
+    perspective?: number,
+  }
+
   declare class Style_ extends React$PureComponent<> {
-    props: {
-      backfaceVisibility?: 'visible' | 'hidden',
-      backgroundColor?: string,
-      borderColor?: string,
-      borderTopColor?: string,
-      borderRightColor?: string,
-      borderBottomColor?: string,
-      borderLeftColor?: string,
-      borderRadius?: number,
-      borderTopLeftRadius?: number,
-      borderTopRightRadius?: number,
-      borderBottomLeftRadius?: number,
-      borderBottomRightRadius?: number,
-      borderStyle?: 'solid' | 'dotted' | 'dashed',
-      borderWidth?: number,
-      borderTopWidth?: number,
-      borderRightWidth?: number,
-      borderBottomWidth?: number,
-      borderLeftWidth?: number,
-      opacity?: number,
-      shadowColor?: string,
-      shadowOffset?: {width?: number, height?: number},
-      shadowOpacity?: number,
-      shadowRadius?: number,
-      style?: Object,
-      
-      translateX?: number,
-      translateY?: number,
-      scale?: number,
-      scaleX?: number,
-      scaleY?: number,
-      skewX?: string,
-      skewY?: string,
-      rotate?: string,
-      rotateX?: string,
-      rotateY?: string,
-      rotateZ?: string,
-      perspective?: number,
-    };
+    props: Props;
     render(): any;
   }
-  declare var exports: typeof Style_;
+
+  declare class Style extends React$PureComponent<> {
+    props: Props;
+    render(): any;
+  }
+
+  declare export var Style: typeof Style;
+  declare export default typeof Style_
 }

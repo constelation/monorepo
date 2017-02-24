@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import React from 'react'
+import View from 'constelation-view'
 import _omit from 'lodash/omit'
 
 export interface IProps {
@@ -170,5 +171,17 @@ export default class Event_ extends React.PureComponent<IProps, void> {
     const child = React.Children.only(this.props.children)
 
     return React.cloneElement(child, propsToPass)
+  }
+}
+
+export class Event extends React.PureComponent<IProps, void> {
+  render() {
+    const {children, ...props} = this.props
+
+    return (
+      <Event_ {...props}>
+        <View>{children}</View>
+      </Event_>
+    )
   }
 }

@@ -17,6 +17,7 @@
   "license": "ISC",
   "peerDependencies": {
     "lodash": "^4.13.1",
+    "constelation-view": "^11.0.0",
     "react": "^15.2.1"
   },
   "optionalDependencies": {

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as View from 'constelation-view'
 import * as _omit from 'lodash/omit'
 import * as _pick from 'lodash/pick'
 
@@ -68,5 +69,17 @@ export default class Style_ extends React.PureComponent<IProps, void> {
     delete propsToPass.children
 
     return React.cloneElement(Child, propsToPass)
+  }
+}
+
+export class Style extends React.PureComponent<IProps, void> {
+  render() {
+    const {children, ...props} = this.props
+
+    return (
+      <Style_ {...props}>
+        <View>{children}</View>
+      </Style_>
+    )
   }
 }

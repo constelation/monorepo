@@ -5,6 +5,7 @@ import {
   Easing,
 } from 'react-native'
 import React from 'react'
+import View from 'constelation-view'
 import _omit from 'lodash/omit'
 
 export interface IProps {
@@ -438,10 +439,10 @@ export default class Animate_ extends React.Component<IProps, void> {
     // TODO: on call start hooks if not part of repeat
     // Q: How best to handle pause/resume of animations?
     // if (this.repeatIterationCount === 0) {
-      this.props.onStart && this.props.onStart()
-      if (typeof this.props.onStartEvent === 'string') {
-        emitter.emit(this.props.onStartEvent)
-      }
+    this.props.onStart && this.props.onStart()
+    if (typeof this.props.onStartEvent === 'string') {
+      emitter.emit(this.props.onStartEvent)
+    }
     // }
 
     // start animation
@@ -522,6 +523,18 @@ export default class Animate_ extends React.Component<IProps, void> {
     propsToPass.animated = true
 
     return React.cloneElement(Child, propsToPass)
+  }
+}
+
+export class Animate extends React.Component<IProps, void> {
+  render() {
+    const {children, ...props} = this.props
+
+    return (
+      <Animate_ {...props}>
+        <View>{children}</View>
+      </Animate_>
+    )
   }
 }
 
