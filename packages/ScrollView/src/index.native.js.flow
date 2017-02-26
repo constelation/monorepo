@@ -71,7 +71,7 @@ declare module "constelation-scroll-view" {
       onMomentumScrollEnd?: () => void,
       onMomentumScrollBegin?: () => void,
       pagingEnabled?: boolean,
-      refreshControl?: JSX.Element,
+      refreshControl?: React$Element<*>,
       removeClippedSubviews?: boolean,
       showsHorizontalScrollIndicator?: boolean,
       scrollEnabled?: boolean,
