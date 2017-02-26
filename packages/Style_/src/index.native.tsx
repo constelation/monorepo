@@ -126,8 +126,7 @@ export default class Style_ extends React.PureComponent<IProps, void> {
     const Child = React.Children.only(this.props.children)
 
     // Style_'s render() runs before Child's, so add its style props back in
-    const style = { ...styleFromProps, ...this.props.style, ...Child.props.style }
-    propsToPass.style = style
+    propsToPass.style = [styleFromProps, this.props.style, Child.props.style]
 
     // without removing children, this would infinite loop
     delete propsToPass.children

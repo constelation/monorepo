@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactNative from 'react-native'
-import glamorReact from 'glamor/react'
 import _omit from 'lodash/omit'
 
 export interface IProps {
@@ -195,18 +194,23 @@ function getNonStyleProps(props: IProps) {
 }
 
 export default class View extends React.PureComponent<IProps, void> {
+  private setAnimatedRef = (node) => {
+    this.props.refNode(node._component);
+  }
   render() {
     const styleFromProps = getStyleFromProps(this.props)
     const propsToPass = _omit(this.props, propsToOmit)
 
-    const style = { ...styleFromProps, ...this.props.style }
+    const style = [styleFromProps, this.props.style]
 
-    // Use refNode pattern to pass back the DOM's node
     if (this.props.refNode) {
-      propsToPass.ref = this.props.refNode
+      // We don't want the Animated node, just the View with measure(), blur(), etc
+      propsToPass.ref = (this.props.animated)
+        ? this.setAnimatedRef
+        : this.props.refNode
     }
 
-    return this.props.animated
+    return (this.props.animated)
       ? <ReactNative.Animated.View {...propsToPass} style={style} />
       : <ReactNative.View {...propsToPass} style={style} />
   }

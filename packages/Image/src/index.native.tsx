@@ -190,7 +190,7 @@ export default class Image extends React.PureComponent<IProps, void> {
       delete styleFromProps.width
     }
 
-    const style = { ...styleFromProps, ...this.props.style }
+    const style = [styleFromProps, this.props.style]
 
     // Use refNode pattern to pass back the DOM's node
     if (this.props.refNode) {

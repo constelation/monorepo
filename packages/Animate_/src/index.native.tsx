@@ -518,7 +518,7 @@ export default class Animate_ extends React.Component<IProps, void> {
 
     // Style_'s render() runs before Child's, so add its style props back in
     // TODO: merge Child's transform object if it exists
-    propsToPass.style = { ...this.props.style, ...this.style, ...Child.props.style }
+    propsToPass.style = [this.props.style, this.style, Child.props.style]
     // used by child View/Text/ScrollView/Image
     propsToPass.animated = true
 
