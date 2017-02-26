@@ -3,7 +3,6 @@ import ReactNative from 'react-native'
 import _omit from 'lodash/omit'
 
 export interface IProps {
-  alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
   alignVertical?: 'top' | 'center' | 'bottom',
   alignHorizontal?: 'left' | 'center' | 'right',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
@@ -66,7 +65,6 @@ const alignVerticalAlias = {
 const propsToOmit = [
   'align',
   'alignSelf',
-  'alignContent',
   'alignHorizontal',
   'alignVertical',
   'bottom',
