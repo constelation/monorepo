@@ -48,6 +48,6 @@
     "react-test-renderer": "^15.4.2",
     "rimraf": "^2.6.0",
     "storyshots": "^3.2.0",
-    "typescript": "^2.1.5"
+    "typescript": "^2.2.1"
   }
 }
