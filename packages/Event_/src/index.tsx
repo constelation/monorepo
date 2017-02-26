@@ -2,10 +2,45 @@
  * Credits: fork of Jed Watson's react-hammerjs
  */
 
-'use strict';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import * as View from 'constelation-view'
 
-var React = require('react')
-var ReactDOM = require('react-dom');
+export interface IProps {
+  action?: Function,
+  hitSlop?: number | string,
+  hitSlopVertical?: number | string,
+  hitSlopHorizontal?: number | string,
+  hitSlopTop?: number | string,
+  hitSlopRight?: number | string,
+  hitSlopBottom?: number | string,
+  hitSlopLeft?: number | string,
+  onClick?: Function,
+  onHover?: Function,
+  onDoubleTap?: Function,
+  onPan?: Function,
+  onPanCancel?: Function,
+  onPanEnd?: Function,
+  onPanStart?: Function,
+  onPinch?: Function,
+  onPinchCancel?: Function,
+  onPinchEnd?: Function,
+  onPinchIn?: Function,
+  onPinchOut?: Function,
+  onPinchStart?: Function,
+  onPress?: Function,
+  onPressUp?: Function,
+  onRotate?: Function,
+  onRotateCancel?: Function,
+  onRotateEnd?: Function,
+  onRotateMove?: Function,
+  onRotateStart?: Function,
+  onSwipe?: Function,
+  onTap?: Function,
+  direction?: 'DIRECTION_ALL' | 'DIRECTION_VERTICAL' | 'DIRECTION_HORIZONTAL' | 'DIRECTION_DOWN' | 'DIRECTION_UP' | 'DIRECTION_RIGHT' | 'DIRECTION_LEFT' | 'DIRECTION_NONE',
+  options?: Object,
+  recognizeWith?: Object,
+}
 
 // require('hammerjs') when in a browser. This is safe because Hammer is only
 // invoked in componentDidMount, which is not executed on the server.
@@ -104,7 +139,7 @@ function updateHammer(hammer, props) {
   })
 }
 
-class Event_ extends React.PureComponent {
+export default class Event_ extends React.PureComponent<IProps, void> {
   constructor() {
     super()
 
@@ -163,4 +198,14 @@ class Event_ extends React.PureComponent {
   }
 }
 
-module.exports = Event_
+export class Event extends React.PureComponent<IProps, void> {
+  render() {
+    const {children, ...props} = this.props
+
+    return (
+      <Event_ {...props}>
+        <View>{children}</View>
+      </Event_>
+    )
+  }
+}

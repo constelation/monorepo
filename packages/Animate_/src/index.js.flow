@@ -1,16 +1,22 @@
 declare module "constelation-animate_" {
-  declare class Animate_ extends React$PureComponent<> {
-    props: {
+  declare type Props = {
       keyframes?: Object,
       duration?: string,
       easing?: string,
       delay?: string,
       direction?: string,
-      repeat?: bool,
+      repeat?: boolean,
       type?: 'fadeIn' | 'fadeOut',
-    };
+  }
+  declare class Animate_ extends React$PureComponent<> {
+    props: Props;
     trigger(): void;
     render(): any;
   }
-  declare var exports: typeof Animate_;
+  declare class Animate extends React$PureComponent<> {
+    props: Props;
+    render(): any;
+  }
+  declare export var Animate: typeof Animate;
+  declare export default typeof Animate_
 }
