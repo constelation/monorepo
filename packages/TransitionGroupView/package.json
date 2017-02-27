@@ -14,7 +14,9 @@
     "flow-bin": "^0.34.0"
   },
   "dependencies": {
-    "constelation-View": "^6.5.0",
     "react-addons-css-transition-group": "^15.2.1"
+  },
+  "peerDependencies": {
+    "constelation-view": ">=11.0.0"
   }
 }

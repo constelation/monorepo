@@ -2,7 +2,7 @@ import React from 'react'
 import { style } from 'glamor'
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
-import View from 'constelation-View'
+import View from 'constelation-view'
 
 class TransitionGroupView extends React.PureComponent {
   static defaultProps = {
