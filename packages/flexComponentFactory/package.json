@@ -10,8 +10,9 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "peerDependencies": {
-    "glamor": "^2.17.12",
     "lodash": "^4.13.1",
-    "react": "^15.2.1"
+    "react": "^15.2.1",
+    "glamor": "^2.20.24",
+    "glamor-react": "^3.0.0-1"
   }
 }

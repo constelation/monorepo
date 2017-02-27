@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as glamorReact from 'glamor/react'
+import * as glamorReact from 'glamor-react'
 import * as _omit from 'lodash/omit'
 
 export interface IProps {
@@ -254,7 +254,7 @@ const Slop = (props: IProps) => (
 export default class View extends React.PureComponent<IProps, void> {
   static defaultProps = {
     tag: 'div',
-    srink: 0,
+    shrink: 0,
     position: 'relative',
     alignContent: 'flex-start',
   }

@@ -2,11 +2,65 @@
  * Credits: https://github.com/rofrischmann/react-layout-components/blob/develop/modules/components/ScrollView.jsx
  */
 
-var React = require('react')
-var glamorReact = require('glamor/react')
+import * as React from 'react'
+import * as glamorReact from 'glamor-react'
+import * as _omit from 'lodash/omit'
+import * as _assign from 'lodash/assign'
 
-var _omit = require('lodash/omit')
-var _assign = require('lodash/assign')
+export interface IProps {
+  alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
+  alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
+  bottom?: number | string,
+  center?: boolean,
+  fit?: boolean,
+  flex?: number | string,
+  wrap?: string,
+  grow?: number | boolean,
+  shrink?: number,
+  basis?: string | number,
+  height?: number | string,
+  hidden?: boolean,
+  inline?: boolean,
+  left?: number | string,
+  margin?: number | string,
+  marginBottom?: number | string,
+  marginLeft?: number | string,
+  marginRight?: number | string,
+  marginTop?: number | string,
+  marginVertical?: number | string,
+  marginHorizontal?: number | string,
+  maxHeight?: number | string,
+  maxWidth?: number | string,
+  minHeight?: number | string,
+  minWidth?: number | string,
+  order?: number,
+  overflow?: string,
+  overflowX?: string,
+  overflowY?: string,
+  overflowScrolling?: string,
+  padding?: number | string,
+  paddingBottom?: number | string,
+  paddingLeft?: number | string,
+  paddingRight?: number | string,
+  paddingTop?: number | string,
+  paddingVertical?: number | string,
+  paddingHorizontal?: number | string,
+  pointerEvents?: string,
+  position?: string,
+  refNode?: Function,
+  right?: number | string,
+  style?: Object,
+  inlineStyle?: Object,
+  top?: number | string,
+  tag?: string,
+  width?: number | string,
+  zIndex?: number,
+
+  bounces?: boolean,
+  horizontal?: boolean,
+  onScroll?: Function,
+  scrollEnabled?: boolean,
+}
 
 //NOTES: other 
 
@@ -48,7 +102,7 @@ var _assign = require('lodash/assign')
 //   }
 // }
 
-var propsToOmit = [
+const propsToOmit = [
   // 'alignHorizontal',
   // 'alignVertical',
   'alignSelf',
@@ -110,7 +164,7 @@ var propsToOmit = [
   'scrollEnabled',
 ]
 
-function getStyleFromProps(props) {
+function getStyleFromProps(props: IProps) {
   // some defaults from https://github.com/facebook/css-layout#default-values
   var styleFromProps = {
     alignSelf: props.alignSelf,
@@ -156,11 +210,13 @@ function getStyleFromProps(props) {
   return styleFromProps
 }
 
-function getNonStyleProps(props) {
-  return _omit( props, propsToOmit )
+function getNonStyleProps(props: IProps) {
+  return _omit(props, propsToOmit)
 }
 
-class ScrollView extends React.PureComponent {
+export default class ScrollView extends React.PureComponent<IProps, void> {
+  scrollView: HTMLElement
+
   static defaultProps = {
     tag: 'div',
     shrink: 0,
@@ -170,14 +226,14 @@ class ScrollView extends React.PureComponent {
     scrollEnabled: true,
   }
 
-  setRef = scrollView => {
+  setRef = (scrollView: HTMLElement) => {
     this.scrollView = scrollView
 
     this.props.refNode && this.props.refNode(scrollView)
   }
 
   // PUBLIC
-  scrollTo = pos => {
+  scrollTo = (pos: number) => {
     if (this.props.horizontal) {
       this.scrollView.scrollLeft = pos
     }
@@ -210,7 +266,7 @@ class ScrollView extends React.PureComponent {
     var styleFromProps = getStyleFromProps(this.props)
     var propsToPass = getNonStyleProps(this.props)
 
-    var css = _assign( {}, styleFromProps, this.props.style)
+    var css = _assign({}, styleFromProps, this.props.style)
     propsToPass.css = css
 
     // inlineStyle should pass down as style to apply inline
@@ -218,8 +274,6 @@ class ScrollView extends React.PureComponent {
 
     propsToPass.ref = this.setRef
 
-    return glamorReact.createElement( this.props.tag, propsToPass )
+    return glamorReact.createElement(this.props.tag, propsToPass)
   }
 }
-
-module.exports = ScrollView

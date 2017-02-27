@@ -48,6 +48,7 @@ declare module "constelation-scroll-view" {
       refNode?: () => {},
       right?: number | string,
       style?: Object,
+      inlineStyle?: Object,
       top?: number | string,
       tag?: string,
       width?: number | string,
