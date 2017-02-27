@@ -1,17 +1,18 @@
-declare module "constelation-view" {
+declare module "constelation-View" {
   declare class View extends React$PureComponent<> {
     props: {
-      alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
       alignVertical?: 'top' | 'center' | 'bottom',
       alignHorizontal?: 'left' | 'center' | 'right',
-      alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
-      align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
-      justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around',
+      alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       bottom?: number | string,
       center?: boolean,
       fit?: boolean,
-
       flex?: number | string,
+      flexWrap?: string,
+      flexGrow?: number,
+      flexShrink?: number,
+      flexBasis?: string | number,
+
       wrap?: string,
       grow?: number | boolean,
       shrink?: number,
