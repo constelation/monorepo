@@ -1,0 +1,18 @@
+{
+  "name": "constelation-flex-component-factory",
+  "version": "6.5.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
+  "license": "ISC",
+  "peerDependencies": {
+    "lodash": "^4.13.1",
+    "react": "^15.2.1",
+    "glamor": "^2.20.24",
+    "glamor-react": "^3.0.0-1"
+  }
+}

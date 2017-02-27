@@ -1,5 +1,5 @@
 var React = require('react')
-var glamorReact = require('glamor/react')
+var glamorReact = require('glamor-react')
 
 var _isEmpty = require('lodash/isEmpty')
 var _forEach = require('lodash/forEach')
@@ -81,7 +81,7 @@ var propsToOmit = [
   'hitSlopLeft',
 ]
 
-function getStyleFromProps( props, styleAliases ) {
+function getStyleFromProps(props, styleAliases) {
   // some defaults from https://github.com/facebook/css-layout#default-values
   var styleFromProps = {
     alignSelf: props.alignSelf,
@@ -127,14 +127,14 @@ function getStyleFromProps( props, styleAliases ) {
 
   // map styleAliases if there are any
   if (styleAliases) {
-    var styleAliasesFromProps = _pick( props, _keys( styleAliases ))
+    var styleAliasesFromProps = _pick(props, _keys(styleAliases))
 
     // if aliased props are found, use the styleAlias maps to convert their value
-    if (!_isEmpty( styleAliasesFromProps )) {
-      _forEach( _keys( styleAliasesFromProps ), function( aliasKey ) {
-        var alias = styleAliases[ aliasKey ]
+    if (!_isEmpty(styleAliasesFromProps)) {
+      _forEach(_keys(styleAliasesFromProps), function (aliasKey) {
+        var alias = styleAliases[aliasKey]
 
-        styleFromProps[ alias.property ] = alias.map[ props[ aliasKey ] ]
+        styleFromProps[alias.property] = alias.map[props[aliasKey]]
       })
     }
   }
@@ -152,12 +152,12 @@ function hasHitSlopProp(props) {
     || props.hitSlopLeft
 }
 
-function getNonStyleProps( props, styleAliases ) {
+function getNonStyleProps(props, styleAliases) {
   if (styleAliases) {
-    return _omit( props, propsToOmit.concat( _keys( styleAliases ) ) )
+    return _omit(props, propsToOmit.concat(_keys(styleAliases)))
   }
 
-  return _omit( props, propsToOmit )
+  return _omit(props, propsToOmit)
 }
 
 const Slop = (props) => (
@@ -172,7 +172,7 @@ const Slop = (props) => (
   />
 )
 
-module.exports = function( displayName, requiredStyle, defaultStyle, styleAliases ) {
+module.exports = function (displayName, requiredStyle, defaultStyle, styleAliases) {
   return class extends React.PureComponent {
     static displayName = displayName
 
@@ -185,10 +185,10 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
     }
 
     render() {
-      var styleFromProps = getStyleFromProps( this.props, styleAliases )
-      var propsToPass = getNonStyleProps( this.props, styleAliases )
+      var styleFromProps = getStyleFromProps(this.props, styleAliases)
+      var propsToPass = getNonStyleProps(this.props, styleAliases)
 
-      var css = _assign( {}, defaultStyle, styleFromProps, this.props.style, requiredStyle )
+      var css = _assign({}, defaultStyle, styleFromProps, this.props.style, requiredStyle)
       propsToPass.css = css
 
       // inlineStyle should pass down as style to apply inline
@@ -223,7 +223,7 @@ module.exports = function( displayName, requiredStyle, defaultStyle, styleAliase
         }
       }
 
-      return glamorReact.createElement( this.props.tag, propsToPass )
+      return glamorReact.createElement(this.props.tag, propsToPass)
     }
   }
 }

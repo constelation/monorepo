@@ -1,0 +1,5 @@
+  // @flow
+
+  declare class Event_ extends React$PureComponent<> {
+    render(): any;
+  }

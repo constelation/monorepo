@@ -1,6 +1,6 @@
 {
-  "name": "constelation-BackgroundImage",
-  "version": "5.1.1",
+  "name": "constelation-View",
+  "version": "6.5.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -9,9 +9,7 @@
   "keywords": [],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
-  "peerDependencies": {
-    "lodash": "^4.13.1",
-    "react": "^15.2.1",
-    "glamor": "^2.17.12"
+  "dependencies": {
+    "constelation-flex-component-factory": "^6.5.0"
   }
 }

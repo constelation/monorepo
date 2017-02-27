@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react')
-var glamorReact = require('glamor/react')
+var glamorReact = require('glamor-react')
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
 var _assign = require('lodash/assign')

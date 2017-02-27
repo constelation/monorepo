@@ -1,5 +1,5 @@
 {
-  "name": "constelation-display-component-factory",
+  "name": "constelation-_GlobalEvent_",
   "version": "5.1.1",
   "description": "",
   "main": "dist/index.js",
@@ -10,7 +10,6 @@
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",
   "peerDependencies": {
-    "glamor": "^2.17.12",
     "lodash": "^4.13.1",
     "react": "^15.2.1"
   }

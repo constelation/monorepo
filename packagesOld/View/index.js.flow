@@ -1,21 +1,23 @@
-// alignHorizontal?: 'left' | 'center' | 'right',
-// alignVertical?: 'top' | 'center' | 'bottom',
-// scrollEventThrottle?: number,
-// showsHorizontalScrollIndicator?: boolean,
-// showsVerticalScrollIndicator?: boolean,
-
-declare module "constelation-scroll-view" {
-  declare class ScrollView extends React$PureComponent<> {
+declare module "constelation-View" {
+  declare class View extends React$PureComponent<> {
     props: {
+      alignVertical?: 'top' | 'center' | 'bottom',
+      alignHorizontal?: 'left' | 'center' | 'right',
       alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       bottom?: number | string,
       center?: boolean,
       fit?: boolean,
       flex?: number | string,
+      flexWrap?: string,
+      flexGrow?: number,
+      flexShrink?: number,
+      flexBasis?: string | number,
+
       wrap?: string,
       grow?: number | boolean,
       shrink?: number,
       basis?: string | number,
+
       height?: number | string,
       hidden?: boolean,
       inline?: boolean,
@@ -48,21 +50,12 @@ declare module "constelation-scroll-view" {
       refNode?: () => {},
       right?: number | string,
       style?: Object,
-      inlineStyle?: Object,
       top?: number | string,
       tag?: string,
       width?: number | string,
       zIndex?: number,
-
-      bounces?: boolean,
-      horizontal?: boolean,
-      onScroll?: Function,
-      scrollEnabled?: boolean,
     };
-    scrollTo(): void;
-    scrollToStart(): void;
-    scrollToEnd(): void;
     render(): any;
   }
-  declare var exports: typeof ScrollView;
+  declare var exports: typeof View;
 }

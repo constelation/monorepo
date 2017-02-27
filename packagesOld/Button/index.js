@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react')
-var glamorReact = require('glamor/react')
+var glamorReact = require('glamor-react')
 var _assign = require('lodash/assign')
 
 var componentStyle = {
@@ -19,9 +19,9 @@ var Button = React.createClass({
     refNode: React.PropTypes.func,
   },
 
-  render: function() {
-    var css = _assign( {}, componentStyle, this.props.style )
-    var propsToPass = _assign( {}, this.props, {css: css})
+  render: function () {
+    var css = _assign({}, componentStyle, this.props.style)
+    var propsToPass = _assign({}, this.props, { css: css })
 
     // don't want to pass style on as inline
     delete propsToPass.style
@@ -32,7 +32,7 @@ var Button = React.createClass({
       delete propsToPass.refNode
     }
 
-    return glamorReact.createElement( 'button', propsToPass )
+    return glamorReact.createElement('button', propsToPass)
   }
 })
 
