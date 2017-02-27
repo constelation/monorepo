@@ -1,6 +1,6 @@
 {
   "name": "constelation-transition-group-view",
-  "version": "6.5.0",
+  "version": "12.2.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
