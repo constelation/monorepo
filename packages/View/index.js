@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || Object.assign || function (t) {
+var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
         for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -178,17 +178,13 @@ function hasHitSlopProp(props) {
         || props.hitSlopBottom
         || props.hitSlopLeft;
 }
-var Slop = function (props) {
-    return (React.createElement("span", {
-        style: {
-            position: 'absolute',
-            top: -(props.hitSlopTop || props.hitSlopVertical || props.hitSlop || 0),
-            right: -(props.hitSlopRight || props.hitSlopHorizontal || props.hitSlop || 0),
-            bottom: -(props.hitSlopBottom || props.hitSlopVertical || props.hitSlop || 0),
-            left: -(props.hitSlopLeft || props.hitSlopHorizontal || props.hitSlop || 0),
-        }
-    }));
-};
+var Slop = function (props) { return (React.createElement("span", { style: {
+        position: 'absolute',
+        top: -(props.hitSlopTop || props.hitSlopVertical || props.hitSlop || 0),
+        right: -(props.hitSlopRight || props.hitSlopHorizontal || props.hitSlop || 0),
+        bottom: -(props.hitSlopBottom || props.hitSlopVertical || props.hitSlop || 0),
+        left: -(props.hitSlopLeft || props.hitSlopHorizontal || props.hitSlop || 0),
+    } })); };
 var View = (function (_super) {
     __extends(View, _super);
     function View() {
