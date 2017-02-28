@@ -164,7 +164,7 @@ export default class Image extends React.PureComponent<IProps, void> {
     const propsWithoutStyle = getNonStyleProps(this.props)
 
     // NOTE: this does not work if parent has alignItems='center' set
-    if (this.props.ratioGrow) {
+    if (this.props.ratioGrow === true) {
       const source = ReactNative.Image.resolveAssetSource(this.props.source)
 
       styleFromProps.flexGrow = 1
