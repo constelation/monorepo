@@ -2,11 +2,18 @@
   "name": "constelation-transition-group-view",
   "version": "12.2.2",
   "description": "",
-  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "flowtype": "../../node_modules/.bin/flow gen-flow-files *.js --out-dir dist"
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
+    "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
+    "build": "npm run build:web; npm run copy",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.js.flow"
+  ],
   "keywords": [],
   "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
   "license": "ISC",

@@ -11,7 +11,7 @@
   },
   "files": [
     "index.native.js",
-    "index.native.d.js",
+    "index.native.d.ts",
     "index.native.js.flow"
   ],
   "keywords": [

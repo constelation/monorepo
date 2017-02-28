@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "target": "es2015",
+        "jsx": "react-native",
+        "outDir": ".",
+        "moduleResolution": "node",
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+        "allowJs": false,
+        "declaration": true
+    },
+    "files": [
+        "src/index.native.tsx"
+    ]
+}

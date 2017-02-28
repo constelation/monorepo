@@ -1,10 +1,28 @@
-import React from 'react'
+import * as React from 'react'
 import { style } from 'glamor'
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import CSSTransitionGroup from 'react-addons-css-transition-group'
-import View from 'constelation-view'
+import * as CSSTransitionGroup from 'react-addons-css-transition-group'
+import * as View from 'constelation-view'
 
-class TransitionGroupView extends React.PureComponent {
+export interface IProps {
+  willAppear?: Object,
+  appear?: Object,
+  willEnter?: Object,
+  enter?: Object,
+  willLeave?: Object,
+  leave?: Object,
+  component?: JSX.ElementClass,
+  appearDuration?: number,
+  enterDuration?: number,
+  leaveDuration?: number,
+}
+
+export interface IState {
+  transitionStyles: Object,
+  transitionName: Object,
+}
+
+export default class TransitionGroupView extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     component: View,
   }
@@ -62,5 +80,3 @@ class TransitionGroupView extends React.PureComponent {
     )
   }
 }
-
-module.exports = TransitionGroupView

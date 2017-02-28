@@ -300,3 +300,5 @@ export default class View extends React.PureComponent<IProps, void> {
     return glamorReact.createElement(this.props.tag, propsToPass)
   }
 }
+
+module.exports = View
