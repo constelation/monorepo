@@ -1,0 +1,35 @@
+{
+  "name": "constelation-space",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/constelation/monorepo",
+  "scripts": {
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
+    "build:native": "../../node_modules/.bin/tsc -p tsconfig.native.json",
+    "build": "npm run build:web; npm run build:native; npm run copy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "index.native.js",
+    "index.native.d.ts",
+    "index.native.js.flow",
+    "index.js",
+    "index.d.ts",
+    "index.js.flow"
+  ],
+  "keywords": [
+    "constelation",
+    "space"
+  ],
+  "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
+  "license": "ISC",
+  "peerDependencies": {
+    "lodash": "^4.13.1",
+    "react": "^15.2.1"
+  },
+  "optionalDependencies": {
+    "glamor": "^2.20.24",
+    "glamor-react": "^3.0.0-1"
+  }
+}
