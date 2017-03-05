@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as glamorReact from 'glamor-react'
 import * as _omit from 'lodash/omit'
 
-export interface IProps {
+export interface IBase {
   alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
   alignVertical?: 'top' | 'center' | 'bottom',
   alignHorizontal?: 'left' | 'center' | 'right',
@@ -18,6 +18,7 @@ export interface IProps {
   grow?: number | boolean,
   shrink?: number,
   basis?: string | number,
+  // horizontal?: boolean,
 
   height?: number | string,
   hidden?: boolean,
@@ -29,7 +30,6 @@ export interface IProps {
   hitSlopBottom?: number | string,
   hitSlopLeft?: number | string,
 
-  horizontal?: boolean,
   inline?: boolean,
   left?: number | string,
   margin?: number | string,
@@ -65,6 +65,10 @@ export interface IProps {
   tag?: string,
   width?: number | string,
   zIndex?: number,
+}
+
+export interface IView extends IBase {
+  horizontal?: boolean,
 }
 
 const alignHorizontalAlias = {
@@ -148,11 +152,11 @@ const propsToOmit = [
   'refNode',
 ]
 
-function getAlignItems(props: IProps) {
+function getAlignItems(props: IBase, isHorizontal: boolean) {
   if (props.align) {
     return props.align
   }
-  else if (props.horizontal === true && props.alignVertical) {
+  else if (isHorizontal && props.alignVertical) {
     return alignVerticalAlias[props.alignVertical]
   }
   else if (props.alignHorizontal) {
@@ -161,7 +165,7 @@ function getAlignItems(props: IProps) {
   else if (props.center === true) {
     return 'center'
   }
-  else if (props.horizontal === true) {
+  else if (isHorizontal) {
     return 'flex-start'
   }
   else {
@@ -169,11 +173,11 @@ function getAlignItems(props: IProps) {
   }
 }
 
-function getJustifyContent(props: IProps) {
+function getJustifyContent(props: IBase, isHorizontal: boolean) {
   if (props.justify) {
     return props.justify
   }
-  else if (props.horizontal === true && props.alignHorizontal) {
+  else if (isHorizontal && props.alignHorizontal) {
     return alignHorizontalAlias[props.alignHorizontal]
   }
   else if (props.alignVertical) {
@@ -184,22 +188,22 @@ function getJustifyContent(props: IProps) {
   }
 }
 
-function getStyleFromProps(props: IProps) {
+function getStyleFromProps(props: IBase, isHorizontal: boolean) {
   // some defaults from https://github.com/facebook/css-layout#default-values
   return {
     alignSelf: props.alignSelf,
-    alignItems: getAlignItems(props),
+    alignItems: getAlignItems(props, isHorizontal),
     alignContent: props.alignContent,
     bottom: props.bottom,
     display: props.hidden ? 'none' : (props.inline ? 'inline-flex' : 'flex'),
     flex: props.flex,
-    flexDirection: props.horizontal === true ? 'row' : 'column',
+    flexDirection: isHorizontal ? 'row' : 'column',
     flexWrap: props.wrap,
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,
     flexBasis: props.basis,
     height: props.fit ? '100%' : props.height,
-    justifyContent: getJustifyContent(props),
+    justifyContent: getJustifyContent(props, isHorizontal),
     left: props.left,
     margin: props.margin,
     marginBottom: props.marginBottom || props.marginVertical,
@@ -229,7 +233,7 @@ function getStyleFromProps(props: IProps) {
   }
 }
 
-function hasHitSlopProp(props: IProps) {
+function hasHitSlopProp(props: IBase) {
   return props.hitSlop
     || props.hitSlopVertical
     || props.hitSlopHorizontal
@@ -239,7 +243,7 @@ function hasHitSlopProp(props: IProps) {
     || props.hitSlopLeft
 }
 
-const Slop = (props: IProps) => (
+const Slop = (props: IBase) => (
   <span
     style={{
       position: 'absolute',
@@ -251,7 +255,7 @@ const Slop = (props: IProps) => (
   />
 )
 
-export default class View extends React.PureComponent<IProps, void> {
+export class View extends React.PureComponent<IView, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,
@@ -260,11 +264,10 @@ export default class View extends React.PureComponent<IProps, void> {
   }
 
   render() {
-    const styleFromProps = getStyleFromProps(this.props)
+    const styleFromProps = getStyleFromProps(this.props, this.props.horizontal)
     const propsToPass = _omit(this.props, propsToOmit)
 
-    const css = { ...styleFromProps, ...this.props.style }
-    propsToPass.css = css
+    propsToPass.css = { ...styleFromProps, ...this.props.style }
 
     // inlineStyle should pass down as style to apply inline
     propsToPass.style = this.props.inlineStyle
@@ -301,4 +304,104 @@ export default class View extends React.PureComponent<IProps, void> {
   }
 }
 
+// TODO: DRY it up
+export class Row extends React.PureComponent<IBase, void> {
+  static defaultProps = {
+    tag: 'div',
+    shrink: 0,
+    position: 'relative',
+    alignContent: 'flex-start',
+  }
+
+  render() {
+    const styleFromProps = getStyleFromProps(this.props, true)
+    const propsToPass = _omit(this.props, propsToOmit)
+
+    propsToPass.css = { ...styleFromProps, ...this.props.style }
+
+    // inlineStyle should pass down as style to apply inline
+    propsToPass.style = this.props.inlineStyle
+
+    // Use refNode pattern to pass back the DOM's node
+    if (this.props.refNode) {
+      propsToPass.ref = this.props.refNode
+    }
+
+    if (hasHitSlopProp(this.props)) {
+      const HitSlop = (
+        <Slop
+          hitSlop={this.props.hitSlop}
+          hitSlopTop={this.props.hitSlopTop}
+          hitSlopRight={this.props.hitSlopRight}
+          hitSlopBottom={this.props.hitSlopBottom}
+          hitSlopLeft={this.props.hitSlopLeft}
+          hitSlopVertical={this.props.hitSlopVertical}
+          hitSlopHorizontal={this.props.hitSlopHorizontal}
+        />
+      )
+
+      if (propsToPass.children == null) {
+        propsToPass.children = HitSlop
+      }
+      else {
+        // convert children to array, then prepend Slop
+        propsToPass.children = React.Children.toArray(propsToPass.children)
+        propsToPass.children.unshift(HitSlop)
+      }
+    }
+
+    return glamorReact.createElement(this.props.tag, propsToPass)
+  }
+}
+
+export class Col extends React.PureComponent<IBase, void> {
+  static defaultProps = {
+    tag: 'div',
+    shrink: 0,
+    position: 'relative',
+    alignContent: 'flex-start',
+  }
+
+  render() {
+    const styleFromProps = getStyleFromProps(this.props, false)
+    const propsToPass = _omit(this.props, propsToOmit)
+
+    propsToPass.css = { ...styleFromProps, ...this.props.style }
+
+    // inlineStyle should pass down as style to apply inline
+    propsToPass.style = this.props.inlineStyle
+
+    // Use refNode pattern to pass back the DOM's node
+    if (this.props.refNode) {
+      propsToPass.ref = this.props.refNode
+    }
+
+    if (hasHitSlopProp(this.props)) {
+      const HitSlop = (
+        <Slop
+          hitSlop={this.props.hitSlop}
+          hitSlopTop={this.props.hitSlopTop}
+          hitSlopRight={this.props.hitSlopRight}
+          hitSlopBottom={this.props.hitSlopBottom}
+          hitSlopLeft={this.props.hitSlopLeft}
+          hitSlopVertical={this.props.hitSlopVertical}
+          hitSlopHorizontal={this.props.hitSlopHorizontal}
+        />
+      )
+
+      if (propsToPass.children == null) {
+        propsToPass.children = HitSlop
+      }
+      else {
+        // convert children to array, then prepend Slop
+        propsToPass.children = React.Children.toArray(propsToPass.children)
+        propsToPass.children.unshift(HitSlop)
+      }
+    }
+
+    return glamorReact.createElement(this.props.tag, propsToPass)
+  }
+}
+
+export default View
 module.exports = View
