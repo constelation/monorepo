@@ -2,7 +2,7 @@ import React from 'react'
 import ReactNative from 'react-native'
 import _omit from 'lodash/omit'
 
-export interface IProps {
+export interface IBase {
   alignVertical?: 'top' | 'center' | 'bottom',
   alignHorizontal?: 'left' | 'center' | 'right',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
@@ -17,7 +17,7 @@ export interface IProps {
   grow?: number | boolean,
   shrink?: number,
   basis?: number | string,
-  horizontal?: boolean,
+  // horizontal?: boolean,
 
   height?: number | string,
   left?: number | string,
@@ -50,6 +50,10 @@ export interface IProps {
   zIndex?: number,
 }
 
+export interface IView extends IBase {
+  horizontal?: boolean,
+}
+
 const alignHorizontalAlias = {
   left: 'flex-start',
   center: 'center',
@@ -70,7 +74,7 @@ const propsToOmit = [
   'bottom',
 
   'flex',
-  'direction',
+  // 'direction',
   'wrap',
   'grow',
   'shrink',
@@ -110,11 +114,11 @@ const propsToOmit = [
   'refNode',
 ]
 
-function getAlignItems(props: IProps) {
+function getAlignItems(props: IBase, isHorizontal: boolean) {
   if (props.align) {
     return props.align
   }
-  else if (props.horizontal === true && props.alignVertical) {
+  else if (isHorizontal && props.alignVertical) {
     return alignVerticalAlias[props.alignVertical]
   }
   else if (props.alignHorizontal) {
@@ -123,7 +127,7 @@ function getAlignItems(props: IProps) {
   else if (props.center === true) {
     return 'center'
   }
-  else if (props.horizontal === true) {
+  else if (isHorizontal) {
     return 'flex-start'
   }
   else {
@@ -131,11 +135,11 @@ function getAlignItems(props: IProps) {
   }
 }
 
-function getJustifyContent(props: IProps) {
+function getJustifyContent(props: IBase, isHorizontal: boolean) {
   if (props.justify) {
     return props.justify
   }
-  else if (props.horizontal === true && props.alignHorizontal) {
+  else if (isHorizontal && props.alignHorizontal) {
     return alignHorizontalAlias[props.alignHorizontal]
   }
   else if (props.alignVertical) {
@@ -146,19 +150,19 @@ function getJustifyContent(props: IProps) {
   }
 }
 
-function getStyleFromProps(props: IProps) {
+function getStyleFromProps(props: IBase, isHorizontal: boolean) {
   return {
     alignSelf: props.alignSelf,
-    alignItems: getAlignItems(props),
+    alignItems: getAlignItems(props, isHorizontal),
     bottom: props.bottom,
     flex: props.flex,
-    flexDirection: props.horizontal === true ? 'row' : 'column',
+    flexDirection: isHorizontal ? 'row' : 'column',
     flexWrap: props.wrap,
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,
     flexBasis: props.basis,
     height: props.height,
-    justifyContent: getJustifyContent(props),
+    justifyContent: getJustifyContent(props, isHorizontal),
     left: props.left,
     margin: props.margin,
     marginBottom: props.marginBottom,
@@ -187,16 +191,16 @@ function getStyleFromProps(props: IProps) {
   }
 }
 
-function getNonStyleProps(props: IProps) {
+function getNonStyleProps(props: IBase | IView) {
   return _omit(props, propsToOmit)
 }
 
-export default class View extends React.PureComponent<IProps, void> {
+export class View extends React.PureComponent<IView, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }
   render() {
-    const styleFromProps = getStyleFromProps(this.props)
+    const styleFromProps = getStyleFromProps(this.props, this.props.horizontal)
     const propsToPass = _omit(this.props, propsToOmit)
 
     const style = [styleFromProps, this.props.style]
@@ -213,3 +217,51 @@ export default class View extends React.PureComponent<IProps, void> {
       : <ReactNative.View {...propsToPass} style={style} />
   }
 }
+
+export class Row extends React.PureComponent<IBase, void> {
+  private setAnimatedRef = (node) => {
+    this.props.refNode(node._component);
+  }
+  render() {
+    const styleFromProps = getStyleFromProps(this.props, true)
+    const propsToPass = _omit(this.props, propsToOmit)
+
+    const style = [styleFromProps, this.props.style]
+
+    if (this.props.refNode) {
+      // We don't want the Animated node, just the View with measure(), blur(), etc
+      propsToPass.ref = (this.props.animated)
+        ? this.setAnimatedRef
+        : this.props.refNode
+    }
+
+    return (this.props.animated)
+      ? <ReactNative.Animated.View {...propsToPass} style={style} />
+      : <ReactNative.View {...propsToPass} style={style} />
+  }
+}
+
+export class Col extends React.PureComponent<IBase, void> {
+  private setAnimatedRef = (node) => {
+    this.props.refNode(node._component);
+  }
+  render() {
+    const styleFromProps = getStyleFromProps(this.props, false)
+    const propsToPass = _omit(this.props, propsToOmit)
+
+    const style = [styleFromProps, this.props.style]
+
+    if (this.props.refNode) {
+      // We don't want the Animated node, just the View with measure(), blur(), etc
+      propsToPass.ref = (this.props.animated)
+        ? this.setAnimatedRef
+        : this.props.refNode
+    }
+
+    return (this.props.animated)
+      ? <ReactNative.Animated.View {...propsToPass} style={style} />
+      : <ReactNative.View {...propsToPass} style={style} />
+  }
+}
+
+export default View
