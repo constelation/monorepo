@@ -11,6 +11,7 @@ export interface IBase {
   animated?: boolean,
   bottom?: number,
   center?: boolean,
+  fit?: boolean,
 
   flex?: number,
   wrap?: 'wrap' | 'nowrap',
@@ -161,7 +162,7 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     flexGrow: props.grow === true ? 1 : props.grow,
     flexShrink: props.shrink,
     flexBasis: props.basis,
-    height: props.height,
+    height: props.fit === true ? '100%' : props.height,
     justifyContent: getJustifyContent(props, isHorizontal),
     left: props.left,
     margin: props.margin,
@@ -186,7 +187,7 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     position: props.position,
     right: props.right,
     top: props.top,
-    width: props.width,
+    width: props.fit === true ? '100%' : props.width,
     zIndex: props.zIndex,
   }
 }

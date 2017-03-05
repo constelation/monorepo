@@ -52,3 +52,12 @@ test('horizontal alignVertical and alignHorizontal', () => {
   expect(horizontalView.props.style.alignItems).toBe('flex-start')
   expect(horizontalView.props.style.justifyContent).toBe('flex-end')
 });
+
+test('fit', () => {
+  const horizontalView = renderer.create(
+    <View fit />
+  ).toJSON();
+
+  expect(horizontalView.props.style.height).toBe('100%')
+  expect(horizontalView.props.style.width).toBe('100%')
+});
