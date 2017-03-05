@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as View from 'constelation-view'
+import { View } from 'constelation-view'
 
 export interface IProps {
   action?: Function,
@@ -200,7 +200,7 @@ export default class Event_ extends React.PureComponent<IProps, void> {
 
 export class Event extends React.PureComponent<IProps, void> {
   render() {
-    const {children, ...props} = this.props
+    const { children, ...props } = this.props
 
     return (
       <Event_ {...props}>

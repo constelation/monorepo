@@ -404,4 +404,3 @@ export class Col extends React.PureComponent<IBase, void> {
 }
 
 export default View
-module.exports = View

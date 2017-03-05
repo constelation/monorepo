@@ -5,7 +5,7 @@ import * as glamor from 'glamor'
 import * as _omit from 'lodash/omit'
 import * as _pick from 'lodash/pick'
 import * as raf from 'raf'
-import * as View from 'constelation-view'
+import { View } from 'constelation-view'
 
 export interface IProps {
   keyframes?: Object,
@@ -128,7 +128,7 @@ export default class Animate_ extends React.PureComponent<IProps, void> {
 
 export class Animate extends React.PureComponent<IProps, void> {
   render() {
-    const {children, ...props} = this.props
+    const { children, ...props } = this.props
 
     return (
       <Animate_ {...props}>
