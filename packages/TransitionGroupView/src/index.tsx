@@ -2,7 +2,7 @@ import * as React from 'react'
 import { style } from 'glamor'
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import * as CSSTransitionGroup from 'react-addons-css-transition-group'
-import * as View from 'constelation-view'
+import { View } from 'constelation-view'
 
 export interface IProps {
   willAppear?: Object,
