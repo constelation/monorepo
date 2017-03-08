@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactNative from 'react-native'
 import _omit from 'lodash/omit'
+import _pick from 'lodash/pick'
 
 export interface IProps {
   source: number | string | Object,
@@ -55,20 +56,11 @@ export interface IProps {
   zIndex?: number,
 }
 
-// from https://facebook.github.io/react-native/docs/layout-props.html
-const propsToOmit = [
-  'align',
+const styles = [
   'alignSelf',
   'aspectRatio',
-  'justify',
   'bottom',
   'flex',
-  'direction',
-  'wrap',
-  'grow',
-  'shrink',
-  'basis',
-
   'height',
   'left',
   'margin',
@@ -95,58 +87,55 @@ const propsToOmit = [
   'top',
   'width',
   'zIndex',
+]
 
+// from https://facebook.github.io/react-native/docs/layout-props.html
+const propsToOmit = styles.concat([
+  'align',
+  'justify',
+  'direction',
+  'wrap',
+  'grow',
+  'shrink',
+  'basis',
   'animated',
   'center',
   'refNode',
-
   'ratioGrow',
+  'style',
   // 'resizeMode',
   'tintColor',
-]
+])
 
 function getStyleFromProps(props: IProps) {
-  return {
-    alignSelf: props.alignSelf,
-    alignItems: props.center ? 'center' : props.align,
-    aspectRatio: props.aspectRatio,
-    bottom: props.bottom,
-    flex: props.flex,
-    flexDirection: props.direction,
-    flexWrap: props.wrap,
-    flexGrow: props.grow === true ? 1 : props.grow,
-    flexShrink: props.shrink,
-    flexBasis: props.basis,
-    height: props.height,
-    justifyContent: props.center ? 'center' : props.justify,
-    left: props.left,
-    margin: props.margin,
-    marginBottom: props.marginBottom,
-    marginLeft: props.marginLeft,
-    marginRight: props.marginRight,
-    marginTop: props.marginTop,
-    marginHorizontal: props.marginHorizontal,
-    marginVertical: props.marginVertical,
-    maxHeight: props.maxHeight,
-    maxWidth: props.maxWidth,
-    minHeight: props.minHeight,
-    minWidth: props.minWidth,
-    overflow: props.overflow,
-    padding: props.padding,
-    paddingBottom: props.paddingBottom,
-    paddingLeft: props.paddingLeft,
-    paddingRight: props.paddingRight,
-    paddingTop: props.paddingTop,
-    paddingHorizontal: props.paddingHorizontal,
-    paddingVertical: props.paddingVertical,
-    position: props.position,
-    // resizeMode: props.resizeMode,
-    right: props.right,
-    tintColor: props.tintColor,
-    top: props.top,
-    width: props.width,
-    zIndex: props.zIndex,
+  const stylesFromProps = _pick(props, styles)
+
+  if (props.hasOwnProperty('center')) {
+    stylesFromProps.justifyContent = 'center'
+    stylesFromProps.alignItems = 'center'
   }
+  else {
+    if (props.hasOwnProperty('justify')) {
+      stylesFromProps.justifyContent = props.justify
+    }
+    if (props.hasOwnProperty('align')) {
+      stylesFromProps.alignItems = props.align
+    }
+  }
+
+  if (props.hasOwnProperty('direction')) {
+    stylesFromProps.flexDirection = props.direction
+  }
+
+  if (props.hasOwnProperty('wrap')) {
+    stylesFromProps.flexWrap = props.wrap
+  }
+
+  if (props.hasOwnProperty('grow')) {
+    stylesFromProps.flexGrow = props.grow === true ? 1 : props.grow
+  }
+
+  return stylesFromProps
 }
 
 function getNonStyleProps(props: IProps) {
@@ -163,31 +152,23 @@ export default class Image extends React.PureComponent<IProps, void> {
     const styleFromProps = getStyleFromProps(this.props)
     const propsWithoutStyle = getNonStyleProps(this.props)
 
-    // NOTE: this does not work if parent has alignItems='center' set
+    // Note: aspectRatio sets the value of whichever dimenion is _NOT_ set
+    // So, be sure to set height/width, or grow it via flexGrow, alignSelf, or parent's alignItems
     if (this.props.ratioGrow === true) {
       const source = ReactNative.Image.resolveAssetSource(this.props.source)
 
-      styleFromProps.flexGrow = 1
-      styleFromProps.height = null
-      styleFromProps.width = null
+      if (styleFromProps.height === undefined) {
+        // set to undefined so height is not auto-set by react native
+        styleFromProps.height = null
+      }
+      if (styleFromProps.width === undefined) {
+        // set to undefined so width is not auto-set by react native
+        styleFromProps.width = null
+      }
 
       if (source !== null && source.width !== 0) {
         styleFromProps.aspectRatio = source.height / source.width
       }
-    }
-
-    /* Since Image runs style props through StyleSheet.flatten(),
-     * and flatten will override values with undefined if passed,
-     * remove height and width so images can size themselves.
-     *
-     * see https://github.com/facebook/react-native/blob/master/Libraries/Image/Image.ios.js#L349
-     * and https://github.com/exponent/react-native/blob/master/Libraries/StyleSheet/__tests__/flattenStyle-test.js#L37
-     */
-    if (styleFromProps.height === undefined) {
-      delete styleFromProps.height
-    }
-    if (styleFromProps.width === undefined) {
-      delete styleFromProps.width
     }
 
     const style = [styleFromProps, this.props.style]
