@@ -15,15 +15,73 @@ storiesOf('Style_', module)
         alignVertical='center'
       >
         <Style_ backgroundColor='red'>
-          <View height={40} width={40}/>
+          <View height={40} width={40} />
         </Style_>
 
         <Style_ backgroundColor='green'>
-          <View height={40} width={40}/>
+          <View height={40} width={40} />
         </Style_>
 
         <Style_ backgroundColor='blue'>
-          <View height={40} width={40}/>
+          <View height={40} width={40} />
+        </Style_>
+      </View>
+    </Style_>
+  ))
+  .addWithInfo('transforms as props, and order matters', () => (
+    <Style_
+      backgroundColor='lightgrey'
+      border='1px solid black'
+    >
+      <View
+        center
+        height='500px'
+      >
+        <Style_
+          rotate='20deg'
+          translateX='30px'
+          backgroundColor='red'
+        >
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_ backgroundColor='green'>
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_
+          translateX='30px'
+          rotate='20deg'
+          backgroundColor='blue'
+        >
+          <View height={40} width={40} />
+        </Style_>
+      </View>
+    </Style_>
+  ))
+  .addWithInfo('transforms as props and transform style', () => (
+    <Style_
+      backgroundColor='lightgrey'
+      border='1px solid black'
+    >
+      <View
+        center
+        height='500px'
+      >
+        <Style_
+          translateX='30px'
+          transform='rotate(20deg)'
+          backgroundColor='red'
+        >
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_ backgroundColor='green'>
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_ backgroundColor='blue'>
+          <View height={40} width={40} />
         </Style_>
       </View>
     </Style_>

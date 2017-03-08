@@ -23,6 +23,20 @@ export interface IProps {
   transition?: string,
   visibility?: string,
   willChange?: string,
+
+  // transforms
+  translateX?: string,
+  translateY?: string,
+  scale?: string,
+  scaleX?: string,
+  scaleY?: string,
+  skewX?: string,
+  skewY?: string,
+  rotate?: string,
+  rotateX?: string,
+  rotateY?: string,
+  rotateZ?: string,
+  perspective?: string,
 }
 
 const styles = [
@@ -46,12 +60,53 @@ const styles = [
   'willChange'
 ]
 
+const TRANSFORM_STYLE_PROPERTIES = [
+  'perspective',
+  'rotate',
+  'rotateX',
+  'rotateY',
+  'rotateZ',
+  'scale',
+  'scaleX',
+  'scaleY',
+  'skewX',
+  'skewY',
+  'translateX',
+  'translateY',
+]
+
+
+const propsToOmit = styles.concat(TRANSFORM_STYLE_PROPERTIES)
+
+function hasTransforms(style: any): boolean {
+  return (TRANSFORM_STYLE_PROPERTIES.some(transform => style.hasOwnProperty(transform)))
+}
+
+// credits: https://github.com/oblador/react-native-animatable/blob/master/wrapStyleTransforms.js
+function buildTransforms(style: any): string {
+  let transform: string = style.transform || ''
+
+  Object.keys(style).forEach((key) => {
+    if (TRANSFORM_STYLE_PROPERTIES.indexOf(key) !== -1) {
+      transform += ` ${key}(${style[key]})`
+    }
+  })
+
+  return transform
+}
+
 function getStyleFromProps(props: IProps) {
-  return _pick(props, styles)
+  const stylesFromProps = _pick(props, styles)
+
+  if (hasTransforms(props)) {
+    stylesFromProps.transform = buildTransforms(props)
+  }
+
+  return stylesFromProps
 }
 
 function getNonStyleProps(props: IProps) {
-  return _omit(props, styles)
+  return _omit(propsToOmit, styles)
 }
 
 export default class Style_ extends React.PureComponent<IProps, void> {
