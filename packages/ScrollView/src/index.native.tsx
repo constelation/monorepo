@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactNative from 'react-native'
 import _omit from 'lodash/omit'
+import _pick from 'lodash/pick'
 
 export interface IProps {
     align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
@@ -96,18 +97,11 @@ const alignVerticalAlias = {
 }
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
-const propsToOmit = [
-    'align',
-    'alignHorizontal',
-    'alignVertical',
+const styles = [
     'alignSelf',
     'bottom',
     'flex',
-    'grow',
-    'shrink',
-    'basis',
     'height',
-    'justify',
     'left',
     'margin',
     'marginBottom',
@@ -133,11 +127,22 @@ const propsToOmit = [
     'top',
     'width',
     'zIndex',
-
-    'animated',
-    'center',
-    'refNode',
 ]
+
+const propsToOmit = styles.concat([
+    'align',
+    'alignHorizontal',
+    'alignVertical',
+    'grow',
+    'shrink',
+    'basis',
+    'justify',
+    'center',
+
+    'style',
+    'animated',
+    'refNode',
+])
 
 function getAlignItems(props: IProps) {
     if (props.align) {
@@ -177,40 +182,21 @@ function getJustifyContent(props: IProps) {
 
 
 function getStyleFromProps(props: IProps) {
-    return {
-        alignSelf: props.alignSelf,
-        bottom: props.bottom,
-        flex: props.flex,
-        flexGrow: props.grow === true ? 1 : props.grow,
-        flexShrink: props.shrink,
-        flexBasis: props.basis,
-        height: props.height,
-        left: props.left,
-        margin: props.margin,
-        marginBottom: props.marginBottom,
-        marginLeft: props.marginLeft,
-        marginRight: props.marginRight,
-        marginTop: props.marginTop,
-        marginHorizontal: props.marginHorizontal,
-        marginVertical: props.marginVertical,
-        maxHeight: props.maxHeight,
-        maxWidth: props.maxWidth,
-        minHeight: props.minHeight,
-        minWidth: props.minWidth,
-        overflow: props.overflow,
-        padding: props.padding,
-        paddingBottom: props.paddingBottom,
-        paddingLeft: props.paddingLeft,
-        paddingRight: props.paddingRight,
-        paddingTop: props.paddingTop,
-        paddingHorizontal: props.paddingHorizontal,
-        paddingVertical: props.paddingVertical,
-        position: props.position,
-        right: props.right,
-        top: props.top,
-        width: props.width,
-        zIndex: props.zIndex,
+    const stylesFromProps = _pick(props, styles)
+
+    if (props.hasOwnProperty('grow')) {
+        stylesFromProps.flexGrow = props.grow === true ? 1 : props.grow
     }
+
+    if (props.hasOwnProperty('shrink')) {
+        stylesFromProps.flexShrink = props.shrink
+    }
+
+    if (props.hasOwnProperty('basis')) {
+        stylesFromProps.flexBasis = props.basis
+    }
+
+    return stylesFromProps
 }
 
 function getContentStyleFromProps(props: IProps) {
