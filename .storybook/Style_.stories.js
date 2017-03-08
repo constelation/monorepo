@@ -98,3 +98,35 @@ storiesOf('Style_', module)
       </Style_>
     </Style_>
   ))
+  .addWithInfo('cursors', () => (
+    <Style_
+      backgroundColor='lightgrey'
+      border='1px solid black'
+    >
+      <View
+        center
+        height='500px'
+      >
+        <Style_
+          cursor='pointer'
+          backgroundColor='red'
+        >
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_
+          cursor='help'
+          backgroundColor='green'
+        >
+          <View height={40} width={40} />
+        </Style_>
+
+        <Style_
+          cursor='wait'
+          backgroundColor='blue'
+        >
+          <View height={40} width={40} />
+        </Style_>
+      </View>
+    </Style_>
+  ))

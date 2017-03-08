@@ -23,6 +23,7 @@ export interface IProps {
   transition?: string,
   visibility?: string,
   willChange?: string,
+  cursor?: 'auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out' | 'grab' | 'grabbing',
 
   // transforms
   translateX?: string,
@@ -52,12 +53,13 @@ const styles = [
   'borderStyle',
   'borderRadius',
   'borderWidth',
+  'cursor',
   'opacity',
   'outline',
   'transform',
   'transition',
   'visibility',
-  'willChange'
+  'willChange',
 ]
 
 const TRANSFORM_STYLE_PROPERTIES = [
