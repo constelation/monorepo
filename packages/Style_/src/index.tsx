@@ -108,7 +108,7 @@ function getStyleFromProps(props: IProps) {
 }
 
 function getNonStyleProps(props: IProps) {
-  return _omit(propsToOmit, styles)
+  return _omit(props, propsToOmit)
 }
 
 export default class Style_ extends React.PureComponent<IProps, void> {
