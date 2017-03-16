@@ -87,6 +87,7 @@ const styles = [
   'top',
   'width',
   'zIndex',
+  'tintColor',
 ]
 
 // from https://facebook.github.io/react-native/docs/layout-props.html
