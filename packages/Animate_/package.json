@@ -1,6 +1,6 @@
 {
   "name": "constelation-animate_",
-  "version": "13.0.2",
+  "version": "13.2.3",
   "description": "",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
