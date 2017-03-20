@@ -139,7 +139,7 @@ function updateHammer(hammer, props) {
   })
 }
 
-export default class Event_ extends React.PureComponent<IProps, void> {
+export class Event_ extends React.PureComponent<IProps, void> {
   constructor() {
     super()
 
@@ -209,3 +209,5 @@ export class Event extends React.PureComponent<IProps, void> {
     )
   }
 }
+
+export default Event_

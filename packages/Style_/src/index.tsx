@@ -111,7 +111,7 @@ function getNonStyleProps(props: IProps) {
   return _omit(props, propsToOmit)
 }
 
-export default class Style_ extends React.PureComponent<IProps, void> {
+export class Style_ extends React.PureComponent<IProps, void> {
   render() {
     const styleFromProps = getStyleFromProps(this.props)
     const propsToPass = getNonStyleProps(this.props)
@@ -140,3 +140,5 @@ export class Style extends React.PureComponent<IProps, void> {
     )
   }
 }
+
+export default Style_

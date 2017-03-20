@@ -63,7 +63,7 @@ function getKeyframes(props) {
   }
 }
 
-export default class Animate_ extends React.PureComponent<IProps, void> {
+export class Animate_ extends React.PureComponent<IProps, void> {
   static defaultProps = {
     duration: '1000ms',
   }
@@ -137,3 +137,5 @@ export class Animate extends React.PureComponent<IProps, void> {
     )
   }
 }
+
+export default Animate_

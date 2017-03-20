@@ -262,7 +262,7 @@ function buildSpringAnimation(toValue: number, animatedValue: any, props: IProps
 }
 
 
-export default class Animate_ extends React.Component<IProps, void> {
+export class Animate_ extends React.Component<IProps, void> {
   static contextTypes = {
     timingMultiplier: React.PropTypes.number
   }
@@ -528,7 +528,7 @@ export default class Animate_ extends React.Component<IProps, void> {
 
 export class Animate extends React.Component<IProps, void> {
   render() {
-    const {children, ...props} = this.props
+    const { children, ...props } = this.props
 
     return (
       <Animate_ {...props}>
@@ -557,3 +557,5 @@ export class AnimationConfig extends React.Component<IConfigProps, void> {
     return React.Children.only(this.props.children)
   }
 }
+
+export default Animate_

@@ -51,7 +51,7 @@ function hasHitSlopProp(props: IProps) {
     || props.hitSlopLeft
 }
 
-function buildHitSlop({ hitSlop, ...props}: IProps) {
+function buildHitSlop({ hitSlop, ...props }: IProps) {
   //TODO remove accepting hitSlop object in the future
   if (typeof hitSlop === 'object') {
     return hitSlop
@@ -152,7 +152,7 @@ class TouchableOpacity extends React.PureComponent<IProps, void> {
 // Note: the way Touchable takes over PanResponder events.
 // This means the two can not be combined in one View.
 // TODO: throw an error if the two are ever passed in.
-export default class Event_ extends React.PureComponent<IProps, void> {
+export class Event_ extends React.PureComponent<IProps, void> {
   render() {
     const propsToPass = _omit(this.props, propsToOmit)
 
@@ -176,7 +176,7 @@ export default class Event_ extends React.PureComponent<IProps, void> {
 
 export class Event extends React.PureComponent<IProps, void> {
   render() {
-    const {children, ...props} = this.props
+    const { children, ...props } = this.props
 
     return (
       <Event_ {...props}>
@@ -185,3 +185,5 @@ export class Event extends React.PureComponent<IProps, void> {
     )
   }
 }
+
+export default Event_
