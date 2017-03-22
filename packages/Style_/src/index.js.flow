@@ -17,6 +17,7 @@ declare module "constelation-style_" {
       outline?: string,
       style?: Object,
       transform?: string,
+      transformOrigin?: string,
       transition?: string,
       visibility?: string,
       willChange?: string,
