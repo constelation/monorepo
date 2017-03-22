@@ -1,6 +1,6 @@
 {
   "name": "constelation-style_",
-  "version": "13.2.3",
+  "version": "13.2.4",
   "description": "",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
