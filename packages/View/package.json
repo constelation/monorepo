@@ -1,6 +1,6 @@
 {
   "name": "constelation-view",
-  "version": "13.0.1",
+  "version": "13.3.0",
   "description": "",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
