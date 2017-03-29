@@ -8,6 +8,7 @@ declare module "constelation-view" {
     animated?: boolean,
     bottom?: number,
     center?: boolean,
+    absoluteFill?: boolean,
 
     flex?: number,
     wrap?: 'wrap' | 'nowrap',

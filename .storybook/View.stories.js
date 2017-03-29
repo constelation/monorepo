@@ -50,6 +50,27 @@ storiesOf('View', module)
       <View height={40} width={40} backgroundColor='blue' />
     </View>
   ))
+  .addWithInfo('absoluteFill shorthand', () => (
+    <View
+      height='500px'
+      style={style}
+    >
+      <View absoluteFill style={{backgroundColor:'tomato'}} />
+    </View>
+  ))
+  .addWithInfo('absoluteFill shorthand with left and top overrides', () => (
+    <View
+      height='500px'
+      style={style}
+    >
+      <View
+        absoluteFill
+        top={20}
+        left={40}
+        style={{backgroundColor:'tomato'}}
+      />
+    </View>
+  ))
   .addWithInfo('center shorthand', () => (
     <View
       center

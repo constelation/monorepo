@@ -3,6 +3,7 @@ import ReactNative from 'react-native'
 import _omit from 'lodash/omit'
 
 export interface IBase {
+  absoluteFill?: boolean,
   alignVertical?: 'top' | 'center' | 'bottom',
   alignHorizontal?: 'left' | 'center' | 'right',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
@@ -110,6 +111,7 @@ const propsToOmit = [
   'width',
   'zIndex',
 
+  'absoluteFill',
   'animated',
   'center',
   'refNode',
@@ -151,11 +153,20 @@ function getJustifyContent(props: IBase, isHorizontal: boolean) {
   }
 }
 
+function checkAbsoluteFill(value: number | string, props: IBase) {
+  if (value != null) {
+    return value
+  }
+
+  return props.absoluteFill === true ? 0 : undefined
+}
+
+
 function getStyleFromProps(props: IBase, isHorizontal: boolean) {
   return {
     alignSelf: props.alignSelf,
     alignItems: getAlignItems(props, isHorizontal),
-    bottom: props.bottom,
+    bottom: checkAbsoluteFill(props.bottom, props),
     flex: props.flex,
     flexDirection: isHorizontal ? 'row' : 'column',
     flexWrap: props.wrap,
@@ -164,7 +175,7 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     flexBasis: props.basis,
     height: props.fit === true ? '100%' : props.height,
     justifyContent: getJustifyContent(props, isHorizontal),
-    left: props.left,
+    left: checkAbsoluteFill(props.left, props),
     margin: props.margin,
     marginBottom: props.marginBottom,
     marginLeft: props.marginLeft,
@@ -184,9 +195,9 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     paddingTop: props.paddingTop,
     paddingHorizontal: props.paddingHorizontal,
     paddingVertical: props.paddingVertical,
-    position: props.position,
-    right: props.right,
-    top: props.top,
+    position: props.absoluteFill === true ? 'absolute' : props.position,
+    right: checkAbsoluteFill(props.right, props),
+    top: checkAbsoluteFill(props.top, props),
     width: props.fit === true ? '100%' : props.width,
     zIndex: props.zIndex,
   }

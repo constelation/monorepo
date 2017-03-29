@@ -52,6 +52,8 @@ declare module "constelation-view" {
     tag?: string,
     width?: number | string,
     zIndex?: number,
+
+    absoluteFill?: boolean,
   };
 
   declare class View extends React$PureComponent<> {

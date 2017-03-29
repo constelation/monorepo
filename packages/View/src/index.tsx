@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as glamorReact from 'glamor-react'
 import * as _omit from 'lodash/omit'
-
 export interface IBase {
+  absoluteFill?: boolean,
   alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
   alignVertical?: 'top' | 'center' | 'bottom',
   alignHorizontal?: 'left' | 'center' | 'right',
@@ -140,6 +140,7 @@ const propsToOmit = [
   'inline',
   'fit',
   'center',
+  'absoluteFill',
 
   'hitSlop',
   'hitSlopVertical',
@@ -188,13 +189,21 @@ function getJustifyContent(props: IBase, isHorizontal: boolean) {
   }
 }
 
+function checkAbsoluteFill(value: number | string, props: IBase) {
+  if (value != null) {
+    return value
+  }
+
+  return props.absoluteFill === true ? 0 : undefined
+}
+
 function getStyleFromProps(props: IBase, isHorizontal: boolean) {
   // some defaults from https://github.com/facebook/css-layout#default-values
   return {
     alignSelf: props.alignSelf,
     alignItems: getAlignItems(props, isHorizontal),
     alignContent: props.alignContent,
-    bottom: props.bottom,
+    bottom: checkAbsoluteFill(props.bottom, props),
     display: props.hidden ? 'none' : (props.inline ? 'inline-flex' : 'flex'),
     flex: props.flex,
     flexDirection: isHorizontal ? 'row' : 'column',
@@ -204,7 +213,7 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     flexBasis: props.basis,
     height: props.fit ? '100%' : props.height,
     justifyContent: getJustifyContent(props, isHorizontal),
-    left: props.left,
+    left: checkAbsoluteFill(props.left, props),
     margin: props.margin,
     marginBottom: props.marginBottom || props.marginVertical,
     marginLeft: props.marginLeft || props.marginHorizontal,
@@ -224,9 +233,9 @@ function getStyleFromProps(props: IBase, isHorizontal: boolean) {
     paddingRight: props.paddingRight || props.paddingHorizontal,
     paddingTop: props.paddingTop || props.paddingVertical,
     pointerEvents: props.pointerEvents,
-    position: props.position,
-    right: props.right,
-    top: props.top,
+    position: props.absoluteFill === true ? 'absolute' : props.position,
+    right: checkAbsoluteFill(props.right, props),
+    top: checkAbsoluteFill(props.top, props),
     width: props.fit ? '100%' : props.width,
     WebkitOverflowScrolling: props.overflowScrolling,
     zIndex: props.zIndex,
