@@ -168,7 +168,7 @@ export default class Image extends React.PureComponent<IProps, void> {
       }
 
       if (source !== null && source.width !== 0) {
-        styleFromProps.aspectRatio = source.height / source.width
+        styleFromProps.aspectRatio = source.width / source.height
       }
     }
 
