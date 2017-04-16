@@ -13,11 +13,11 @@ declare module "constelation-event_" {
       onPressOut?: Function,
       pressEffect?: 'opacity',
   }
-  declare class Event_ extends React$PureComponent<> {
+  declare class Event_ extends React$Component<> {
     props: Props;
     render(): any;
   }
-  declare class Event extends React$PureComponent<> {
+  declare class Event extends React$Component<> {
     props: Props;
     render(): any;
   }

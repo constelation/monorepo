@@ -4,7 +4,7 @@
 // scrollToEnd(): void;
 
 declare module "constelation-scroll-view" {
-  declare class ScrollView extends React$PureComponent<> {
+  declare class ScrollView extends React$Component<> {
     props: {
       align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around',

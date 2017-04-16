@@ -8,12 +8,12 @@ declare module "constelation-animate_" {
       repeat?: boolean,
       type?: 'fadeIn' | 'fadeOut',
   }
-  declare class Animate_ extends React$PureComponent<> {
+  declare class Animate_ extends React$Component<> {
     props: Props;
     trigger(): void;
     render(): any;
   }
-  declare class Animate extends React$PureComponent<> {
+  declare class Animate extends React$Component<> {
     props: Props;
     render(): any;
   }

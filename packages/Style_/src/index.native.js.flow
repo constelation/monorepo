@@ -38,12 +38,12 @@ declare module "constelation-style_" {
     perspective?: number,
   }
 
-  declare class Style_ extends React$PureComponent<> {
+  declare class Style_ extends React$Component<> {
     props: Props;
     render(): any;
   }
 
-  declare class Style extends React$PureComponent<> {
+  declare class Style extends React$Component<> {
     props: Props;
     render(): any;
   }

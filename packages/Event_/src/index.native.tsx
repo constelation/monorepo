@@ -70,7 +70,7 @@ function buildHitSlop({ hitSlop, ...props }: IProps) {
  * Most code taken from RN's TouchableOpacity:
  * https://github.com/facebook/react-native/blob/master/Libraries/Components/Touchable/TouchableOpacity.js
  */
-class TouchableOpacity extends React.PureComponent<IProps, void> {
+class TouchableOpacity extends React.Component<IProps, void> {
 
   static defaultProps = {
     activeOpacity: 0.2,
@@ -152,7 +152,7 @@ class TouchableOpacity extends React.PureComponent<IProps, void> {
 // Note: the way Touchable takes over PanResponder events.
 // This means the two can not be combined in one View.
 // TODO: throw an error if the two are ever passed in.
-export class Event_ extends React.PureComponent<IProps, void> {
+export class Event_ extends React.Component<IProps, void> {
   render() {
     const propsToPass = _omit(this.props, propsToOmit)
 
@@ -174,7 +174,7 @@ export class Event_ extends React.PureComponent<IProps, void> {
   }
 }
 
-export class Event extends React.PureComponent<IProps, void> {
+export class Event extends React.Component<IProps, void> {
   render() {
     const { children, ...props } = this.props
 

@@ -1,5 +1,5 @@
 declare module "constelation-TransitionGroupView" {
-  declare class TransitionGroupView extends React$PureComponent<> {
+  declare class TransitionGroupView extends React$Component<> {
     props: {
       willAppear?: Object,
       appear?: Object,

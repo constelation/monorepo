@@ -5,7 +5,7 @@
 // showsVerticalScrollIndicator?: boolean,
 
 declare module "constelation-scroll-view" {
-  declare class ScrollView extends React$PureComponent<> {
+  declare class ScrollView extends React$Component<> {
     props: {
       alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
       bottom?: number | string,

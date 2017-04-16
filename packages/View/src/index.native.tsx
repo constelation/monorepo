@@ -207,7 +207,7 @@ function getNonStyleProps(props: IBase | IView) {
   return _omit(props, propsToOmit)
 }
 
-export class View extends React.PureComponent<IView, void> {
+export class View extends React.Component<IView, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }
@@ -230,7 +230,7 @@ export class View extends React.PureComponent<IView, void> {
   }
 }
 
-export class Row extends React.PureComponent<IBase, void> {
+export class Row extends React.Component<IBase, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }
@@ -253,7 +253,7 @@ export class Row extends React.PureComponent<IBase, void> {
   }
 }
 
-export class Col extends React.PureComponent<IBase, void> {
+export class Col extends React.Component<IBase, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }

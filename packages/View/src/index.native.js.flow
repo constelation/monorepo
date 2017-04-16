@@ -47,15 +47,15 @@ declare module "constelation-view" {
     zIndex?: number,
   };
 
-  declare class View extends React$PureComponent<> {
+  declare class View extends React$Component<> {
     props: Base & {horizontal?: boolean};
     render(): any;
   }
-  declare class Row extends React$PureComponent<> {
+  declare class Row extends React$Component<> {
     props: Base;
     render(): any;
   }
-  declare class Col extends React$PureComponent<> {
+  declare class Col extends React$Component<> {
     props: Base;
     render(): any;
   }

@@ -264,7 +264,7 @@ const Slop = (props: IBase) => (
   />
 )
 
-export class View extends React.PureComponent<IView, void> {
+export class View extends React.Component<IView, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,
@@ -314,7 +314,7 @@ export class View extends React.PureComponent<IView, void> {
 }
 
 // TODO: DRY it up
-export class Row extends React.PureComponent<IBase, void> {
+export class Row extends React.Component<IBase, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,
@@ -363,7 +363,7 @@ export class Row extends React.PureComponent<IBase, void> {
   }
 }
 
-export class Col extends React.PureComponent<IBase, void> {
+export class Col extends React.Component<IBase, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,

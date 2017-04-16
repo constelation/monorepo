@@ -139,7 +139,7 @@ function updateHammer(hammer, props) {
   })
 }
 
-export class Event_ extends React.PureComponent<IProps, void> {
+export class Event_ extends React.Component<IProps, void> {
   constructor() {
     super()
 
@@ -198,7 +198,7 @@ export class Event_ extends React.PureComponent<IProps, void> {
   }
 }
 
-export class Event extends React.PureComponent<IProps, void> {
+export class Event extends React.Component<IProps, void> {
   render() {
     const { children, ...props } = this.props
 

@@ -214,7 +214,7 @@ function getNonStyleProps(props: IProps) {
   return _omit(props, propsToOmit)
 }
 
-export default class ScrollView extends React.PureComponent<IProps, void> {
+export default class ScrollView extends React.Component<IProps, void> {
   scrollView: HTMLElement
 
   static defaultProps = {

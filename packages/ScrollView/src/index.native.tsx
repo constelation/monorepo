@@ -222,7 +222,7 @@ function hasContentStyleProps(props: IProps) {
     )
 }
 
-export default class ScrollView extends React.PureComponent<IProps, void> {
+export default class ScrollView extends React.Component<IProps, void> {
     render() {
         const styleFromProps = getStyleFromProps(this.props)
         const propsToPass = getNonStyleProps(this.props)
