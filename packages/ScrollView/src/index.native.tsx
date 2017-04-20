@@ -223,6 +223,9 @@ function hasContentStyleProps(props: IProps) {
 }
 
 export default class ScrollView extends React.Component<IProps, void> {
+    private setAnimatedRef = (node) => {
+        this.props.refNode(node._component);
+    }
     render() {
         const styleFromProps = getStyleFromProps(this.props)
         const propsToPass = getNonStyleProps(this.props)
@@ -233,9 +236,11 @@ export default class ScrollView extends React.Component<IProps, void> {
             propsToPass.contentContainerStyle = getContentStyleFromProps(this.props)
         }
 
-        // Use refNode pattern to pass back the DOM's node
         if (this.props.refNode) {
-            propsToPass.ref = this.props.refNode
+            // We don't want the Animated node, just the ScrollView with scrollTo(), etc
+            propsToPass.ref = (this.props.animated)
+                ? this.setAnimatedRef
+                : this.props.refNode
         }
 
         return this.props.animated
