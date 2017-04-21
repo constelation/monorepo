@@ -2,6 +2,8 @@ node_modules/
 dist/
 .tern-port
 .DS_Store
+.vscode/
+lerna-debug.log
 
 # ignore generated files in modules
 packages/*/*.js
