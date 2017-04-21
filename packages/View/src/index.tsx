@@ -57,7 +57,7 @@ export interface IBase {
   paddingHorizontal?: number | string,
   pointerEvents?: string,
   position?: string,
-  refNode?: () => {},
+  refNode?: (node?: View) => void,
   right?: number | string,
   inlineStyle?: Object,
   style?: Object,

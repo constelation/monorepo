@@ -12,7 +12,7 @@ declare module "constelation-text" {
       fontFamily?: string,
       height?: string | number,
       italic?: boolean,
-      refNode?: () => {},
+      refNode?: (node?: Text) => void,
       size?: string | number,
       spacing?: string | number,
       tag?: string,

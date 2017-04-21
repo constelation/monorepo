@@ -38,7 +38,7 @@ export interface IProps {
     paddingVertical?: number,
     paddingHorizontal?: number,
     position?: 'absolute' | 'relative',
-    refNode?: () => {},
+    refNode?: (node?: ScrollView) => void,
     right?: number,
     style?: Object,
     top?: number,

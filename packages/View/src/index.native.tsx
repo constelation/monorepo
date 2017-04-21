@@ -44,7 +44,7 @@ export interface IBase {
   paddingHorizontal?: number | string,
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto',
   position?: 'absolute' | 'relative',
-  refNode?: () => {},
+  refNode?: (node?: IBase) => void,
   right?: number | string,
   style?: Object,
   top?: number | string,
@@ -54,6 +54,15 @@ export interface IBase {
 
 export interface IView extends IBase {
   horizontal?: boolean,
+  refNode?: (node?: View) => void,
+}
+
+export interface IRow extends IBase {
+  refNode?: (node?: Row) => void,
+}
+
+export interface ICol extends IBase {
+  refNode?: (node?: Col) => void,
 }
 
 const alignHorizontalAlias = {
@@ -230,7 +239,7 @@ export class View extends React.Component<IView, void> {
   }
 }
 
-export class Row extends React.Component<IBase, void> {
+export class Row extends React.Component<IRow, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }
@@ -253,7 +262,7 @@ export class Row extends React.Component<IBase, void> {
   }
 }
 
-export class Col extends React.Component<IBase, void> {
+export class Col extends React.Component<ICol, void> {
   private setAnimatedRef = (node) => {
     this.props.refNode(node._component);
   }
