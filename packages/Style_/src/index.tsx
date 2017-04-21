@@ -29,6 +29,7 @@ export interface IProps {
   // transforms
   translateX?: string,
   translateY?: string,
+  translate?: string,
   scale?: string,
   scaleX?: string,
   scaleY?: string,
@@ -77,6 +78,7 @@ const TRANSFORM_STYLE_PROPERTIES = [
   'skewY',
   'translateX',
   'translateY',
+  'translate',
 ]
 
 
