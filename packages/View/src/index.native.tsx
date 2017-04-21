@@ -209,7 +209,7 @@ function getNonStyleProps(props: IBase | IView) {
 
 export class View extends React.Component<IView, void> {
   private setAnimatedRef = (node) => {
-    this.props.refNode(node._component);
+    this.props.refNode(node ? node._component : node);
   }
   render() {
     const styleFromProps = getStyleFromProps(this.props, this.props.horizontal)

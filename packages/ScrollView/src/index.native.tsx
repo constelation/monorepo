@@ -224,7 +224,7 @@ function hasContentStyleProps(props: IProps) {
 
 export default class ScrollView extends React.Component<IProps, void> {
     private setAnimatedRef = (node) => {
-        this.props.refNode(node._component);
+        this.props.refNode(node ? node._component : node);
     }
 
     render() {
