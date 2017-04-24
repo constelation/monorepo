@@ -9,7 +9,7 @@ declare module "constelation-text" {
       color?: string,
       decorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through',
       fontFamily?: string,
-      height?: number | string,
+      height?: number,
       italic?: boolean,
       numberOfLines?: number,
       refNode?: () => {},
