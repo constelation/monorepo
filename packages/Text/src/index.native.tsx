@@ -11,7 +11,7 @@ export interface IProps {
   color?: string,
   decorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through',
   fontFamily?: string,
-  height?: number,
+  height?: number | string,
   italic?: boolean,
   numberOfLines?: number,
   refNode?: () => {},
