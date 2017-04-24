@@ -1,0 +1,109 @@
+import React from 'react';
+import ReactNative from 'react-native';
+import _omit from 'lodash/omit';
+import _pick from 'lodash/pick';
+const styles = [
+    'alignSelf',
+    'aspectRatio',
+    'bottom',
+    'flex',
+    'height',
+    'left',
+    'margin',
+    'marginBottom',
+    'marginLeft',
+    'marginRight',
+    'marginTop',
+    'marginHorizontal',
+    'marginVertical',
+    'maxHeight',
+    'maxWidth',
+    'minHeight',
+    'minWidth',
+    'overflow',
+    'padding',
+    'paddingBottom',
+    'paddingLeft',
+    'paddingRight',
+    'paddingTop',
+    'paddingHorizontal',
+    'paddingVertical',
+    'position',
+    'right',
+    'top',
+    'width',
+    'zIndex',
+    'tintColor',
+];
+const propsToOmit = styles.concat([
+    'align',
+    'justify',
+    'direction',
+    'wrap',
+    'grow',
+    'shrink',
+    'basis',
+    'animated',
+    'center',
+    'refNode',
+    'ratioGrow',
+    'style',
+    'tintColor',
+]);
+function getStyleFromProps(props) {
+    const stylesFromProps = _pick(props, styles);
+    if (props.hasOwnProperty('center')) {
+        stylesFromProps.justifyContent = 'center';
+        stylesFromProps.alignItems = 'center';
+    }
+    else {
+        if (props.hasOwnProperty('justify')) {
+            stylesFromProps.justifyContent = props.justify;
+        }
+        if (props.hasOwnProperty('align')) {
+            stylesFromProps.alignItems = props.align;
+        }
+    }
+    if (props.hasOwnProperty('direction')) {
+        stylesFromProps.flexDirection = props.direction;
+    }
+    if (props.hasOwnProperty('wrap')) {
+        stylesFromProps.flexWrap = props.wrap;
+    }
+    if (props.hasOwnProperty('grow')) {
+        stylesFromProps.flexGrow = props.grow === true ? 1 : props.grow;
+    }
+    return stylesFromProps;
+}
+function getNonStyleProps(props) {
+    return _omit(props, propsToOmit);
+}
+export default class Image extends React.PureComponent {
+    render() {
+        const styleFromProps = getStyleFromProps(this.props);
+        const propsWithoutStyle = getNonStyleProps(this.props);
+        if (this.props.ratioGrow === true) {
+            const source = ReactNative.Image.resolveAssetSource(this.props.source);
+            if (styleFromProps.height === undefined) {
+                styleFromProps.height = null;
+            }
+            if (styleFromProps.width === undefined) {
+                styleFromProps.width = null;
+            }
+            if (source !== null && source.width !== 0) {
+                styleFromProps.aspectRatio = source.width / source.height;
+            }
+        }
+        const style = [styleFromProps, this.props.style];
+        if (this.props.refNode) {
+            propsWithoutStyle.ref = this.props.refNode;
+        }
+        return this.props.animated
+            ? <ReactNative.Animated.Image {...propsWithoutStyle} style={style}/>
+            : <ReactNative.Image {...propsWithoutStyle} style={style}/>;
+    }
+}
+Image.getSize = ReactNative.Image.getSize;
+Image.prefetch = ReactNative.Image.prefetch;
+Image.resolveAssetSource = ReactNative.Image.resolveAssetSource;
+Image.resizeMode = ReactNative.Image.resizeMode;

@@ -1,0 +1,23 @@
+{
+  "name": "constelation-dom",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/constelation/monorepo",
+  "scripts": {
+    "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
+    "build:web": "../../node_modules/.bin/tsc -p tsconfig.web.json",
+    "build": "npm run build:web; npm run copy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.js.flow"
+  ],
+  "keywords": [
+    "constelation",
+    "dom"
+  ],
+  "author": "Kyle Poole <2kylepoole@gmail.com> (http://kylpo.com/)",
+  "license": "ISC"
+}
