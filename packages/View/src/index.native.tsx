@@ -10,7 +10,7 @@ export interface IBase {
   align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch',
   justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around',
   animated?: boolean,
-  bottom?: number,
+  bottom?: number | string,
   center?: boolean,
   fit?: boolean,
 
