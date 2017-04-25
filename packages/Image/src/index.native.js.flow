@@ -1,3 +1,5 @@
+import ReactNative from 'react-native'
+
 declare module "constelation-image" {
   declare class Image extends React$PureComponent<> {
     static getSize(uri: string, success: Function, failure: Function) : void;
@@ -44,7 +46,7 @@ declare module "constelation-image" {
       paddingHorizontal?: number,
       position?: 'absolute' | 'relative',
       ratioGrow?: boolean,
-      refNode?: (node?: Image) => void,
+      refNode?: (node?: ReactNative.Image) => void,
       resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center',
       right?: number,
       shrink?: number,

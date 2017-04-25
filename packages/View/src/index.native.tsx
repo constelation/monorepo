@@ -44,7 +44,7 @@ export interface IBase {
   paddingHorizontal?: number | string,
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto',
   position?: 'absolute' | 'relative',
-  refNode?: (node?: IBase) => void,
+  refNode?: (node?: ReactNative.View) => void,
   right?: number | string,
   style?: Object,
   top?: number | string,
@@ -54,15 +54,12 @@ export interface IBase {
 
 export interface IView extends IBase {
   horizontal?: boolean,
-  refNode?: (node?: View) => void,
 }
 
 export interface IRow extends IBase {
-  refNode?: (node?: Row) => void,
 }
 
 export interface ICol extends IBase {
-  refNode?: (node?: Col) => void,
 }
 
 const alignHorizontalAlias = {

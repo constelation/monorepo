@@ -1,3 +1,5 @@
+import ReactNative from 'react-native'
+
 declare module "constelation-text" {
   declare class Text extends React$PureComponent<> {
     props: {
@@ -12,7 +14,7 @@ declare module "constelation-text" {
       height?: number,
       italic?: boolean,
       numberOfLines?: number,
-      refNode?: (node?: Text) => void,
+      refNode?: (node?: ReactNative.Text) => void,
       selectable?: boolean,
       size?: number,
       spacing?: number,

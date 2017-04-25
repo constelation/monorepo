@@ -57,7 +57,7 @@ export interface IBase {
   paddingHorizontal?: number | string,
   pointerEvents?: string,
   position?: string,
-  refNode?: (node?: View) => void,
+  refNode?: (node?: HTMLElement) => void,
   right?: number | string,
   inlineStyle?: Object,
   style?: Object,
@@ -69,6 +69,12 @@ export interface IBase {
 
 export interface IView extends IBase {
   horizontal?: boolean,
+}
+
+export interface IRow extends IBase {
+}
+
+export interface ICol extends IBase {
 }
 
 const alignHorizontalAlias = {
@@ -314,7 +320,7 @@ export class View extends React.Component<IView, void> {
 }
 
 // TODO: DRY it up
-export class Row extends React.Component<IBase, void> {
+export class Row extends React.Component<IRow, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,
@@ -363,7 +369,7 @@ export class Row extends React.Component<IBase, void> {
   }
 }
 
-export class Col extends React.Component<IBase, void> {
+export class Col extends React.Component<ICol, void> {
   static defaultProps = {
     tag: 'div',
     shrink: 0,

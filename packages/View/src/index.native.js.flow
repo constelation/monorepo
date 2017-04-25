@@ -1,3 +1,5 @@
+import ReactNative from 'react-native'
+
 declare module "constelation-view" {
   declare type Base = {
     alignVertical?: 'top' | 'center' | 'bottom',
@@ -39,7 +41,7 @@ declare module "constelation-view" {
     paddingHorizontal?: number | string,
     pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto',
     position?: 'absolute' | 'relative',
-    refNode?: (node?: Base) => void,
+    refNode?: (node?: ReactNative.View) => void,
     right?: number | string,
     style?: Object,
     top?: number | string,
@@ -50,20 +52,13 @@ declare module "constelation-view" {
   declare class View extends React$Component<> {
     props: Base & {
       horizontal?: boolean,
-      refNode?: (node?: View) => void,
     };
     render(): any;
   }
   declare class Row extends React$Component<> {
-    props: Base & {
-      refNode?: (node?: Row) => void,
-    };
     render(): any;
   }
   declare class Col extends React$Component<> {
-    props: Base & {
-      refNode?: (node?: Col) => void,
-    };
     render(): any;
   }
 

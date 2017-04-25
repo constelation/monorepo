@@ -45,7 +45,7 @@ declare module "constelation-view" {
     paddingHorizontal?: number | string,
     pointerEvents?: string,
     position?: string,
-    refNode?: (node?: Base) => void,
+    refNode?: (node?: HTMLElement) => void,
     right?: number | string,
     style?: Object,
     top?: number | string,
@@ -59,20 +59,13 @@ declare module "constelation-view" {
   declare class View extends React$Component<> {
     props: Base & {
       horizontal?: boolean,
-      refNode?: (node?: View) => void,
     };
     render(): any;
   }
   declare class Row extends React$Component<> {
-    props: Base & {
-      refNode?: (node?: Row) => void,
-    };
     render(): any;
   }
   declare class Col extends React$Component<> {
-    props: Base & {
-      refNode?: (node?: Col) => void,
-    };
     render(): any;
   }
 
