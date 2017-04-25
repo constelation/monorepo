@@ -56,9 +56,11 @@ declare module "constelation-view" {
     render(): any;
   }
   declare class Row extends React$Component<> {
+    props: Base;
     render(): any;
   }
   declare class Col extends React$Component<> {
+    props: Base;
     render(): any;
   }
 
