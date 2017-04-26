@@ -44,7 +44,7 @@ export interface IProps {
   paddingHorizontal?: number,
   position?: 'absolute' | 'relative',
   ratioGrow?: boolean,
-  refNode?: () => {},
+  refNode?: (node?: ReactNative.Image) => void,
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center',
   right?: number | string,
   shrink?: number,

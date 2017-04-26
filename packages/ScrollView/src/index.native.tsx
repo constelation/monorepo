@@ -38,7 +38,7 @@ export interface IProps {
     paddingVertical?: number,
     paddingHorizontal?: number,
     position?: 'absolute' | 'relative',
-    refNode?: () => {},
+    refNode?: (node?: ReactNative.ScrollView) => void,
     right?: number | string,
     style?: Object,
     top?: number | string,

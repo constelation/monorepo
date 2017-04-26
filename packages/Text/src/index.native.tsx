@@ -14,7 +14,7 @@ export interface IProps {
   height?: number,
   italic?: boolean,
   numberOfLines?: number,
-  refNode?: () => {},
+  refNode?: (node?: ReactNative.Text) => void,
   selectable?: boolean,
   size?: number,
   spacing?: number,

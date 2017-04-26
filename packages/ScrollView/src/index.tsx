@@ -47,7 +47,7 @@ export interface IProps {
   paddingHorizontal?: number | string,
   pointerEvents?: string,
   position?: string,
-  refNode?: Function,
+  refNode?: (node?: HTMLElement) => void,
   right?: number | string,
   style?: Object,
   inlineStyle?: Object,
