@@ -14,7 +14,7 @@ export interface IProps {
   fontFamily?: string,
   height?: string | number,
   italic?: boolean,
-  refNode?: () => {},
+  refNode?: (node?: HTMLElement) => void,
   size?: string | number,
   spacing?: string | number,
   tag?: string,

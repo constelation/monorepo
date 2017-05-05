@@ -9,7 +9,7 @@ declare module "constelation-Video" {
       playsInline?: boolean,
       paused?: boolean,
       poster?: string,
-      refNode?: () => {},
+      refNode?: (node?: HTMLElement) => void,
       style?: Object,
       width?: string | number,
     };
