@@ -139,6 +139,7 @@ const propsToOmit = [
   ...TIMING_PROPERTIES,
   ...SPRING_PROPERTIES,
   'animation',
+  'children',
   'direction',
   'onStart',
   'onStartEvent',
