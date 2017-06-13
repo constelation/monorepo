@@ -73,7 +73,8 @@ function buildHitSlop({ hitSlop, ...props }: IProps) {
 class TouchableOpacity extends React.Component<IProps, void> {
 
   static defaultProps = {
-    activeOpacity: 0.2,
+    activeOpacity: 0.6,
+    onPress: null,
   }
 
   constructor() {
