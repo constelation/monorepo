@@ -22,3 +22,13 @@ export default class Space extends React.PureComponent<IProps, void> {
     return glamorReact.createElement('div', { css: getStyleFromProps(this.props) })
   }
 }
+
+export class SPACE extends React.Component<IProps, void> {
+  shouldComponentUpdate() {
+    return false
+  }
+
+  render() {
+    return glamorReact.createElement('div', { css: getStyleFromProps(this.props) })
+  }
+}

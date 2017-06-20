@@ -18,3 +18,13 @@ export default class Space extends React.PureComponent<IProps, void> {
     return <ReactNative.View style={getStyleFromProps(this.props)} />
   }
 }
+
+export class SPACE extends React.Component<IProps, void> {
+  shouldComponentUpdate() {
+    return false
+  }
+
+  render() {
+    return <ReactNative.View style={getStyleFromProps(this.props)} />
+  }
+}

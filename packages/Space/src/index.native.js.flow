@@ -1,9 +1,17 @@
 declare module "constelation-space" {
+  declare type Props = {
+    size: number | string,
+  }
+
   declare class Space extends React$PureComponent<> {
-    props: {
-      size: number | string,
-    };
+    props: Props;
     render(): any;
   }
+  declare class SPACE extends React$Component<> {
+    props: Props;
+    render(): any;
+  }
+
   declare var exports: typeof Space;
+  declare var exports: typeof SPACE;
 }
