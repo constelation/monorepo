@@ -1,5 +1,5 @@
 declare module "constelation-view" {
-  declare type Base = {
+  declare export type Props = {
     alignContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch',
     alignVertical?: 'top' | 'center' | 'bottom',
     alignHorizontal?: 'left' | 'center' | 'right',
@@ -57,17 +57,17 @@ declare module "constelation-view" {
   };
 
   declare class View extends React$Component<> {
-    props: Base & {
+    props: Props & {
       horizontal?: boolean,
     };
     render(): any;
   }
   declare class Row extends React$Component<> {
-    props: Base;
+    props: Props;
     render(): any;
   }
   declare class Col extends React$Component<> {
-    props: Base;
+    props: Props;
     render(): any;
   }
 

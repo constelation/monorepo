@@ -1,5 +1,5 @@
 declare module "constelation-animate_" {
-  declare type Props = {
+  declare export type Props = {
       animation?: Object | 'fadeIn' | 'fadeOut' | string,
       delay?: number,
       direction?: 'normal' | 'reverse' | 'alternate' | 'alternateReverse',
