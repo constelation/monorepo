@@ -1,7 +1,7 @@
 import ReactNative from 'react-native'
 
 declare module "constelation-view" {
-  declare type Base = {
+  declare export type Props = {
     alignVertical?: 'top' | 'center' | 'bottom',
     alignHorizontal?: 'left' | 'center' | 'right',
     alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch',
@@ -50,17 +50,17 @@ declare module "constelation-view" {
   };
 
   declare class View extends React$Component<> {
-    props: Base & {
+    props: Props & {
       horizontal?: boolean,
     };
     render(): any;
   }
   declare class Row extends React$Component<> {
-    props: Base;
+    props: Props;
     render(): any;
   }
   declare class Col extends React$Component<> {
-    props: Base;
+    props: Props;
     render(): any;
   }
 
@@ -69,4 +69,3 @@ declare module "constelation-view" {
   declare export var View: typeof View;
   declare export default typeof View
 }
-
