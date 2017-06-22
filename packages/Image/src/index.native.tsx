@@ -148,6 +148,9 @@ export default class Image extends React.PureComponent<IProps, void> {
   static prefetch = ReactNative.Image.prefetch
   static resolveAssetSource = ReactNative.Image.resolveAssetSource
   static resizeMode = ReactNative.Image.resizeMode
+  private setAnimatedRef = (node) => {
+    this.props.refNode(node._component);
+  }
 
   render() {
     const styleFromProps = getStyleFromProps(this.props)
@@ -176,7 +179,10 @@ export default class Image extends React.PureComponent<IProps, void> {
 
     // Use refNode pattern to pass back the DOM's node
     if (this.props.refNode) {
-      propsWithoutStyle.ref = this.props.refNode
+      // We don't want the Animated node, just the View with measure(), blur(), etc
+      propsWithoutStyle.ref = (this.props.animated)
+        ? this.setAnimatedRef
+        : this.props.refNode
     }
 
     return this.props.animated
