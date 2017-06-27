@@ -31,6 +31,7 @@ declare module "constelation-view" {
     maxWidth?: number | string,
     minHeight?: number | string,
     minWidth?: number | string,
+    onLayout?: Function,
     order?: number,
     overflow?: string,
     overflowX?: string,

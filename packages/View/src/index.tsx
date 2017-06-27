@@ -43,6 +43,7 @@ export interface IBase {
   maxWidth?: number | string,
   minHeight?: number | string,
   minWidth?: number | string,
+  onLayout?: Function,
   order?: number,
   overflow?: string,
   overflowX?: string,
@@ -115,6 +116,7 @@ const propsToOmit = [
   'maxWidth',
   'minHeight',
   'minWidth',
+  'onLayout',
   'order',
   'overflow',
   'overflowX',
@@ -278,6 +280,22 @@ export class View extends React.Component<IView, void> {
     alignContent: 'flex-start',
   }
 
+  constructor() {
+    super()
+
+    this.handleLayout = this.handleLayout.bind(this)
+  }
+
+  handleLayout(node) {
+    if (this.props.refNode) {
+      this.props.refNode(node)
+    }
+
+    if (node != null) {
+      this.props.onLayout(node.getBoundingClientRect())
+    }
+  }
+
   render() {
     const styleFromProps = getStyleFromProps(this.props, this.props.horizontal)
     const propsToPass = _omit(this.props, propsToOmit)
@@ -287,8 +305,11 @@ export class View extends React.Component<IView, void> {
     // inlineStyle should pass down as style to apply inline
     propsToPass.style = this.props.inlineStyle
 
+    if (this.props.onLayout) {
+      propsToPass.ref = this.handleLayout
+    }
     // Use refNode pattern to pass back the DOM's node
-    if (this.props.refNode) {
+    else if (this.props.refNode) {
       propsToPass.ref = this.props.refNode
     }
 
@@ -328,6 +349,22 @@ export class Row extends React.Component<IRow, void> {
     alignContent: 'flex-start',
   }
 
+  constructor() {
+    super()
+
+    this.handleLayout = this.handleLayout.bind(this)
+  }
+
+  handleLayout(node) {
+    if (this.props.refNode) {
+      this.props.refNode(node)
+    }
+
+    if (node != null) {
+      this.props.onLayout(node.getBoundingClientRect())
+    }
+  }
+
   render() {
     const styleFromProps = getStyleFromProps(this.props, true)
     const propsToPass = _omit(this.props, propsToOmit)
@@ -337,8 +374,11 @@ export class Row extends React.Component<IRow, void> {
     // inlineStyle should pass down as style to apply inline
     propsToPass.style = this.props.inlineStyle
 
+    if (this.props.onLayout) {
+      propsToPass.ref = this.handleLayout
+    }
     // Use refNode pattern to pass back the DOM's node
-    if (this.props.refNode) {
+    else if (this.props.refNode) {
       propsToPass.ref = this.props.refNode
     }
 
@@ -377,6 +417,22 @@ export class Col extends React.Component<ICol, void> {
     alignContent: 'flex-start',
   }
 
+  constructor() {
+    super()
+
+    this.handleLayout = this.handleLayout.bind(this)
+  }
+
+  handleLayout(node) {
+    if (this.props.refNode) {
+      this.props.refNode(node)
+    }
+
+    if (node != null) {
+      this.props.onLayout(node.getBoundingClientRect())
+    }
+  }
+
   render() {
     const styleFromProps = getStyleFromProps(this.props, false)
     const propsToPass = _omit(this.props, propsToOmit)
@@ -386,8 +442,11 @@ export class Col extends React.Component<ICol, void> {
     // inlineStyle should pass down as style to apply inline
     propsToPass.style = this.props.inlineStyle
 
+    if (this.props.onLayout) {
+      propsToPass.ref = this.handleLayout
+    }
     // Use refNode pattern to pass back the DOM's node
-    if (this.props.refNode) {
+    else if (this.props.refNode) {
       propsToPass.ref = this.props.refNode
     }
 
