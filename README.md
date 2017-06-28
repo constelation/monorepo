@@ -1,3 +1,7 @@
+**Hello there! Just wanted to mention that this is not intended to become a big, public thing. You're welcome to use anything and steal any code. Please do not count on us adressing feature requests or issues though.**
+
+---
+
 Mono repo for constelation's Components, functions, and CONSTANTS. See them in action at https://constelation.github.io/monorepo/.
 
 When thinking about these components, it is best to picture them in a WYSIWYG editor (like the image at https://github.com/danscan/fractal). What are the essential pieces of this editor, and how would you convert them to code components?
