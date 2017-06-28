@@ -12,16 +12,6 @@ npm i -S
 constelation-{view,scroll-view,space,text,image,style_,event_,animate_,keydown-decorator,media-decorator,resize-decorator,scroll-decorator,dom}
 ```
 
-NOTE: If using `flow-type`, you can also add Declaration files to your `.flowconfig`'s `[lib]` section like:
-```
-[libs]
-./node_modules/constelation-animate_/dist/index.js.flow
-./node_modules/constelation-event_/dist/index.js.flow
-./node_modules/constelation-style_/dist/index.js.flow
-./node_modules/constelation-text/dist/index.js.flow
-./node_modules/constelation-view/dist/index.js.flow
-```
-
 ## Dev
 To add back .js.flow files into dist, when https://github.com/facebook/flow/issues/945 is fixed, use this script:
 ```
