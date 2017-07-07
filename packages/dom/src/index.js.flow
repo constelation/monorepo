@@ -1,7 +1,7 @@
 declare module "constelation-dom" {
   declare export function disableScroll(): void;
   declare export function enableScroll(): void;
-  declare export function scrollToY(endY?: number, speed?: number, easing?: string): void;
+  declare export function scrollToY(endY?: number, speed?: number, easing?: string, element?: Element): void;
   declare export function getScrollTop(): number;
   declare export function getElementOffsetTop(element: HTMLElement): number;
 }
