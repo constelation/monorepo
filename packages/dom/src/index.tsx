@@ -57,17 +57,15 @@ export function enableScroll() {
 }
 
 //from http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation
-// scrollTargetY: the target scrollY property of the window
+// finalDelta: the total amount to change the value (final - initial)
 // speed: time in pixels per second
 // easing: easing equation to use
-export function scrollToY(endY = 0, speed = 2000, easing = 'easeInOutQuint') {
+function tweenValue(finalDelta: number, callback: Function, speed = 2000, easing = 'easeInOutQuint') {
   const startTime = window.performance.now()
-
-  const startY = window.scrollY
 
   // min time 100ms, max time 800ms
   const time =
-    Math.max(0.1, Math.min(Math.abs(startY - endY) / speed, 0.8)) * 1000
+    Math.max(0.1, Math.min(Math.abs(finalDelta) / speed, 0.8)) * 1000
 
   function tick(currentTime: number) {
     const elapsedTime = currentTime - startTime
@@ -78,15 +76,25 @@ export function scrollToY(endY = 0, speed = 2000, easing = 'easeInOutQuint') {
     if (progress < 1) {
       window.requestAnimationFrame(tick)
 
-      window.scrollTo(0, startY + (endY - startY) * t)
+      callback(finalDelta * t)
     }
     else {
-      window.scrollTo(0, endY)
+      callback(finalDelta)
     }
   }
 
   // call it once to get started
   window.requestAnimationFrame(tick)
+}
+
+export function scrollToY(endY = 0, speed = 2000, easing = 'easeInOutQuint', element = window.document.scrollingElement) {
+  const startY = element.scrollTop
+
+  function scrollMove(movement: number) {
+    element.scrollTop = startY + movement
+  }
+
+  tweenValue(endY - startY, scrollMove, speed, easing)
 }
 
 export function getScrollTop() {
