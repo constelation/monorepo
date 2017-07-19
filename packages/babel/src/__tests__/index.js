@@ -93,6 +93,32 @@ it('width expression variable, then height', () => {
   expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${variable};height: 20px;`} />;')
 })
 
+
+it('handles basic (copied) layout props', () => {
+  var input = `<view
+    width={20}
+    height={20}
+    padding={20}
+    margin={20}
+  />
+  `;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;height: 20px;padding: 20px;margin: 20px;`} />;')
+})
+
+it('handles basic (translated) layout props', () => {
+  var input = `<view
+    paddingTop={20}
+    marginBottom={20}
+  />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;padding-top: 20px;margin-bottom: 20px;`} />;')
+})
+
 // import pluginTester from 'babel-plugin-tester'
 // import plugin from '../'
 

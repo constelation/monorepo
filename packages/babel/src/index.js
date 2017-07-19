@@ -39,8 +39,18 @@ const propsToOmit = {
 }
 
 const propsToUse = {
-  width: true,
-  height: true,
+  width: 'width',
+  height: 'height',
+  padding: 'padding',
+  paddingTop: 'padding-top',
+  paddingRight: 'padding-right',
+  paddingBottom: 'padding-bottom',
+  paddingLeft: 'padding-left',
+  margin: 'margin',
+  marginTop: 'margin-top',
+  marginRight: 'margin-right',
+  marginBottom: 'margin-bottom',
+  marginLeft: 'margin-left',
 }
 
 const defaultCss = 'display: flex;flex-direction: column;position: relative;'
@@ -88,10 +98,7 @@ function addExpressionToTemplate(template, expression) {
   template.expressions.push(expression)
 }
 
-function addCssProp(cssTemplate, attribute) {
-
-  const name = attribute.name.name
-
+function addCssProp(cssTemplate, attribute, name) {
   switch (attribute.value.type) {
     case 'JSXExpressionContainer': {
       if (attribute.value.expression.type === 'NumericLiteral') {
@@ -150,7 +157,7 @@ function buildProps(node) {
       props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
     }
     else if (name in propsToUse) {
-      addCssProp(props[0].value.expression, attribute)
+      addCssProp(props[0].value.expression, attribute, propsToUse[name])
     }
     else {
       props.push(attribute)
