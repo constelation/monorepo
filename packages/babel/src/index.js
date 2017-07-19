@@ -1,10 +1,13 @@
 export default function (babel) {
   const { types: t } = babel;
 
+  //  console.log(babel)
+
   return {
     name: "ast-transform", // not required
     visitor: {
       JSXElement(path) {
+        //        console.log(path)
 
         const isView = looksLike(path, {
           node: {
@@ -38,8 +41,6 @@ const propsToOmit = {
 const propsToUse = {
   width: true,
   height: true,
-  padding: true,
-  margin: true,
 }
 
 const defaultCss = 'display: flex;flex-direction: column;position: relative;'
@@ -71,35 +72,41 @@ function buildDefaultCssProp() {
   }
 }
 
-function buildCssProp(attribute) {
+
+function addStringToTemplate(template, str) {
+  const last = template.quasis.length - 1
+
+  template.quasis[last].value.raw = template.quasis[last].value.raw + str
+  template.quasis[last].value.cooked = template.quasis[last].value.cooked + str
+}
+
+function addCssProp(cssTemplate, attribute) {
+
   const name = attribute.name.name
-  let value
+
   switch (attribute.value.type) {
     case 'JSXExpressionContainer': {
       if (attribute.value.expression.type === 'NumericLiteral') {
-        value = attribute.value.expression.extra.raw + 'px'
+        addStringToTemplate(cssTemplate, `${name}: ${attribute.value.expression.extra.raw}px;`)
       }
       else if (attribute.value.expression.type === 'StringLiteral') {
-        value = attribute.value.expression.value
+        addStringToTemplate(cssTemplate, `${name}: ${attribute.value.expression.value};`)
       }
       break
     }
     case 'StringLiteral': {
-      value = attribute.value.value
+      addStringToTemplate(cssTemplate, `${name}: ${attribute.value.value};`)
       break
     }
   }
-  //   console.log(value)
-  //  if (attribute.value.type
-  //  const value = attribute.value.value
-
-  return {
-    type: 'TemplateElement',
-    value: {
-      raw: `${name}: ${value};`,
-      cooked: `${name}: ${value};`,
-    },
-  }
+  /*
+    return {
+      type: 'TemplateElement',
+      value: {
+        raw: `${name}: ${value};`,
+        cooked: `${name}: ${value};`,
+      },
+    }*/
 }
 
 function buildProps(node) {
@@ -117,15 +124,12 @@ function buildProps(node) {
       return
     }
     else if (name === 'css') {
+      // console.log(attribute.value.expression)
       //      props[0].value.expression.quasis[0].tail = false
       props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
     }
     else if (name in propsToUse) {
-      //      props[0].value.expression.quasis[0].tail = false
-      props[0].value.expression.quasis.push(buildCssProp(attribute))
-
-      //            props[0].value.expression.quasis[0].value.raw = props[0].value.expression.quasis[0].value.raw + buildCssProp(attribute);
-      //      props[0].value.expression.quasis[0].value.cooked = props[0].value.expression.quasis[0].value.cooked + buildCssProp(attribute);
+      addCssProp(props[0].value.expression, attribute)
     }
     else {
       props.push(attribute)

@@ -50,7 +50,7 @@ it('css prop', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<nav css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
 })
 
 it('width string', () => {
@@ -58,7 +58,7 @@ it('width string', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
 })
 
 it('width expression string', () => {
@@ -66,7 +66,7 @@ it('width expression string', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
 })
 
 it('width expression number', () => {
@@ -74,7 +74,15 @@ it('width expression number', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+})
+
+it('width expression variable', () => {
+  var input = `<view width={variable}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
 })
 
 // import pluginTester from 'babel-plugin-tester'
