@@ -82,7 +82,15 @@ it('width expression variable', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${variable};`} />;')
+})
+
+it('width expression variable, then height', () => {
+  var input = `<view width={variable} height={20}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${variable};height: 20px;`} />;')
 })
 
 // import pluginTester from 'babel-plugin-tester'

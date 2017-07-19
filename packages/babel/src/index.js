@@ -80,6 +80,14 @@ function addStringToTemplate(template, str) {
   template.quasis[last].value.cooked = template.quasis[last].value.cooked + str
 }
 
+function addQuasiToTemplate(template, quasi) {
+  template.quasis.push(quasi)
+}
+
+function addExpressionToTemplate(template, expression) {
+  template.expressions.push(expression)
+}
+
 function addCssProp(cssTemplate, attribute) {
 
   const name = attribute.name.name
@@ -91,6 +99,20 @@ function addCssProp(cssTemplate, attribute) {
       }
       else if (attribute.value.expression.type === 'StringLiteral') {
         addStringToTemplate(cssTemplate, `${name}: ${attribute.value.expression.value};`)
+      }
+      else if (attribute.value.expression.type === 'Identifier') {
+        addStringToTemplate(cssTemplate, `${name}: `)
+        addQuasiToTemplate(cssTemplate, {
+          type: 'TemplateElement',
+          value: {
+            raw: ';',
+            cooked: ';',
+          },
+        })
+        addExpressionToTemplate(cssTemplate, {
+          type: 'Identifier',
+          name: attribute.value.expression.name,
+        })
       }
       break
     }
@@ -124,7 +146,6 @@ function buildProps(node) {
       return
     }
     else if (name === 'css') {
-      // console.log(attribute.value.expression)
       //      props[0].value.expression.quasis[0].tail = false
       props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
     }
