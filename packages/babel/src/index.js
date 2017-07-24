@@ -1,7 +1,91 @@
 export default function (babel) {
   const { types: t } = babel;
 
+  function buildDefaultCssProp() {
+    return t.jSXAttribute(
+      t.jSXIdentifier('css'),
+      t.jSXExpressionContainer(
+        t.templateLiteral(
+          [
+            t.templateElement({
+              raw: defaultCss,
+              cooked: defaultCss,
+            })
+          ],
+          [],
+        )
+      )
+    )
+  }
+
+  function buildProps(node) {
+    const css = buildDefaultCssProp()
+    const props = [css]
+
+    if (node.openingElement.attributes == null) {
+      return props
+    }
+
+    node.openingElement.attributes.forEach(attribute => {
+      const name = attribute.name.name
+
+      if (name in propsToOmit) {
+        return
+      }
+      else if (name === 'css') {
+        //      props[0].value.expression.quasis[0].tail = false
+        props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
+      }
+      else if (name in propsToUse) {
+        addCssProp(props[0].value.expression, attribute, propsToUse[name])
+      }
+      else {
+        props.push(attribute)
+      }
+
+    })
+
+
+    return props
+  }
+
   //  console.log(babel)
+  function addCssProp(cssTemplate, attribute, name) {
+    const { value } = attribute
+
+    if (t.isJSXExpressionContainer(value)) {
+      const { expression } = value
+
+      if (t.isNumericLiteral(expression)) {
+        addStringToTemplate(cssTemplate, `${name}: ${expression.extra.raw}px;`)
+      }
+      else if (t.isStringLiteral(expression)) {
+        addStringToTemplate(cssTemplate, `${name}: ${expression.value};`)
+      }
+      else if (t.isIdentifier(expression)) {
+        addStringToTemplate(cssTemplate, `${name}: `)
+        addQuasiToTemplate(cssTemplate, t.templateElement(
+          {
+            raw: ';',
+            cooked: ';',
+          }))
+        addExpressionToTemplate(cssTemplate, t.identifier(expression.name))
+      }
+    }
+    else if (t.isStringLiteral(value)) {
+      addStringToTemplate(cssTemplate, `${name}: ${value.value};`)
+    }
+
+    /*
+      return {
+        type: 'TemplateElement',
+        value: {
+          raw: `${name}: ${value};`,
+          cooked: `${name}: ${value};`,
+        },
+      }*/
+  }
+
 
   return {
     name: "ast-transform", // not required
@@ -25,7 +109,6 @@ export default function (babel) {
 
         renameTag(path.node)
         const props = buildProps(path.node)
-
 
         path.node.openingElement.attributes = props
 
@@ -55,33 +138,6 @@ const propsToUse = {
 
 const defaultCss = 'display: flex;flex-direction: column;position: relative;'
 
-function buildDefaultCssProp() {
-  return {
-    type: 'JSXAttribute',
-    name: {
-      type: 'JSXIdentifier',
-      name: 'css',
-    },
-    value: {
-      type: "JSXExpressionContainer",
-      expression: {
-        type: "TemplateLiteral",
-        expressions: [],
-        quasis: [
-          {
-            type: 'TemplateElement',
-            value: {
-              raw: defaultCss,
-              cooked: defaultCss,
-            },
-            //            tail: true
-          }
-        ],
-      },
-    }
-  }
-}
-
 
 function addStringToTemplate(template, str) {
   const last = template.quasis.length - 1
@@ -96,77 +152,6 @@ function addQuasiToTemplate(template, quasi) {
 
 function addExpressionToTemplate(template, expression) {
   template.expressions.push(expression)
-}
-
-function addCssProp(cssTemplate, attribute, name) {
-  switch (attribute.value.type) {
-    case 'JSXExpressionContainer': {
-      if (attribute.value.expression.type === 'NumericLiteral') {
-        addStringToTemplate(cssTemplate, `${name}: ${attribute.value.expression.extra.raw}px;`)
-      }
-      else if (attribute.value.expression.type === 'StringLiteral') {
-        addStringToTemplate(cssTemplate, `${name}: ${attribute.value.expression.value};`)
-      }
-      else if (attribute.value.expression.type === 'Identifier') {
-        addStringToTemplate(cssTemplate, `${name}: `)
-        addQuasiToTemplate(cssTemplate, {
-          type: 'TemplateElement',
-          value: {
-            raw: ';',
-            cooked: ';',
-          },
-        })
-        addExpressionToTemplate(cssTemplate, {
-          type: 'Identifier',
-          name: attribute.value.expression.name,
-        })
-      }
-      break
-    }
-    case 'StringLiteral': {
-      addStringToTemplate(cssTemplate, `${name}: ${attribute.value.value};`)
-      break
-    }
-  }
-  /*
-    return {
-      type: 'TemplateElement',
-      value: {
-        raw: `${name}: ${value};`,
-        cooked: `${name}: ${value};`,
-      },
-    }*/
-}
-
-function buildProps(node) {
-  const css = buildDefaultCssProp()
-  const props = [css]
-
-  if (node.openingElement.attributes == null) {
-    return props
-  }
-
-  node.openingElement.attributes.forEach(attribute => {
-    const name = attribute.name.name
-
-    if (name in propsToOmit) {
-      return
-    }
-    else if (name === 'css') {
-      //      props[0].value.expression.quasis[0].tail = false
-      props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
-    }
-    else if (name in propsToUse) {
-      addCssProp(props[0].value.expression, attribute, propsToUse[name])
-    }
-    else {
-      props.push(attribute)
-    }
-
-  })
-
-
-  return props
 }
 
 function renameTag(node) {
