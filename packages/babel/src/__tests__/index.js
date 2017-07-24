@@ -1,19 +1,9 @@
 // src/__tests__/index-test.js
 const babel = require('babel-core');
+// const React = require('react');
 const plugin = require('../');
 
 const options = { plugins: ["syntax-jsx", plugin.default] }
-
-// var example = `
-// class MyComponent extends React.Component {
-//   render() {
-//     return (
-//       <view />
-//     )
-//   }
-// }
-// `;
-
 
 it('default self closing', () => {
   var input = `<view />`;
@@ -43,14 +33,6 @@ it('as expression prop to set tag string', () => {
   const { code } = babel.transform(input, options)
 
   expect(code).toBe('<nav css={`display: flex;flex-direction: column;position: relative;`} />;')
-})
-
-it('css prop', () => {
-  var input = `<view css={\`width: 20px;\`}/>`;
-
-  const { code } = babel.transform(input, options)
-
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
 })
 
 it('width string', () => {
@@ -119,53 +101,50 @@ it('handles basic (translated) layout props', () => {
   expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;padding-top: 20px;margin-bottom: 20px;`} />;')
 })
 
-// import pluginTester from 'babel-plugin-tester'
-// import plugin from '../'
+it('css prop', () => {
+  var input = `<view css={\`width: 20px;\`}/>`;
 
-// pluginTester({
-//   plugin: plugin,
-//   snapshot: false,
-//   babelOptions: {
-//     presets: ["es2015", "stage-2", "react"],
-//   },
+  const { code } = babel.transform(input, options)
 
-//   tests: {
-//     // the key is the title
-//     // the value is the code that is unchanged (because `snapshot: false`)
-//     // test title will be: `1. does not change code with no identifiers`
-//     'does not change code with no identifiers': '"hello";',
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+})
 
-//     // test title will be: `2. changes this code`
-//     'changes this code': {
-//       // input to the plugin
-//       code: `
-//         class MyComponent extends React.Component {
-//           render() {
-//             return (
-//               <view />
-//             )
-//           }
-//         }
-//       `,
-//       // expected output
-//       output: `
-//         class MyComponent extends React.Component {
-//           render() {
-//             return (
-//               <div css={\`display: flex;flex-direction: column;position: relative;\`} />
-//             )
-//           }
-//         }
-//       `,
-//     },
-//   },
-// })
-//       // code: `
-//       //   class MyComponent extends React.Component {
-//       //     render() {
-//       //       return (
-//       //         <view as={'nav'} />
-//       //       )
-//       //     }
-//       //   }
-//       // `,
+it('css prop with height prop', () => {
+  var input = `<view height={20} css={\`width: 20px;\`}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: 20px;width: 20px;`} />;')
+})
+
+it('css prop with dynamic height prop', () => {
+  var input = `<view height={someVar} css={\`width: 20px;\`}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: ${someVar};width: 20px;`} />;')
+})
+
+it('css prop with dynamic width', () => {
+  var input = `<view css={\`width: \${someVar}px;\`}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${someVar}px;`} />;')
+})
+
+it('css prop with multiple dynamic attributes', () => {
+  var input = `<view css={\`width: \${someVar}px;height: \${someHeight}px;\`}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${someVar}px;height: ${someHeight}px;`} />;')
+})
+
+it('css prop with multiple dynamic fields and props', () => {
+  var input = `<view height={someHeight} margin={someMargin} css={\`width: \${someVar}px;padding: \${somePadding}px;\`}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: ${someHeight};margin: ${someMargin};width: ${someVar}px;padding: ${somePadding}px;`} />;')
+})

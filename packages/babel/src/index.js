@@ -33,8 +33,7 @@ export default function (babel) {
         return
       }
       else if (name === 'css') {
-        //      props[0].value.expression.quasis[0].tail = false
-        props[0].value.expression.quasis.push(...attribute.value.expression.quasis)
+        addTemplateToTemplate(props[0].value.expression, attribute.value.expression)
       }
       else if (name in propsToUse) {
         addCssProp(props[0].value.expression, attribute, propsToUse[name])
@@ -49,7 +48,6 @@ export default function (babel) {
     return props
   }
 
-  //  console.log(babel)
   function addCssProp(cssTemplate, attribute, name) {
     const { value } = attribute
 
@@ -91,7 +89,6 @@ export default function (babel) {
     name: "ast-transform", // not required
     visitor: {
       JSXElement(path) {
-        //        console.log(path)
 
         const isView = looksLike(path, {
           node: {
@@ -138,6 +135,25 @@ const propsToUse = {
 
 const defaultCss = 'display: flex;flex-direction: column;position: relative;'
 
+function addTemplateToTemplate(target, template) {
+  if (template.expressions.length > 0) {
+    if (target.expressions.length === target.quasis.length) {
+      // safe to just push these
+      target.expressions.push(...template.expressions)
+      target.quasis.push(...template.quasis)
+    }
+    else {
+      target.expressions.push(...template.expressions)
+
+      // concate the first quasi, then push on the rest
+      addStringToTemplate(target, template.quasis[0].value.raw)
+      target.quasis.push(...template.quasis.slice(1))
+    }
+  }
+  else {
+    addStringToTemplate(target, template.quasis[0].value.raw)
+  }
+}
 
 function addStringToTemplate(template, str) {
   const last = template.quasis.length - 1
