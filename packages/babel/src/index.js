@@ -28,15 +28,19 @@ export default function (babel) {
 
     node.openingElement.attributes.forEach(attribute => {
       const name = attribute.name.name
+      const cssTemplate = props[0].value.expression
 
       if (name in propsToOmit) {
         return
       }
       else if (name === 'css') {
-        addTemplateToTemplate(props[0].value.expression, attribute.value.expression)
+        addTemplateToTemplate(cssTemplate, attribute.value.expression)
       }
       else if (name in propsToUse) {
-        addCssProp(props[0].value.expression, attribute, propsToUse[name])
+        addCssProp(cssTemplate, attribute, propsToUse[name])
+      }
+      else if (name in booleanProps) {
+        addBooleanProp(cssTemplate, attribute, name, booleanProps[name])
       }
       else {
         props.push(attribute)
@@ -62,26 +66,41 @@ export default function (babel) {
       }
       else if (t.isIdentifier(expression)) {
         addStringToTemplate(cssTemplate, `${name}: `)
-        addQuasiToTemplate(cssTemplate, t.templateElement(
-          {
-            raw: ';',
-            cooked: ';',
-          }))
+        addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
         addExpressionToTemplate(cssTemplate, t.identifier(expression.name))
       }
     }
     else if (t.isStringLiteral(value)) {
       addStringToTemplate(cssTemplate, `${name}: ${value.value};`)
     }
+  }
 
-    /*
-      return {
-        type: 'TemplateElement',
-        value: {
-          raw: `${name}: ${value};`,
-          cooked: `${name}: ${value};`,
-        },
-      }*/
+  function addBooleanProp(cssTemplate, attribute, name, {consequent, alternate}) {
+    const { value } = attribute
+
+    if (value === null) {
+      addStringToTemplate(cssTemplate, consequent)
+    }
+    else if (t.isJSXExpressionContainer(value)) {
+      const { expression } = value
+
+      if (t.isBooleanLiteral(expression) && expression.value === true) {
+        addStringToTemplate(cssTemplate, consequent)
+      }
+      else if (t.isIdentifier(expression)) {
+        addExpressionToTemplate(cssTemplate, t.conditionalExpression(
+          t.binaryExpression(
+            '===',
+            t.identifier(expression.name),
+            t.booleanLiteral(true),
+          ),
+          t.stringLiteral(consequent),
+          t.stringLiteral(alternate),
+        ))
+
+        addQuasiToTemplate(cssTemplate, t.templateElement({raw: '', cooked: ''}))
+      }
+    }
   }
 
 
@@ -119,8 +138,30 @@ const propsToOmit = {
 }
 
 const propsToUse = {
+  top: 'top',
+  right: 'right',
+  bottom: 'bottom',
+  left: 'left',
   width: 'width',
+  maxWidth: 'max-width',
+  minWidth: 'min-width',
   height: 'height',
+  maxHeight: 'max-height',
+  minHeight: 'min-height',
+
+  flex: 'flex',
+  wrap: 'flex-wrap',
+  grow: 'flex-grow',
+  shrink: 'flex-shrink',
+  basis: 'flex-basis',
+  order: 'order',
+  alignContent: 'align-content',
+  alignSelf: 'align-self',
+  align: 'align-items',
+  justify: 'justify-content',
+  // alignVertical
+  // alignHorizontal
+
   padding: 'padding',
   paddingTop: 'padding-top',
   paddingRight: 'padding-right',
@@ -131,6 +172,36 @@ const propsToUse = {
   marginRight: 'margin-right',
   marginBottom: 'margin-bottom',
   marginLeft: 'margin-left',
+
+  position: 'position',
+  overflow: 'overflow',
+  overflowX: 'overflow-x',
+  overflowY: 'overflow-y',
+  //WebkitOverflowScrolling
+  zIndex: 'z-index',
+}
+
+const booleanProps = {
+  center: {
+    consequent: 'align-items: center;justify-content: center;',
+    alternate: '',
+  },
+  hidden: {
+    consequent: 'display: none;',
+    alternate: '',
+  },
+  inline: {
+    consequent: 'display: inline-flex;',
+    alternate: '',
+  },
+  fit: {
+    consequent: 'height: 100%;width: 100%;',
+    alternate: '',
+  },
+  absoluteFill: {
+    consequent: 'position: absolute;top: 0;right: 0;bottom: 0;left: 0;',
+    alternate: '',
+  },
 }
 
 const defaultCss = 'display: flex;flex-direction: column;position: relative;'

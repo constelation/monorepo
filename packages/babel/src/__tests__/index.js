@@ -101,6 +101,86 @@ it('handles basic (translated) layout props', () => {
   expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;padding-top: 20px;margin-bottom: 20px;`} />;')
 })
 
+it('handles center prop', () => {
+  var input = `<view center />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;align-items: center;justify-content: center;`} />;')
+})
+
+it('handles center expression prop (true)', () => {
+  var input = `<view center={true} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;align-items: center;justify-content: center;`} />;')
+})
+
+it('handles center expression prop (false)', () => {
+  var input = `<view center={false} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+})
+
+it('handles center variable prop', () => {
+  var input = `<view center={someVar} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;${someVar === true ? \"align-items: center;justify-content: center;\" : \"\"}`} />;')
+})
+
+it('handles hidden expression prop (true)', () => {
+  var input = `<view hidden={true} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;display: none;`} />;')
+})
+
+it('handles hidden expression prop (false)', () => {
+  var input = `<view hidden={false} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+})
+
+it('handles hidden variable prop', () => {
+  var input = `<view hidden={someVar} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;${someVar === true ? \"display: none;\" : \"\"}`} />;')
+})
+
+it('handles inline prop', () => {
+  var input = `<view inline />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;display: inline-flex;`} />;')
+})
+
+it('handles fit prop', () => {
+  var input = `<view fit />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: 100%;width: 100%;`} />;')
+})
+
+it('handles absoluteFill prop', () => {
+  var input = `<view absoluteFill />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;position: absolute;top: 0;right: 0;bottom: 0;left: 0;`} />;')
+})
+
 it('css prop', () => {
   var input = `<view css={\`width: 20px;\`}/>`;
 
