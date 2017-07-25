@@ -1,4 +1,4 @@
-const printAST = require('ast-pretty-print')
+// const printAST = require('ast-pretty-print')
 
 const propsToOmit = {
   as: true,
@@ -161,6 +161,11 @@ export default function (babel) {
         addStringToTemplate(cssTemplate, `;`)
       }
       else if (t.isBinaryExpression(expression)) {
+        addStringToTemplate(cssTemplate, `${name}: `)
+        addExpressionToTemplate(cssTemplate, expression)
+        addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
+      }
+      else if (t.isConditionalExpression(expression)) {
         addStringToTemplate(cssTemplate, `${name}: `)
         addExpressionToTemplate(cssTemplate, expression)
         addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))

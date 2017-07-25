@@ -1,6 +1,5 @@
 // src/__tests__/index-test.js
 const babel = require('babel-core');
-// const React = require('react');
 const plugin = require('../');
 
 const options = { plugins: ["syntax-jsx", plugin.default] }
@@ -42,6 +41,13 @@ it('handles flex direction prop', () => {
   const { code } = babel.transform(input, options)
 
   expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-direction: ${someVar};`} />;')
+})
+
+it('handles flex direction conditionalExpression prop', () => {
+  var input = `<flex direction={someVar ? 'column' : 'row'} />`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-direction: ${someVar ? \'column\' : \'row\'};`} />;')
 })
 
 it('default open', () => {
