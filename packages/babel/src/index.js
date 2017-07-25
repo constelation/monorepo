@@ -18,7 +18,7 @@ const propsToUse = {
 
   flex: 'flex',
   wrap: 'flex-wrap',
-  grow: 'flex-grow',
+  // grow: 'flex-grow',
   shrink: 'flex-shrink',
   basis: 'flex-basis',
   order: 'order',
@@ -102,6 +102,7 @@ export default function (babel) {
 
   function buildProps(node, defaultCss, cssProps) {
     const css = buildDefaultCssProp(defaultCss)
+    const cssTemplate = css.value.expression
     const props = [css]
 
     if (node.openingElement.attributes == null) {
@@ -110,7 +111,6 @@ export default function (babel) {
 
     node.openingElement.attributes.forEach(attribute => {
       const name = attribute.name.name
-      const cssTemplate = props[0].value.expression
 
       if (name in propsToOmit) {
         return
@@ -123,6 +123,9 @@ export default function (babel) {
       }
       else if (name in booleanProps) {
         addBooleanProp(cssTemplate, attribute, name, booleanProps[name])
+      }
+      else if (name === 'grow') {
+        addGrowProp(cssTemplate, attribute)
       }
       else {
         props.push(attribute)
@@ -139,7 +142,7 @@ export default function (babel) {
       const { expression } = value
 
       if (t.isNumericLiteral(expression)) {
-        addStringToTemplate(cssTemplate, `${name}: ${expression.extra.raw}px;`)
+        addStringToTemplate(cssTemplate, `${name}: ${expression.extra.raw};`)
       }
       else if (t.isStringLiteral(expression)) {
         addStringToTemplate(cssTemplate, `${name}: ${expression.value};`)
@@ -183,6 +186,31 @@ export default function (babel) {
     }
   }
 
+  function addGrowProp(cssTemplate, attribute) {
+    const { value } = attribute
+
+    if (value === null) {
+      addStringToTemplate(cssTemplate, 'flex-grow: 1;')
+    }
+    else if (t.isJSXExpressionContainer(value)) {
+      const { expression } = value
+
+      if (t.isNumericLiteral(expression)) {
+        addStringToTemplate(cssTemplate, `flex-grow: ${expression.extra.raw};`)
+      }
+      else if (t.isStringLiteral(expression)) {
+        addStringToTemplate(cssTemplate, `flex-grow: ${expression.value};`)
+      }
+      else if (t.isIdentifier(expression)) {
+        addStringToTemplate(cssTemplate, `flex-grow: `)
+        addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
+        addExpressionToTemplate(cssTemplate, t.identifier(expression.name))
+      }
+    }
+    else if (t.isStringLiteral(value)) {
+      addStringToTemplate(cssTemplate, `flex-grow: ${value.value};`)
+    }
+  }
 
   return {
     name: "ast-transform", // not required
@@ -196,11 +224,7 @@ export default function (babel) {
 
         if (element.name === 'view') {
           renameTag(path.node)
-          const props = buildProps(path.node, defaultColCss)
-
-          // console.log(printAST(props))
-
-          path.node.openingElement.attributes = props
+          path.node.openingElement.attributes = buildProps(path.node, defaultColCss, propsToUse)
         }
         else if (element.name === 'col') {
           renameTag(path.node)

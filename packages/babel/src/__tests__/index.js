@@ -83,13 +83,13 @@ it('width expression string', () => {
   expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
 })
 
-it('width expression number', () => {
-  var input = `<flex width={20}/>`;
-
-  const { code } = babel.transform(input, options)
-
-  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
-})
+// it('width expression number', () => {
+//   var input = `<flex width={20}/>`;
+//
+//   const { code } = babel.transform(input, options)
+//
+//   expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
+// })
 
 it('width expression variable', () => {
   var input = `<flex width={variable}/>`;
@@ -100,7 +100,7 @@ it('width expression variable', () => {
 })
 
 it('width expression variable, then height', () => {
-  var input = `<flex width={variable} height={20}/>`;
+  var input = `<flex width={variable} height={'20px'}/>`;
 
   const { code } = babel.transform(input, options)
 
@@ -110,22 +110,24 @@ it('width expression variable, then height', () => {
 
 it('handles basic (copied) layout props', () => {
   var input = `<flex
-    width={20}
-    height={20}
-    padding={20}
-    margin={20}
+    width={'20px'}
+    height='20px'
+    padding={"20px"}
+    margin={'20px'}
+    zIndex={1}
+    shrink={1}
   />
   `;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;height: 20px;padding: 20px;margin: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;height: 20px;padding: 20px;margin: 20px;z-index: 1;flex-shrink: 1;`} />;')
 })
 
 it('handles basic (translated) layout props', () => {
   var input = `<flex
-    paddingTop={20}
-    marginBottom={20}
+    paddingTop={'20px'}
+    marginBottom={'20px'}
   />`;
 
   const { code } = babel.transform(input, options)
@@ -214,11 +216,27 @@ it('handles absoluteFill prop', () => {
 })
 
 it('handles grow prop', () => {
+  var input = `<flex grow={2} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-grow: 2;`} />;')
+})
+
+it('handles grow boolean prop', () => {
   var input = `<flex grow />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-grow: 1`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-grow: 1;`} />;')
+})
+
+it('handles grow var prop', () => {
+  var input = `<flex grow={someVar} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-grow: ${someVar};`} />;')
 })
 
 it('css prop', () => {
@@ -230,7 +248,7 @@ it('css prop', () => {
 })
 
 it('css prop with height prop', () => {
-  var input = `<flex height={20} css={\`width: 20px;\`}/>`;
+  var input = `<flex height={'20px'} css={\`width: 20px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
