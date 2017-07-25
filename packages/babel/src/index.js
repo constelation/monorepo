@@ -141,6 +141,8 @@ export default function (babel) {
     if (t.isJSXExpressionContainer(value)) {
       const { expression } = value
 
+      // console.log(printAST(expression));
+
       if (t.isNumericLiteral(expression)) {
         addStringToTemplate(cssTemplate, `${name}: ${expression.extra.raw};`)
       }
@@ -152,6 +154,18 @@ export default function (babel) {
         addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
         addExpressionToTemplate(cssTemplate, t.identifier(expression.name))
       }
+      else if (t.isTemplateLiteral(expression)) {
+        expression.quasis[0].value.cooked = `${name}: ${expression.quasis[0].value.cooked}`
+        expression.quasis[0].value.raw = `${name}: ${expression.quasis[0].value.raw}`
+        addTemplateToTemplate(cssTemplate, expression)
+        addStringToTemplate(cssTemplate, `;`)
+      }
+      else if (t.isBinaryExpression(expression)) {
+        addStringToTemplate(cssTemplate, `${name}: `)
+        addExpressionToTemplate(cssTemplate, expression)
+        addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
+      }
+
     }
     else if (t.isStringLiteral(value)) {
       addStringToTemplate(cssTemplate, `${name}: ${value.value};`)

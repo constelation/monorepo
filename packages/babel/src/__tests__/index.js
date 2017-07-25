@@ -135,6 +135,39 @@ it('handles basic (translated) layout props', () => {
   expect(code).toBe('<div css={`' + defaultFlexCss + 'padding-top: 20px;margin-bottom: 20px;`} />;')
 })
 
+it('handles partial expression props', () => {
+  var input = `<flex paddingTop={\`\${someVar}px\`} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'padding-top: ${someVar}px;`} />;')
+})
+
+it('handles partial interpolated expression props', () => {
+  var input = `<flex paddingTop={20 + 'px'} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'padding-top: ${20 + \'px\'};`} />;')
+})
+
+it('handles partial string expression props', () => {
+  var input = `<flex paddingTop={'20' + 'px'} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'padding-top: ${\'20\' + \'px\'};`} />;')
+})
+
+it('handles binaryExpression props', () => {
+  var input = `<flex zIndex={2 + 3} />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'z-index: ${2 + 3};`} />;')
+})
+
+
 it('handles center prop', () => {
   var input = `<flex center />`;
 
