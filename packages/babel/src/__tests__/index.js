@@ -5,79 +5,111 @@ const plugin = require('../');
 
 const options = { plugins: ["syntax-jsx", plugin.default] }
 
+const defaultFlexCss = 'display: flex;flex-shrink: 0;align-content: flex-start;position: relative;'
+const defaultColCss = 'display: flex;flex-direction: column;flex-shrink: 0;align-content: flex-start;position: relative;'
+const defaultRowCss = 'display: flex;flex-direction: row;flex-shrink: 0;align-content: flex-start;position: relative;'
+
 it('default self closing', () => {
   var input = `<view />`;
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`' + defaultColCss + '`} />;')
+})
+
+it('default col', () => {
+  var input = `<col />`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultColCss + '`} />;')
+})
+
+it('default row', () => {
+  var input = `<row />`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultRowCss + '`} />;')
+})
+
+it('default flex', () => {
+  var input = `<flex />`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
+})
+
+it('handles flex direction prop', () => {
+  var input = `<flex direction={someVar} />`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-direction: ${someVar};`} />;')
 })
 
 it('default open', () => {
-  var input = `<view ></view>`;
+  var input = `<flex ></flex>`;
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`}></div>;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`}></div>;')
 })
 
 it('as prop to set tag string', () => {
-  var input = `<view as='nav'/>`;
+  var input = `<flex as='nav'/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<nav css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<nav css={`' + defaultFlexCss + '`} />;')
 })
 
 it('as expression prop to set tag string', () => {
-  var input = `<view as={'nav'}/>`;
+  var input = `<flex as={'nav'}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<nav css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<nav css={`' + defaultFlexCss + '`} />;')
 })
 
 it('width string', () => {
-  var input = `<view width='20px'/>`;
+  var input = `<flex width='20px'/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
 })
 
 it('width expression string', () => {
-  var input = `<view width={'20px'}/>`;
+  var input = `<flex width={'20px'}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
 })
 
 it('width expression number', () => {
-  var input = `<view width={20}/>`;
+  var input = `<flex width={20}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
 })
 
 it('width expression variable', () => {
-  var input = `<view width={variable}/>`;
+  var input = `<flex width={variable}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${variable};`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: ${variable};`} />;')
 })
 
 it('width expression variable, then height', () => {
-  var input = `<view width={variable} height={20}/>`;
+  var input = `<flex width={variable} height={20}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${variable};height: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: ${variable};height: 20px;`} />;')
 })
 
 
 it('handles basic (copied) layout props', () => {
-  var input = `<view
+  var input = `<flex
     width={20}
     height={20}
     padding={20}
@@ -87,144 +119,152 @@ it('handles basic (copied) layout props', () => {
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;height: 20px;padding: 20px;margin: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;height: 20px;padding: 20px;margin: 20px;`} />;')
 })
 
 it('handles basic (translated) layout props', () => {
-  var input = `<view
+  var input = `<flex
     paddingTop={20}
     marginBottom={20}
   />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;padding-top: 20px;margin-bottom: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'padding-top: 20px;margin-bottom: 20px;`} />;')
 })
 
 it('handles center prop', () => {
-  var input = `<view center />`;
+  var input = `<flex center />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;align-items: center;justify-content: center;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'align-items: center;justify-content: center;`} />;')
 })
 
 it('handles center expression prop (true)', () => {
-  var input = `<view center={true} />`;
+  var input = `<flex center={true} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;align-items: center;justify-content: center;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'align-items: center;justify-content: center;`} />;')
 })
 
 it('handles center expression prop (false)', () => {
-  var input = `<view center={false} />`;
+  var input = `<flex center={false} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
 })
 
 it('handles center variable prop', () => {
-  var input = `<view center={someVar} />`;
+  var input = `<flex center={someVar} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;${someVar === true ? \"align-items: center;justify-content: center;\" : \"\"}`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + '${someVar === true ? \"align-items: center;justify-content: center;\" : \"\"}`} />;')
 })
 
 it('handles hidden expression prop (true)', () => {
-  var input = `<view hidden={true} />`;
+  var input = `<flex hidden={true} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;display: none;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'display: none;`} />;')
 })
 
 it('handles hidden expression prop (false)', () => {
-  var input = `<view hidden={false} />`;
+  var input = `<flex hidden={false} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
 })
 
 it('handles hidden variable prop', () => {
-  var input = `<view hidden={someVar} />`;
+  var input = `<flex hidden={someVar} />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;${someVar === true ? \"display: none;\" : \"\"}`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + '${someVar === true ? \"display: none;\" : \"\"}`} />;')
 })
 
 it('handles inline prop', () => {
-  var input = `<view inline />`;
+  var input = `<flex inline />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;display: inline-flex;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'display: inline-flex;`} />;')
 })
 
 it('handles fit prop', () => {
-  var input = `<view fit />`;
+  var input = `<flex fit />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: 100%;width: 100%;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'height: 100%;width: 100%;`} />;')
 })
 
 it('handles absoluteFill prop', () => {
-  var input = `<view absoluteFill />`;
+  var input = `<flex absoluteFill />`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;position: absolute;top: 0;right: 0;bottom: 0;left: 0;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'position: absolute;top: 0;right: 0;bottom: 0;left: 0;`} />;')
+})
+
+it('handles grow prop', () => {
+  var input = `<flex grow />`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-grow: 1`} />;')
 })
 
 it('css prop', () => {
-  var input = `<view css={\`width: 20px;\`}/>`;
+  var input = `<flex css={\`width: 20px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: 20px;`} />;')
 })
 
 it('css prop with height prop', () => {
-  var input = `<view height={20} css={\`width: 20px;\`}/>`;
+  var input = `<flex height={20} css={\`width: 20px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: 20px;width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'height: 20px;width: 20px;`} />;')
 })
 
 it('css prop with dynamic height prop', () => {
-  var input = `<view height={someVar} css={\`width: 20px;\`}/>`;
+  var input = `<flex height={someVar} css={\`width: 20px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: ${someVar};width: 20px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'height: ${someVar};width: 20px;`} />;')
 })
 
 it('css prop with dynamic width', () => {
-  var input = `<view css={\`width: \${someVar}px;\`}/>`;
+  var input = `<flex css={\`width: \${someVar}px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${someVar}px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: ${someVar}px;`} />;')
 })
 
 it('css prop with multiple dynamic attributes', () => {
-  var input = `<view css={\`width: \${someVar}px;height: \${someHeight}px;\`}/>`;
+  var input = `<flex css={\`width: \${someVar}px;height: \${someHeight}px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;width: ${someVar}px;height: ${someHeight}px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'width: ${someVar}px;height: ${someHeight}px;`} />;')
 })
 
 it('css prop with multiple dynamic fields and props', () => {
-  var input = `<view height={someHeight} margin={someMargin} css={\`width: \${someVar}px;padding: \${somePadding}px;\`}/>`;
+  var input = `<flex height={someHeight} margin={someMargin} css={\`width: \${someVar}px;padding: \${somePadding}px;\`}/>`;
 
   const { code } = babel.transform(input, options)
 
-  expect(code).toBe('<div css={`display: flex;flex-direction: column;position: relative;height: ${someHeight};margin: ${someMargin};width: ${someVar}px;padding: ${somePadding}px;`} />;')
+  expect(code).toBe('<div css={`' + defaultFlexCss + 'height: ${someHeight};margin: ${someMargin};width: ${someVar}px;padding: ${somePadding}px;`} />;')
 })

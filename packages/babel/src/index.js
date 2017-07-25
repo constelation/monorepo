@@ -1,15 +1,97 @@
+const printAST = require('ast-pretty-print')
+
+const propsToOmit = {
+  as: true,
+}
+
+const propsToUse = {
+  top: 'top',
+  right: 'right',
+  bottom: 'bottom',
+  left: 'left',
+  width: 'width',
+  maxWidth: 'max-width',
+  minWidth: 'min-width',
+  height: 'height',
+  maxHeight: 'max-height',
+  minHeight: 'min-height',
+
+  flex: 'flex',
+  wrap: 'flex-wrap',
+  grow: 'flex-grow',
+  shrink: 'flex-shrink',
+  basis: 'flex-basis',
+  order: 'order',
+  alignContent: 'align-content',
+  alignSelf: 'align-self',
+  align: 'align-items',
+  justify: 'justify-content',
+  // alignVertical
+  // alignHorizontal
+
+  padding: 'padding',
+  paddingTop: 'padding-top',
+  paddingRight: 'padding-right',
+  paddingBottom: 'padding-bottom',
+  paddingLeft: 'padding-left',
+  margin: 'margin',
+  marginTop: 'margin-top',
+  marginRight: 'margin-right',
+  marginBottom: 'margin-bottom',
+  marginLeft: 'margin-left',
+
+  position: 'position',
+  overflow: 'overflow',
+  overflowX: 'overflow-x',
+  overflowY: 'overflow-y',
+  //WebkitOverflowScrolling
+  zIndex: 'z-index',
+}
+
+const flexPropsToUse = {
+  ...propsToUse,
+  direction: 'flex-direction',
+}
+
+const booleanProps = {
+  center: {
+    consequent: 'align-items: center;justify-content: center;',
+    alternate: '',
+  },
+  hidden: {
+    consequent: 'display: none;',
+    alternate: '',
+  },
+  inline: {
+    consequent: 'display: inline-flex;',
+    alternate: '',
+  },
+  fit: {
+    consequent: 'height: 100%;width: 100%;',
+    alternate: '',
+  },
+  absoluteFill: {
+    consequent: 'position: absolute;top: 0;right: 0;bottom: 0;left: 0;',
+    alternate: '',
+  },
+}
+
+const defaultFlexCss = 'display: flex;flex-shrink: 0;align-content: flex-start;position: relative;'
+const defaultColCss = 'display: flex;flex-direction: column;flex-shrink: 0;align-content: flex-start;position: relative;'
+const defaultRowCss = 'display: flex;flex-direction: row;flex-shrink: 0;align-content: flex-start;position: relative;'
+
 export default function (babel) {
   const { types: t } = babel;
 
-  function buildDefaultCssProp() {
+  function buildDefaultCssProp(css) {
     return t.jSXAttribute(
       t.jSXIdentifier('css'),
       t.jSXExpressionContainer(
         t.templateLiteral(
           [
             t.templateElement({
-              raw: defaultCss,
-              cooked: defaultCss,
+              raw: css,
+              cooked: css,
             })
           ],
           [],
@@ -18,8 +100,8 @@ export default function (babel) {
     )
   }
 
-  function buildProps(node) {
-    const css = buildDefaultCssProp()
+  function buildProps(node, defaultCss, cssProps) {
+    const css = buildDefaultCssProp(defaultCss)
     const props = [css]
 
     if (node.openingElement.attributes == null) {
@@ -36,8 +118,8 @@ export default function (babel) {
       else if (name === 'css') {
         addTemplateToTemplate(cssTemplate, attribute.value.expression)
       }
-      else if (name in propsToUse) {
-        addCssProp(cssTemplate, attribute, propsToUse[name])
+      else if (name in cssProps) {
+        addCssProp(cssTemplate, attribute, cssProps[name])
       }
       else if (name in booleanProps) {
         addBooleanProp(cssTemplate, attribute, name, booleanProps[name])
@@ -45,9 +127,7 @@ export default function (babel) {
       else {
         props.push(attribute)
       }
-
     })
-
 
     return props
   }
@@ -108,103 +188,36 @@ export default function (babel) {
     name: "ast-transform", // not required
     visitor: {
       JSXElement(path) {
+        const element = path.node && path.node.openingElement && path.node.openingElement.name
 
-        const isView = looksLike(path, {
-          node: {
-            openingElement: {
-              name: {
-                name: 'view',
-              }
-            }
-          },
-        })
-
-        if (!isView) {
+        if (!element) {
           return
         }
 
-        renameTag(path.node)
-        const props = buildProps(path.node)
+        if (element.name === 'view') {
+          renameTag(path.node)
+          const props = buildProps(path.node, defaultColCss)
 
-        path.node.openingElement.attributes = props
+          // console.log(printAST(props))
 
+          path.node.openingElement.attributes = props
+        }
+        else if (element.name === 'col') {
+          renameTag(path.node)
+          path.node.openingElement.attributes = buildProps(path.node, defaultColCss, propsToUse)
+        }
+        else if (element.name === 'row') {
+          renameTag(path.node)
+          path.node.openingElement.attributes = buildProps(path.node, defaultRowCss, propsToUse)
+        }
+        else if (element.name === 'flex') {
+          renameTag(path.node)
+          path.node.openingElement.attributes = buildProps(path.node, defaultFlexCss, flexPropsToUse)
+        }
       }
     }
   };
 }
-
-const propsToOmit = {
-  as: true,
-}
-
-const propsToUse = {
-  top: 'top',
-  right: 'right',
-  bottom: 'bottom',
-  left: 'left',
-  width: 'width',
-  maxWidth: 'max-width',
-  minWidth: 'min-width',
-  height: 'height',
-  maxHeight: 'max-height',
-  minHeight: 'min-height',
-
-  flex: 'flex',
-  wrap: 'flex-wrap',
-  grow: 'flex-grow',
-  shrink: 'flex-shrink',
-  basis: 'flex-basis',
-  order: 'order',
-  alignContent: 'align-content',
-  alignSelf: 'align-self',
-  align: 'align-items',
-  justify: 'justify-content',
-  // alignVertical
-  // alignHorizontal
-
-  padding: 'padding',
-  paddingTop: 'padding-top',
-  paddingRight: 'padding-right',
-  paddingBottom: 'padding-bottom',
-  paddingLeft: 'padding-left',
-  margin: 'margin',
-  marginTop: 'margin-top',
-  marginRight: 'margin-right',
-  marginBottom: 'margin-bottom',
-  marginLeft: 'margin-left',
-
-  position: 'position',
-  overflow: 'overflow',
-  overflowX: 'overflow-x',
-  overflowY: 'overflow-y',
-  //WebkitOverflowScrolling
-  zIndex: 'z-index',
-}
-
-const booleanProps = {
-  center: {
-    consequent: 'align-items: center;justify-content: center;',
-    alternate: '',
-  },
-  hidden: {
-    consequent: 'display: none;',
-    alternate: '',
-  },
-  inline: {
-    consequent: 'display: inline-flex;',
-    alternate: '',
-  },
-  fit: {
-    consequent: 'height: 100%;width: 100%;',
-    alternate: '',
-  },
-  absoluteFill: {
-    consequent: 'position: absolute;top: 0;right: 0;bottom: 0;left: 0;',
-    alternate: '',
-  },
-}
-
-const defaultCss = 'display: flex;flex-direction: column;position: relative;'
 
 function addTemplateToTemplate(target, template) {
   if (template.expressions.length > 0) {
@@ -268,21 +281,21 @@ function renameTag(node) {
   }
 }
 
-function looksLike(a, b) {
-  return (
-    a &&
-    b &&
-    Object.keys(b).every(bKey => {
-      const bVal = b[bKey]
-      const aVal = a[bKey]
-      if (typeof bVal === 'function') {
-        return bVal(aVal)
-      }
-      return isPrimitive(bVal) ? bVal === aVal : looksLike(aVal, bVal)
-    })
-  )
-}
-
-function isPrimitive(val) {
-  return val == null || /^[sbn]/.test(typeof val)
-}
+// function looksLike(a, b) {
+//   return (
+//     a &&
+//     b &&
+//     Object.keys(b).every(bKey => {
+//       const bVal = b[bKey]
+//       const aVal = a[bKey]
+//       if (typeof bVal === 'function') {
+//         return bVal(aVal)
+//       }
+//       return isPrimitive(bVal) ? bVal === aVal : looksLike(aVal, bVal)
+//     })
+//   )
+// }
+//
+// function isPrimitive(val) {
+//   return val == null || /^[sbn]/.test(typeof val)
+// }

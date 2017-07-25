@@ -373,6 +373,13 @@ assert@^1.1.1:
   dependencies:
     util "0.10.3"
 
+ast-pretty-print@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ast-pretty-print/-/ast-pretty-print-2.0.0.tgz#bd9da89d6fa5f035dd03e378a8b9cf3a6eae61d6"
+  dependencies:
+    pretty-format "^20.0.3"
+    pretty-format-ast "^1.0.0"
+
 ast-types@0.9.2:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.2.tgz#2cc19979d15c655108bf565323b8e7ee38751f6b"
@@ -5845,6 +5852,10 @@ prepend-http@^1.0.0:
 preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
+
+pretty-format-ast@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pretty-format-ast/-/pretty-format-ast-1.0.0.tgz#0da501e439125741971a47bc442dc6768951d5fe"
 
 pretty-format@^20.0.3:
   version "20.0.3"

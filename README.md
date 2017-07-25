@@ -16,6 +16,20 @@ npm i -S
 constelation-{view,scroll-view,space,text,image,style_,event_,animate_,keydown-decorator,media-decorator,resize-decorator,scroll-decorator,dom}
 ```
 
+## Notes
+#### Decorators
+Will not work with arrow functions. Stick to normal method syntax.
+
+```js
+// Works
+@onScroll({ passInfo: true, throttle: 'RAF' })
+handleScroll(e, { scroll }) { ... }
+
+// Doesn't work
+@onScroll({ passInfo: true, throttle: 'RAF' })
+handleScroll = (e, { scroll }) => { ... }
+```
+
 ## Dev
 To add back .js.flow files into dist, when https://github.com/facebook/flow/issues/945 is fixed, use this script:
 ```
