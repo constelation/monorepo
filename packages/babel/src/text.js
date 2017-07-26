@@ -17,39 +17,35 @@ const propsToUse = {
   color: 'color',
   size: 'font-size',
   spacing: 'letter-spacing',
-  decoration: 'text-decoration'
-  // antialiased
-  // bold
-  // align
-  // center
+  decoration: 'text-decoration',
+  decorationColor: 'text-decoration-color',
+  align: 'text-align',
+  transform: 'text-transform',
+  weight: 'font-weight',
   // ellipsis
-  // italic
-  // transform
   // underline
-  // uppercase
-  // weight
 
 }
 
 const booleanProps = {
+  antialiased: {
+    consequent: '-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;',
+    alternate: '',
+  },
+  italic: {
+    consequent: 'font-style: italic;',
+    alternate: '',
+  },
   center: {
-    consequent: 'align-items: center;justify-content: center;',
+    consequent: 'text-align: center;',
     alternate: '',
   },
-  hidden: {
-    consequent: 'display: none;',
+  bold: {
+    consequent: 'font-weight: bold;',
     alternate: '',
   },
-  inline: {
-    consequent: 'display: inline-flex;',
-    alternate: '',
-  },
-  fit: {
-    consequent: 'height: 100%;width: 100%;',
-    alternate: '',
-  },
-  absoluteFill: {
-    consequent: 'position: absolute;top: 0;right: 0;bottom: 0;left: 0;',
+  uppercase: {
+    consequent: 'text-transform: uppercase;',
     alternate: '',
   },
 }
