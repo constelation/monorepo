@@ -18,7 +18,7 @@ const propsToUse = {
 
 const defaultCss = 'flex-grow: 0;flex-shrink: 0;'
 
-export default function (t, node, tagName) {
+export default function (t, node) {
   function buildProps(node) {
     const css = buildDefaultCssProp(t, defaultCss)
     const cssTemplate = css.value.expression
@@ -56,10 +56,7 @@ export default function (t, node, tagName) {
 
       // console.log(printAST(expression));
 
-      if (t.isNumericLiteral(expression)) {
-        addStringToTemplate(cssTemplate, `${name}: ${expression.extra.raw};`)
-      }
-      else if (t.isStringLiteral(expression)) {
+      if (t.isStringLiteral(expression)) {
         addStringToTemplate(cssTemplate, `${name}: ${expression.value};`)
       }
       else if (t.isIdentifier(expression)) {
@@ -72,11 +69,6 @@ export default function (t, node, tagName) {
         expression.quasis[0].value.raw = `${name}: ${expression.quasis[0].value.raw}`
         addTemplateToTemplate(cssTemplate, expression)
         addStringToTemplate(cssTemplate, `;`)
-      }
-      else if (t.isBinaryExpression(expression)) {
-        addStringToTemplate(cssTemplate, `${name}: `)
-        addExpressionToTemplate(cssTemplate, expression)
-        addQuasiToTemplate(cssTemplate, t.templateElement({raw: ';', cooked: ';'}))
       }
       else if (t.isConditionalExpression(expression)) {
         addStringToTemplate(cssTemplate, `${name}: `)

@@ -3,10 +3,14 @@
   "version": "14.4.0",
   "description": "",
   "homepage": "https://github.com/constelation/monorepo",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d . --ignore '/__tests__/'"
+    "build": "babel src -d dist --ignore '/__tests__/'"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "constelation",
     "babel"

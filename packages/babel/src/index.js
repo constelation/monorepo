@@ -1,6 +1,7 @@
 // const printAST = require('ast-pretty-print')
 const convertFlex = require('./flex').default
 const convertSpace = require('./space').default
+const convertText = require('./text').default
 
 export default function (babel) {
   const { types: t } = babel;
@@ -23,9 +24,10 @@ export default function (babel) {
             convertFlex(t, path.node, element.name)
             break
           case 'space':
-            convertSpace(t, path.node, element.name)
+            convertSpace(t, path.node)
             break
           case 'text':
+            convertText(t, path.node)
             break
         }
       }
