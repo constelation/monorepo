@@ -1,6 +1,6 @@
 {
   "name": "constelation-babel",
-  "version": "15.0.1",
+  "version": "15.0.2",
   "description": "",
   "homepage": "https://github.com/constelation/monorepo",
   "main": "dist/index.js",
