@@ -22,7 +22,7 @@ export interface IState {
   transitionName: Object,
 }
 
-export default class TransitionGroupView extends React.Component<IProps, IState> {
+export class TransitionGroupView extends React.Component<IProps, IState> {
   static defaultProps = {
     component: View,
   }
@@ -80,3 +80,5 @@ export default class TransitionGroupView extends React.Component<IProps, IState>
     )
   }
 }
+
+export default TransitionGroupView

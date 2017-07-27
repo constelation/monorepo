@@ -63,7 +63,7 @@ function getNonStyleProps(props: IProps): any {
   return _omit(props, propsToOmit)
 }
 
-export default class Text extends React.PureComponent<IProps, void> {
+export class Text extends React.PureComponent<IProps, void> {
   _root: {
     setNativeProps: Function,
   }
@@ -102,3 +102,5 @@ export default class Text extends React.PureComponent<IProps, void> {
       )
   }
 }
+
+export default Text

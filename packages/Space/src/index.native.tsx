@@ -13,7 +13,7 @@ function getStyleFromProps(props: IProps) {
   }
 }
 
-export default class Space extends React.PureComponent<IProps, void> {
+export class Space extends React.PureComponent<IProps, void> {
   render() {
     return <ReactNative.View style={getStyleFromProps(this.props)} />
   }
@@ -28,3 +28,5 @@ export class SPACE extends React.Component<IProps, void> {
     return <ReactNative.View style={getStyleFromProps(this.props)} />
   }
 }
+
+export default Space
