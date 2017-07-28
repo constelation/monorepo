@@ -15,6 +15,13 @@ it('default self closing', () => {
   expect(code).toBe('<div css={`' + defaultColCss + '`} />;')
 })
 
+it('default open', () => {
+  var input = `<flex ></flex>`;
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`}></div>;')
+})
+
 it('default col', () => {
   var input = `<col />`;
   const { code } = babel.transform(input, options)
@@ -48,13 +55,6 @@ it('handles flex direction conditionalExpression prop', () => {
   const { code } = babel.transform(input, options)
 
   expect(code).toBe('<div css={`' + defaultFlexCss + 'flex-direction: ${someVar ? \'column\' : \'row\'};`} />;')
-})
-
-it('default open', () => {
-  var input = `<flex ></flex>`;
-  const { code } = babel.transform(input, options)
-
-  expect(code).toBe('<div css={`' + defaultFlexCss + '`}></div>;')
 })
 
 it('as prop to set tag string', () => {
@@ -113,6 +113,29 @@ it('width expression variable, then height', () => {
   expect(code).toBe('<div css={`' + defaultFlexCss + 'width: ${variable};height: 20px;`} />;')
 })
 
+it('does NOT handle spread props', () => {
+  var input = `<flex {...{width:variable,height:'20px'}}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
+})
+
+it('does NOT handle spread props of variable', () => {
+  var input = `<flex {...someVar}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
+})
+
+it('handles spread of empty props', () => {
+  var input = `<flex {...{}}/>`;
+
+  const { code } = babel.transform(input, options)
+
+  expect(code).toBe('<div css={`' + defaultFlexCss + '`} />;')
+})
 
 it('handles basic (copied) layout props', () => {
   var input = `<flex

@@ -57,7 +57,7 @@ export function renameTag(node, defaultTag = 'div') {
 
   if (node.openingElement.attributes != null) {
     const name = node.openingElement.attributes.find(prop => {
-      return prop.name.name === 'as'
+      return prop.name && prop.name.name === 'as'
     })
 
     if (name !== undefined) {

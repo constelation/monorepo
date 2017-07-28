@@ -99,6 +99,10 @@ export default function (t, node, tagName) {
     }
 
     node.openingElement.attributes.forEach(attribute => {
+      if (!attribute.name) {
+        return
+      }
+
       const name = attribute.name.name
 
       if (name in propsToOmit) {

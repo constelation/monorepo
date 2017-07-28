@@ -13,13 +13,14 @@ const propsToOmit = {
 }
 
 const propsToUse = {
-  font: 'font-family',
+  align: 'text-align',
   color: 'color',
-  size: 'font-size',
-  spacing: 'letter-spacing',
   decoration: 'text-decoration',
   decorationColor: 'text-decoration-color',
-  align: 'text-align',
+  font: 'font-family',
+  height: 'line-height',
+  size: 'font-size',
+  spacing: 'letter-spacing',
   transform: 'text-transform',
   weight: 'font-weight',
   // ellipsis
