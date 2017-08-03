@@ -5,8 +5,7 @@
     "test-watch": "jest --watch",
     "build-storybook": "build-storybook -o docs",
     "clean": "lerna exec -- rimraf dist",
-    "prebuild": "npm run clean",
-    "build": "lerna exec -- babel *.js -d dist --ignore *.native.js,*.js.flow && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\;",
+    "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish"
   },

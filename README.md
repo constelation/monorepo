@@ -18,7 +18,8 @@ constelation-{view,scroll-view,space,text,image,style_,event_,animate_,keydown-d
 
 ## Dev
 ### Publish
-`npm run publish`
+`npm run build` - convert `packages/*/src/*.ts` files to js
+`npm run publish` - publish any changes in `packages/*/*.js`
 
 Note: `yarn` doesn't work for this. Use `npm`.
 
