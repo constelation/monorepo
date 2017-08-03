@@ -1,6 +1,6 @@
 {
   "name": "constelation-transition-group-view",
-  "version": "14.2.0",
+  "version": "15.0.1",
   "description": "",
   "scripts": {
     "copy": "find ./src -name \"*.js*\" -exec cp {} . \\;",
