@@ -17,6 +17,11 @@ constelation-{view,scroll-view,space,text,image,style_,event_,animate_,keydown-d
 ```
 
 ## Dev
+### Publish
+`npm run publish`
+
+Note: `yarn` doesn't work for this. Use `npm`.
+
 To add back .js.flow files into dist, when https://github.com/facebook/flow/issues/945 is fixed, use this script:
 ```
 "build": "lerna exec -- babel *.js -d dist --ignore *.native.js,*.js.flow && lerna exec -- find . -maxdepth 1 -name *.native.js -exec cp {} dist \\; && lerna exec -- find . -maxdepth 1 -name *.js.flow -exec cp {} dist \\;",
