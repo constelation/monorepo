@@ -103,7 +103,7 @@ function getNonStyleProps(props: IProps): any {
   return _omit(props, propsToOmit)
 }
 
-export default class Text extends React.PureComponent<IProps, void> {
+export class Text extends React.PureComponent<IProps, void> {
   static defaultProps = {
     tag: 'span',
     // from https://bitsofco.de/the-new-system-font-stack/
@@ -125,3 +125,5 @@ export default class Text extends React.PureComponent<IProps, void> {
     return glamorReact.createElement(this.props.tag, propsToPass)
   }
 }
+
+export default Text

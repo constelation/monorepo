@@ -143,7 +143,7 @@ function getNonStyleProps(props: IProps) {
   return _omit(props, propsToOmit)
 }
 
-export default class Image extends React.PureComponent<IProps, void> {
+export class Image extends React.PureComponent<IProps, void> {
   static getSize = ReactNative.Image.getSize
   static prefetch = ReactNative.Image.prefetch
   static resolveAssetSource = ReactNative.Image.resolveAssetSource
@@ -190,3 +190,5 @@ export default class Image extends React.PureComponent<IProps, void> {
       : <ReactNative.Image {...propsWithoutStyle} style={style} />
   }
 }
+
+export default Image

@@ -62,7 +62,7 @@ export interface IProps {
   scrollEnabled?: boolean,
 }
 
-//NOTES: other 
+//NOTES: other
 
 // const align = {
 //   left: 'flex-start',
@@ -214,7 +214,7 @@ function getNonStyleProps(props: IProps) {
   return _omit(props, propsToOmit)
 }
 
-export default class ScrollView extends React.Component<IProps, void> {
+export class ScrollView extends React.Component<IProps, void> {
   scrollView: HTMLElement
 
   static defaultProps = {
@@ -277,3 +277,5 @@ export default class ScrollView extends React.Component<IProps, void> {
     return glamorReact.createElement(this.props.tag, propsToPass)
   }
 }
+
+export default ScrollView
